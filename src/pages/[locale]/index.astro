@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { useTranslations } from "../../i18n/utils.ts";
+import type { Locale } from "../../i18n/ui.ts";
+
+export function getStaticPaths() {
+  return [
+    { params: { locale: "zh-Hans" } },
+    { params: { locale: "zh-Hant" } },
+    { params: { locale: "en" } },
+    { params: { locale: "ja" } },
+  ];
+}
+
+const { locale } = Astro.params;
+const lang = locale as Locale;
+const t = useTranslations(lang);
+
+const textbooks = [
+  "compulsory-1",
+  "compulsory-2",
+  "compulsory-3",
+  "compulsory-4",
+  "elective-compulsory-1",
+  "elective-compulsory-2",
+  "elective-compulsory-3",
+] as const;
+---
+
+<BaseLayout>
+  <div class="home">
+    <h1>{t("siteTitle")}</h1>
+    <p>{t("siteDescription")}</p>
+    <div class="textbook-grid">
+      {textbooks.map((tb) => (
+        <a href={`/${lang}/${tb}/`} class="textbook-card">
+          <h3>{t("textbooks")[tb]}</h3>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .home {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 8px;
+  }
+  p {
+    color: #666;
+    margin-bottom: 32px;
+  }
+  .textbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .textbook-card {
+    display: block;
+    padding: 20px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .textbook-card:hover {
+    border-color: #1677ff;
+    box-shadow: 0 2px 8px rgba(22, 119, 255, 0.15);
+  }
+  .textbook-card h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+</style>

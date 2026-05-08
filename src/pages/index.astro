@@ -1,0 +1,12 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+---
+
+<html>
+  <head>
+    <meta http-equiv="refresh" content={`0;url=${getRelativeLocaleUrl("zh-Hans", "/")}`} />
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>

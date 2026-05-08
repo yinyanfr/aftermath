@@ -1,0 +1,58 @@
+---
+import KnowledgeLayout from "../../layouts/KnowledgeLayout.astro";
+import { getCollection } from "astro:content";
+import { useTranslations } from "../../i18n/utils.ts";
+import type { Locale } from "../../i18n/ui.ts";
+
+export function getStaticPaths() {
+  const textbooks = [
+    "compulsory-1",
+    "compulsory-2",
+    "compulsory-3",
+    "compulsory-4",
+    "elective-compulsory-1",
+    "elective-compulsory-2",
+    "elective-compulsory-3",
+  ] as const;
+  const locales: Locale[] = ["zh-Hans", "zh-Hant", "en", "ja"];
+
+  return textbooks.flatMap((tb) =>
+    locales.map((locale) => ({
+      params: { locale, textbook: tb },
+    }))
+  );
+}
+
+const { locale, textbook } = Astro.params;
+const lang = locale as Locale;
+const t = useTranslations(lang);
+const tb = textbook as typeof textbooks[number];
+
+const allEntries = await getCollection("knowledgePoints");
+const textbookEntries = allEntries.filter(
+  (entry) => entry.data.textbook === tb
+);
+const chapters = [...new Set(textbookEntries.map((e) => e.data.chapter))].sort();
+---
+
+<KnowledgeLayout title={`${t("textbooks")[tb]}`} currentTextbook={tb}>
+  <h2>{t("textbooks")[tb]}</h2>
+  {chapters.length === 0 && <p>No content yet.</p>}
+  {chapters.map((chapter) => (
+    <section>
+      <h3>{chapter}</h3>
+      <ul>
+        {textbookEntries
+          .filter((e) => e.data.chapter === chapter)
+          .sort((a, b) => a.data.order - b.data.order)
+          .map((entry) => (
+            <li>
+              <a href={`/${lang}/${entry.id}/`}>
+                {entry.data.title}
+              </a>
+            </li>
+          ))}
+      </ul>
+    </section>
+  ))}
+</KnowledgeLayout>

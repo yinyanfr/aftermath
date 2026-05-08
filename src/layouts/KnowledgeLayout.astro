@@ -1,0 +1,100 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils.ts";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const textbooks = [
+  "compulsory-1",
+  "compulsory-2",
+  "compulsory-3",
+  "compulsory-4",
+  "elective-compulsory-1",
+  "elective-compulsory-2",
+  "elective-compulsory-3",
+] as const;
+
+const localePrefix = `/${lang}`;
+interface Props {
+  title?: string;
+  currentTextbook?: string;
+}
+
+const { title, currentTextbook } = Astro.props;
+---
+
+<BaseLayout title={title}>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href={localePrefix} class="logo">{t("siteTitle")}</a>
+      </div>
+      <nav class="sidebar-nav">
+        {textbooks.map((tb) => (
+          <a
+            href={`${localePrefix}/${tb}/`}
+            class:list={["nav-item", { active: currentTextbook === tb }]}
+          >
+            {t("textbooks")[tb]}
+          </a>
+        ))}
+      </nav>
+    </aside>
+    <main class="content">
+      <slot />
+    </main>
+  </div>
+</BaseLayout>
+
+<style>
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 260px;
+    border-right: 1px solid #e8e8e8;
+    padding: 16px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .sidebar-header {
+    margin-bottom: 24px;
+  }
+  .logo {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #1677ff;
+  }
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .nav-item {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+  }
+  .nav-item:hover {
+    background-color: #f5f5f5;
+  }
+  .nav-item.active {
+    background-color: #e6f4ff;
+    color: #1677ff;
+    font-weight: 600;
+  }
+  .content {
+    flex: 1;
+    padding: 24px 32px;
+    max-width: 960px;
+  }
+</style>

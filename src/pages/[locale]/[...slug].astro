@@ -1,0 +1,73 @@
+---
+import KnowledgeLayout from "../../layouts/KnowledgeLayout.astro";
+import { getCollection, render } from "astro:content";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils.ts";
+import type { Locale } from "../../i18n/ui.ts";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("knowledgePoints");
+  const locales: Locale[] = ["zh-Hans", "zh-Hant", "en", "ja"];
+
+  return entries.flatMap((entry) =>
+    locales.map((locale) => ({
+      params: { locale, slug: entry.id },
+      props: { entry },
+    }))
+  );
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<KnowledgeLayout title={entry.data.title} currentTextbook={entry.data.textbook}>
+  <article>
+    <h1>{entry.data.title}</h1>
+    {entry.data.description && <p class="description">{entry.data.description}</p>}
+    <div class="content">
+      <Content />
+    </div>
+  </article>
+</KnowledgeLayout>
+
+<style>
+  .description {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+  }
+  .content {
+    line-height: 1.8;
+  }
+  .content :global(h2) {
+    margin-top: 2em;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 0.3em;
+  }
+  .content :global(h3) {
+    margin-top: 1.5em;
+  }
+  .content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+  }
+  .content :global(th),
+  .content :global(td) {
+    border: 1px solid #e8e8e8;
+    padding: 8px 12px;
+  }
+  .content :global(pre) {
+    background: #282c34;
+    color: #abb2bf;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  .content :global(code) {
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-size: 0.9rem;
+  }
+</style>
