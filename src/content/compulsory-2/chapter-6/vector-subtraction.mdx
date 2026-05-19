@@ -1,0 +1,349 @@
+---
+title: "向量的减法"
+description: "对应教材 6.1.3，学习相反向量、向量减法的定义，以及减法的几何意义。"
+order: 3
+textbook: "compulsory-2"
+chapter: "chapter-6"
+tags:
+  - "向量减法"
+  - "相反向量"
+  - "差向量"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 向量的减法
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 理解相反向量的定义；
+2. 会把减法转化成加法；
+3. 掌握向量减法的几何作图；
+4. 理解 $\vec a-\vec b$ 表示“从 $\vec b$ 变到 $\vec a$ 的向量”；
+5. 解决简单的图形表示问题。
+
+## 为什么要学这个内容
+
+加法解决的是“连续做两次位移后会到哪里”。
+
+减法解决的是“两个位移之间差多少”。
+
+例如两辆车都从原点出发，一辆到点 $P$，另一辆到点 $Q$，那么从 $Q$ 到 $P$ 的位移，就是它们对应向量的差。
+
+## 预备知识
+
+你需要会：
+
+1. 向量的概念；
+2. 向量加法的三角形法则；
+3. 平行向量与相等向量的判断。
+
+## 相反向量
+
+长度相等、方向相反的两个向量，叫作**相反向量**。
+
+向量 $\vec a$ 的相反向量记作
+
+$$
+-\vec a
+$$
+
+它满足：
+
+$$
+| -\vec a |=|\vec a|
+$$
+
+并且方向与 $\vec a$ 相反。
+
+特别地：
+
+$$
+\vec a+(-\vec a)=\vec 0
+$$
+
+## 向量减法的定义
+
+规定
+
+$$
+\vec a-\vec b=\vec a+(-\vec b)
+$$
+
+也就是说，向量减法不是一套全新的规则，它本质上仍然是向量加法，只是把第二个向量换成它的相反向量。
+
+## 减法的几何意义
+
+当 $\vec a,\vec b$ 具有相同起点时，$\vec a-\vec b$ 可以看作“从 $\vec b$ 的终点指向 $\vec a$ 的终点”的向量。
+
+这是因为：
+
+若 $\overrightarrow{OA}=\vec a$，$\overrightarrow{OB}=\vec b$，那么
+
+$$
+\overrightarrow{BA}=\overrightarrow{OA}-\overrightarrow{OB}=\vec a-\vec b
+$$
+
+这个结论非常重要，后面几乎所有坐标、应用题都会用到它。
+
+## 推导说明
+
+为什么 $\overrightarrow{BA}=\vec a-\vec b$？
+
+因为从点 $O$ 到点 $A$，可以先从 $O$ 到 $B$，再从 $B$ 到 $A$，所以
+
+$$
+\overrightarrow{OB}+\overrightarrow{BA}=\overrightarrow{OA}
+$$
+
+于是
+
+$$
+\overrightarrow{BA}=\overrightarrow{OA}-\overrightarrow{OB}
+$$
+
+这正好说明了差向量表示“末端之差”。
+
+## 例题 1
+
+已知 $\vec a=(4,1)$，$\vec b=(2,3)$，求 $\vec a-\vec b$。
+
+### 讲解
+
+先写成加法：
+
+$$
+\vec a-\vec b=\vec a+(-\vec b)
+$$
+
+而
+
+$$
+-\vec b=(-2,-3)
+$$
+
+所以
+
+$$
+\vec a-\vec b=(4,1)+(-2,-3)=(2,-2)
+$$
+
+## 例题 2
+
+若 $\overrightarrow{OA}=\vec a$，$\overrightarrow{OB}=\vec b$，求 $\overrightarrow{AB}$。
+
+### 讲解
+
+从 $O$ 到 $B$ 可以看成先从 $O$ 到 $A$，再从 $A$ 到 $B$：
+
+$$
+\overrightarrow{OA}+\overrightarrow{AB}=\overrightarrow{OB}
+$$
+
+所以
+
+$$
+\overrightarrow{AB}=\overrightarrow{OB}-\overrightarrow{OA}=\vec b-\vec a
+$$
+
+这题很容易把顺序写反。一定要盯住“起点到终点”。
+
+## 方法总结
+
+做减法题时，最可靠的方法有两个：
+
+1. 直接换成加相反向量；
+2. 若是同起点向量，差向量就是“终点连终点”。
+
+## 常见错误
+
+1. 把 $\vec a-\vec b$ 错写成 $\vec b-\vec a$；
+2. 忘记减法本质上是加相反向量；
+3. 画图时把终点连线方向画反；
+4. 认为 $\vec a-\vec b$ 的长度一定等于 $|\vec a|-|\vec b|$；
+5. 把相反向量和负数混为一谈。
+
+## 练习 1
+
+写出向量 $\vec a$ 的相反向量，并说明它与 $\vec a$ 的关系。
+
+### 答案
+
+相反向量是 $-\vec a$。它与 $\vec a$ 长度相等、方向相反。
+
+### 讲解
+
+相反向量的定义就是“模相等，方向相反”。
+
+因此只要提到“把一个向量反过来”，本质上就是求它的相反向量。
+
+并且一定有
+
+$$
+\vec a+(-\vec a)=\vec 0
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, -5)
+minus_a = (-a[0], -a[1])
+print(minus_a)
+print((a[0] + minus_a[0], a[1] + minus_a[1]))
+`}
+/>
+
+## 练习 2
+
+已知 $\vec a=(5,-2)$，$\vec b=(1,4)$，求 $\vec a-\vec b$。
+
+### 答案
+
+$$
+\vec a-\vec b=(4,-6)
+$$
+
+### 讲解
+
+按定义：
+
+$$
+\vec a-\vec b=(5,-2)-(1,4)=(5-1,-2-4)=(4,-6)
+$$
+
+也可理解为把 $\vec b$ 变成相反向量后再做加法。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (5, -2)
+b = (1, 4)
+print((a[0] - b[0], a[1] - b[1]))
+`}
+/>
+
+## 练习 3
+
+若 $\overrightarrow{OA}=\vec a$，$\overrightarrow{OB}=\vec b$，用 $\vec a,\vec b$ 表示 $\overrightarrow{AB}$。
+
+### 答案
+
+$$
+\overrightarrow{AB}=\vec b-\vec a
+$$
+
+### 讲解
+
+从 $O$ 到 $B$ 可以分成两段：先走 $\overrightarrow{OA}$，再走 $\overrightarrow{AB}$。
+
+所以
+
+$$
+\overrightarrow{OA}+\overrightarrow{AB}=\overrightarrow{OB}
+$$
+
+移项得
+
+$$
+\overrightarrow{AB}=\overrightarrow{OB}-\overrightarrow{OA}=\vec b-\vec a
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`O = (0, 0)
+A = (2, 1)
+B = (6, 5)
+AB = (B[0] - A[0], B[1] - A[1])
+oa = (A[0] - O[0], A[1] - O[1])
+ob = (B[0] - O[0], B[1] - O[1])
+print(AB)
+print((ob[0] - oa[0], ob[1] - oa[1]))
+`}
+/>
+
+## 练习 4
+
+已知 $\overrightarrow{OA}=\vec a$，$\overrightarrow{OB}=\vec b$，且 $|\vec a|=|\vec b|$。若 $\vec a-\vec b=\vec 0$，证明 $\vec a=\vec b$。
+
+### 答案
+
+结论成立。
+
+### 讲解
+
+由
+
+$$
+\vec a-\vec b=\vec 0
+$$
+
+可得
+
+$$
+\vec a=\vec b
+$$
+
+因为向量减法定义为加相反向量，所以
+
+$$
+\vec a+(-\vec b)=\vec 0
+$$
+
+这说明 $\vec a$ 与 $\vec b$ 互为相反向量的相反，也就是两者完全相同。
+
+题目里给出的 $|\vec a|=|\vec b|$ 实际上是冗余条件，真正关键的是差为零向量。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (4, 2)
+b = (4, 2)
+print((a[0] - b[0], a[1] - b[1]))
+print(a == b)
+`}
+/>
+
+## 练习 5
+
+在平行四边形 $ABCD$ 中，若 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AD}=\vec b$，求 $\overrightarrow{DB}$。
+
+### 答案
+
+$$
+\overrightarrow{DB}=\vec a-\vec b
+$$
+
+### 讲解
+
+把 $D$ 和 $B$ 看成同一起点 $A$ 发出的两个位置向量终点。
+
+因为
+
+$$
+\overrightarrow{AB}=\vec a,\quad \overrightarrow{AD}=\vec b
+$$
+
+所以从 $D$ 到 $B$ 的向量就是
+
+$$
+\overrightarrow{DB}=\overrightarrow{AB}-\overrightarrow{AD}=\vec a-\vec b
+$$
+
+也可以这样理解：先从 $D$ 回到 $A$，再从 $A$ 到 $B$，即
+
+$$
+\overrightarrow{DB}=\overrightarrow{DA}+\overrightarrow{AB}=-\vec b+\vec a=\vec a-\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (5, 1)
+b = (2, 4)
+DB = (a[0] - b[0], a[1] - b[1])
+print(DB)
+`}
+/>

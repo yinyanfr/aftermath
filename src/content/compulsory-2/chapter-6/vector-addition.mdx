@@ -1,0 +1,335 @@
+---
+title: "向量的加法"
+description: "对应教材 6.1.2，学习向量加法的意义，以及三角形法则和平行四边形法则。"
+order: 2
+textbook: "compulsory-2"
+chapter: "chapter-6"
+tags:
+  - "向量加法"
+  - "三角形法则"
+  - "平行四边形法则"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 向量的加法
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 理解两个向量相加表示“连续位移”；
+2. 熟练使用三角形法则；
+3. 理解平行四边形法则与三角形法则是一致的；
+4. 会求一些简单图形中的和向量；
+5. 知道向量加法满足交换律和结合律。
+
+## 为什么要学这个内容
+
+如果先向东走 3 米，再向北走 4 米，那么总效果不是“3 米”和“4 米”分开存在，而是一个新的位移。
+
+向量加法研究的就是：多个位移连续发生后，总效果是什么。
+
+## 预备知识
+
+你需要会：
+
+1. 向量的概念；
+2. 有向线段表示向量；
+3. 平行四边形与三角形的基本性质。
+
+## 向量加法的定义
+
+求两个向量和的运算，叫作向量的加法。
+
+若从点 $A$ 出发，先经过向量 $\vec a$ 到点 $B$，再经过向量 $\vec b$ 到点 $C$，那么从 $A$ 直接到 $C$ 的向量，就是
+
+$$
+\vec a+\vec b
+$$
+
+这说明：向量加法描述的是“先做这个位移，再做那个位移”的合成结果。
+
+## 三角形法则
+
+已知向量 $\overrightarrow{AB}$ 和 $\overrightarrow{BC}$，则
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}
+$$
+
+这叫作向量加法的**三角形法则**。
+
+使用时最关键的是：把第二个向量的起点接到第一个向量的终点上。
+
+## 平行四边形法则
+
+若两个向量 $\vec a,\vec b$ 有公共起点 $A$，以它们为邻边作平行四边形 $ABCD$，那么从公共起点 $A$ 指向对角顶点 $C$ 的向量就是它们的和：
+
+$$
+\vec a+\vec b=\overrightarrow{AC}
+$$
+
+这叫作向量加法的**平行四边形法则**。
+
+## 为什么这两个法则一致
+
+平行四边形法则其实就是三角形法则的另一种摆放方式。
+
+因为在平行四边形中，对边对应的向量相等，所以把其中一个向量平移到另一个向量的终点处，就变成了三角形法则。
+
+所以这两个法则不是两套规则，而是同一件事的两种图形表达。
+
+## 运算规律
+
+向量加法满足：
+
+$$
+\vec a+\vec b=\vec b+\vec a
+$$
+
+$$
+(\vec a+\vec b)+\vec c=\vec a+(\vec b+\vec c)
+$$
+
+第一个叫交换律，第二个叫结合律。
+
+它们说明：只要是加法，总效果与先后分组方式无关。
+
+## 例题 1
+
+在三角形 $ABC$ 中，求 $\overrightarrow{AB}+\overrightarrow{BC}$。
+
+### 讲解
+
+这是最标准的三角形法则。
+
+因为 $\overrightarrow{BC}$ 的起点正好接在 $\overrightarrow{AB}$ 的终点上，所以
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}
+$$
+
+## 例题 2
+
+在平行四边形 $ABCD$ 中，设 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AD}=\vec b$，求 $\overrightarrow{AC}$。
+
+### 讲解
+
+从点 $A$ 到点 $C$，可以看成先走 $\overrightarrow{AB}$，再走 $\overrightarrow{BC}$。
+
+而平行四边形中
+
+$$
+\overrightarrow{BC}=\overrightarrow{AD}=\vec b
+$$
+
+所以
+
+$$
+\overrightarrow{AC}=\overrightarrow{AB}+\overrightarrow{BC}=\vec a+\vec b
+$$
+
+## 方法总结
+
+做向量加法题时，一般按下面思路：
+
+1. 看能不能首尾相接；
+2. 不能直接接时，先平移相等向量；
+3. 在平行四边形中优先找对边相等；
+4. 最后把总效果写成起点到终点的向量。
+
+## 常见错误
+
+1. 把第二个向量接错位置；
+2. 把“起点到终点”写反；
+3. 在平行四边形中忘记对边向量相等；
+4. 认为向量加法一定要求两向量垂直；
+5. 只记结论，不理解连续位移的意义。
+
+## 练习 1
+
+在三角形 $ABC$ 中，化简 $\overrightarrow{AB}+\overrightarrow{BC}$。
+
+### 答案
+
+$$
+\overrightarrow{AC}
+$$
+
+### 讲解
+
+根据三角形法则，先从 $A$ 到 $B$，再从 $B$ 到 $C$，总效果就是从 $A$ 直接到 $C$。
+
+所以
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`A = (0, 0)
+B = (2, 1)
+C = (5, 4)
+
+AB = (B[0] - A[0], B[1] - A[1])
+BC = (C[0] - B[0], C[1] - B[1])
+AC = (C[0] - A[0], C[1] - A[1])
+
+print((AB[0] + BC[0], AB[1] + BC[1]))
+print(AC)
+`}
+/>
+
+## 练习 2
+
+在平行四边形 $ABCD$ 中，若 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AD}=\vec b$，求 $\overrightarrow{AC}$。
+
+### 答案
+
+$$
+\overrightarrow{AC}=\vec a+\vec b
+$$
+
+### 讲解
+
+因为平行四边形中
+
+$$
+\overrightarrow{BC}=\overrightarrow{AD}=\vec b
+$$
+
+所以
+
+$$
+\overrightarrow{AC}=\overrightarrow{AB}+\overrightarrow{BC}=\vec a+\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 0)
+b = (1, 2)
+AC = (a[0] + b[0], a[1] + b[1])
+print(AC)
+`}
+/>
+
+## 练习 3
+
+已知 $\vec a=(2,1)$，$\vec b=(-1,3)$，求 $\vec a+\vec b$。
+
+### 答案
+
+$$
+\vec a+\vec b=(1,4)
+$$
+
+### 讲解
+
+坐标形式下，加法就是对应分量分别相加：
+
+$$
+(2,1)+(-1,3)=(2-1,1+3)=(1,4)
+$$
+
+虽然本页核心还是几何加法，但坐标结果正好验证了几何总效果。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (2, 1)
+b = (-1, 3)
+print((a[0] + b[0], a[1] + b[1]))
+`}
+/>
+
+## 练习 4
+
+在四边形 $ABCD$ 中，证明
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CD}=\overrightarrow{AD}
+$$
+
+### 答案
+
+结论成立。
+
+### 讲解
+
+先用一次三角形法则：
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}
+$$
+
+再加上 $\overrightarrow{CD}$：
+
+$$
+\overrightarrow{AC}+\overrightarrow{CD}=\overrightarrow{AD}
+$$
+
+所以
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}+\overrightarrow{CD}=\overrightarrow{AD}
+$$
+
+这本质上说明“连续多段位移的总效果等于起点到终点的位移”。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`A = (0, 0)
+B = (1, 2)
+C = (4, 3)
+D = (6, -1)
+
+AB = (B[0] - A[0], B[1] - A[1])
+BC = (C[0] - B[0], C[1] - B[1])
+CD = (D[0] - C[0], D[1] - C[1])
+AD = (D[0] - A[0], D[1] - A[1])
+
+print((AB[0] + BC[0] + CD[0], AB[1] + BC[1] + CD[1]))
+print(AD)
+`}
+/>
+
+## 练习 5
+
+已知平行四边形 $ABCD$ 中，$M$ 是对角线 $AC$ 的中点。若 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AD}=\vec b$，用 $\vec a,\vec b$ 表示 $\overrightarrow{AM}$。
+
+### 答案
+
+$$
+\overrightarrow{AM}=\frac{1}{2}(\vec a+\vec b)
+$$
+
+### 讲解
+
+先由平行四边形法则得
+
+$$
+\overrightarrow{AC}=\vec a+\vec b
+$$
+
+因为 $M$ 是 $AC$ 的中点，所以 $\overrightarrow{AM}$ 与 $\overrightarrow{AC}$ 同向，且长度是它的一半，因此
+
+$$
+\overrightarrow{AM}=\frac12\overrightarrow{AC}=\frac12(\vec a+\vec b)
+$$
+
+这题虽然只用了加法和数乘，但已经很像后面常见的中点向量题了。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (4, 0)
+b = (2, 6)
+AM = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+print(AM)
+`}
+/>

@@ -127,7 +127,7 @@ export default function PythonEditor({
       indexURL: withBase("/vendor/pyodide/"),
     });
 
-    await instance.loadPackage(["numpy", "sympy", "matplotlib"]);
+    await instance.loadPackage(["micropip", "numpy", "sympy", "matplotlib"]);
     setPyodide(instance);
     setLoadingPyodide(false);
     return instance;
@@ -144,8 +144,28 @@ export default function PythonEditor({
       py.runPython(`
 import sys
 from io import StringIO
+import math
+
+import numpy as np
+import sympy as sp
+import matplotlib
+matplotlib.use("AGG")
+import matplotlib.pyplot as plt
+
 sys.stdout = StringIO()
 sys.stderr = StringIO()
+
+try:
+    import micropip
+except Exception:
+    micropip = None
+
+try:
+    import plotly
+    HAS_PLOTLY = True
+except Exception:
+    plotly = None
+    HAS_PLOTLY = False
 `);
 
       await py.runPythonAsync(code);
@@ -186,7 +206,7 @@ sys.stderr = StringIO()
           {ui.run}
         </Button>
         <Button onClick={handleReset}>{ui.reset}</Button>
-        {loadingPyodide && <Spin tip={ui.loading} />}
+        {loadingPyodide && <Spin description={ui.loading} />}
       </div>
       {output && (
         <div className="editor-output">

@@ -1,0 +1,334 @@
+---
+title: "向量的线性运算"
+description: "对应教材 6.1.5，综合加法、减法和数乘，学习向量线性运算的规则与化简。"
+order: 5
+textbook: "compulsory-2"
+chapter: "chapter-6"
+tags:
+  - "线性运算"
+  - "向量化简"
+  - "分配律"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 向量的线性运算
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 把加法、减法、数乘放到同一套体系里理解；
+2. 掌握向量线性运算的基本法则；
+3. 像化简代数式一样化简向量式；
+4. 处理平移、分点、中点等简单综合问题；
+5. 理解“线性组合”的含义。
+
+## 为什么要学这个内容
+
+真正的向量题，几乎不会只考一个单独动作。
+
+它常常要求你同时做：加法、减法、数乘，再把结果整理成最简形式。
+
+这就像我们学完整式加减乘除后，接下来一定要学“怎样整体化简”。
+
+## 预备知识
+
+你需要会：
+
+1. 向量加法与减法；
+2. 数乘向量；
+3. 相反向量和共线向量。
+
+## 什么叫线性运算
+
+形如
+
+$$
+\lambda\vec a+\mu\vec b
+$$
+
+这样的运算，叫作向量的**线性运算**。
+
+其中 $\lambda,\mu$ 是实数。
+
+这样的式子也叫由 $\vec a,\vec b$ 构成的**线性组合**。
+
+## 基本法则
+
+向量线性运算满足下列规则：
+
+$$
+\vec a+\vec b=\vec b+\vec a
+$$
+
+$$
+(\vec a+\vec b)+\vec c=\vec a+(\vec b+\vec c)
+$$
+
+$$
+\lambda(\vec a+\vec b)=\lambda\vec a+\lambda\vec b
+$$
+
+$$
+(\lambda+\mu)\vec a=\lambda\vec a+\mu\vec a
+$$
+
+$$
+\lambda(\mu\vec a)=(\lambda\mu)\vec a
+$$
+
+这些规则说明：向量在线性运算方面，和代数式有很强的相似性。
+
+## 直观理解
+
+例如
+
+$$
+2\vec a-\vec b
+$$
+
+可以理解为：
+
+1. 先把 $\vec a$ 拉长为原来的 2 倍；
+2. 再加上 $-\vec b$；
+3. 得到一个新的合成向量。
+
+所以线性运算本质上是在做“按比例的合成”。
+
+## 例题 1
+
+化简：
+
+$$
+2\vec a+3\vec a-\vec b
+$$
+
+### 讲解
+
+同类向量可以合并：
+
+$$
+2\vec a+3\vec a=(2+3)\vec a=5\vec a
+$$
+
+所以原式化为
+
+$$
+5\vec a-\vec b
+$$
+
+## 例题 2
+
+已知 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AC}=\vec b$，若点 $M$ 是 $BC$ 的中点，用 $\vec a,\vec b$ 表示 $\overrightarrow{AM}$。
+
+### 讲解
+
+从点 $A$ 出发看，$B,C$ 的“位置向量”分别是 $\vec a,\vec b$。
+
+中点 $M$ 的位置正好在两者的平均位置上，所以
+
+$$
+\overrightarrow{AM}=\frac12(\vec a+\vec b)
+$$
+
+这就是线性组合在几何中的一个经典例子。
+
+## 方法总结
+
+处理线性运算时：
+
+1. 先去掉减法，改写成加相反向量；
+2. 再合并同类向量；
+3. 需要几何解释时，把式子看成“按比例的合成”。
+
+## 常见错误
+
+1. 把不同向量当成同类项合并；
+2. 漏掉数乘对括号内每一项都要分配；
+3. 负号分配不完整；
+4. 只会算，不会解释几何意义；
+5. 中点向量写成 $\vec a+\vec b$，漏掉 $\frac12$。
+
+## 练习 1
+
+化简：
+
+$$
+3\vec a-2\vec a+\vec b
+$$
+
+### 答案
+
+$$
+\vec a+\vec b
+$$
+
+### 讲解
+
+先合并同类向量：
+
+$$
+3\vec a-2\vec a=(3-2)\vec a=\vec a
+$$
+
+所以原式为
+
+$$
+\vec a+\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (2, 1)
+b = (4, -3)
+result = (3 * a[0] - 2 * a[0] + b[0], 3 * a[1] - 2 * a[1] + b[1])
+print(result)
+`}
+/>
+
+## 练习 2
+
+化简：
+
+$$
+2(\vec a-\vec b)-\vec a
+$$
+
+### 答案
+
+$$
+\vec a-2\vec b
+$$
+
+### 讲解
+
+先用分配律：
+
+$$
+2(\vec a-\vec b)=2\vec a-2\vec b
+$$
+
+再减去 $\vec a$：
+
+$$
+2\vec a-2\vec b-\vec a=\vec a-2\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (5, 2)
+b = (1, 4)
+result = (2 * (a[0] - b[0]) - a[0], 2 * (a[1] - b[1]) - a[1])
+print(result)
+`}
+/>
+
+## 练习 3
+
+已知 $\overrightarrow{AB}=\vec a$，$\overrightarrow{BC}=\vec b$，用 $\vec a,\vec b$ 表示 $\overrightarrow{AC}$。
+
+### 答案
+
+$$
+\overrightarrow{AC}=\vec a+\vec b
+$$
+
+### 讲解
+
+根据三角形法则：
+
+$$
+\overrightarrow{AB}+\overrightarrow{BC}=\overrightarrow{AC}
+$$
+
+因此
+
+$$
+\overrightarrow{AC}=\vec a+\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 1)
+b = (-2, 4)
+print((a[0] + b[0], a[1] + b[1]))
+`}
+/>
+
+## 练习 4
+
+在三角形 $ABC$ 中，点 $M$ 是 $BC$ 的中点。若 $\overrightarrow{AB}=\vec a$，$\overrightarrow{AC}=\vec b$，用 $\vec a,\vec b$ 表示 $\overrightarrow{AM}$。
+
+### 答案
+
+$$
+\overrightarrow{AM}=\frac12(\vec a+\vec b)
+$$
+
+### 讲解
+
+把 $A$ 看成公共起点，则点 $B,C$ 对应的向量分别是 $\vec a,\vec b$。
+
+中点的“位置”就是两端点位置的平均，所以
+
+$$
+\overrightarrow{AM}=\frac{\overrightarrow{AB}+\overrightarrow{AC}}{2}=\frac12(\vec a+\vec b)
+$$
+
+这题是中点公式在向量中的最基本形式。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (2, 6)
+b = (8, 0)
+AM = ((a[0] + b[0]) / 2, (a[1] + b[1]) / 2)
+print(AM)
+`}
+/>
+
+## 练习 5
+
+已知点 $P$ 满足
+
+$$
+\overrightarrow{OP}=2\vec a-\vec b
+$$
+
+其中 $\vec a=\overrightarrow{OA}$，$\vec b=\overrightarrow{OB}$。说明点 $P$ 可以怎样由点 $A,B$ 的位置合成得到。
+
+### 答案
+
+点 $P$ 可以看作：先把点 $A$ 对应的向量放大为 2 倍，再加上点 $B$ 对应向量的相反向量后得到的位置点。
+
+### 讲解
+
+式子
+
+$$
+\overrightarrow{OP}=2\overrightarrow{OA}-\overrightarrow{OB}
+$$
+
+说明 $P$ 的位置不是直接等于某一个已知点，而是由两个已知位置向量线性组合出来的。
+
+几何上可以分三步理解：
+
+1. 先作 $2\overrightarrow{OA}$；
+2. 再作 $-\overrightarrow{OB}$；
+3. 把这两个向量相加，终点就是 $P$。
+
+这正是“线性组合”这个名字的含义。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 2)
+b = (1, 5)
+P = (2 * a[0] - b[0], 2 * a[1] - b[1])
+print(P)
+`}
+/>
