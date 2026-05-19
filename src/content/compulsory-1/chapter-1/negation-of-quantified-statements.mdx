@@ -1,0 +1,371 @@
+---
+title: "全称量词命题与存在量词命题的否定"
+description: "依据教材 1.2.2，学习命题的否定，以及全称量词命题和存在量词命题如何互相转换。"
+order: 5
+textbook: "compulsory-1"
+chapter: "chapter-1"
+tags:
+  - "命题的否定"
+  - "全称量词"
+  - "存在量词"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 全称量词命题与存在量词命题的否定
+
+## 学习目标
+
+这一页对应教材 `1.2.2 全称量词命题与存在量词命题的否定`。学完以后，你应该能：
+
+1. 理解什么叫命题的否定；
+2. 知道“否定一个命题”不是“换个说法重复原句”；
+3. 掌握全称量词命题和存在量词命题的否定规律；
+4. 正确书写量词命题的否定；
+5. 判断否定后的命题真假。
+
+## 为什么要学这个内容
+
+数学中经常需要证明一个命题是假，或者需要写出一个命题“不成立”时意味着什么。这就离不开“否定”。
+
+例如：
+
+- “所有有理数都是实数”的否定是什么？
+- “存在一个实数满足某条件”的否定是什么？
+- 为什么“不是所有同学都及格”不等于“所有同学都不及格”？
+
+这些问题如果处理不准确，逻辑就会混乱。
+
+## 预备知识
+
+你需要先会：
+
+1. 区分全称量词命题和存在量词命题；
+2. 判断一个命题的真假；
+3. 明白“真”和“假”互为对立：一个命题真，它的否定就假；一个命题假，它的否定就真。
+
+## 命题的否定
+
+对命题 $p$ 加以否定，得到一个新命题，记作
+
+$$
+\neg p
+$$
+
+读作“非 $p$”或“$p$ 的否定”。
+
+例如：
+
+- 命题 $p$：“3 的相反数是 -3”；
+- 它的否定 $\neg p$：“3 的相反数不是 -3”。
+
+这里原命题是真命题，所以它的否定是假命题。
+
+## 存在量词命题的否定
+
+先看一个具体例子：
+
+“存在整数是自然数”可以写成
+
+$$
+\exists x \in \mathbb Z,\ x \in \mathbb N
+$$
+
+它的否定不是“存在整数不是自然数”吗？要小心，不是。
+
+原命题说的是“至少有一个”。要否定它，就必须把“至少有一个”全部堵死。所以真正的否定是：
+
+$$
+\forall x \in \mathbb Z,\ x \notin \mathbb N
+$$
+
+也就是说：**存在量词命题的否定，是全称量词命题。**
+
+一般规律是：
+
+$$
+\neg(\exists x \in M,\ p(x)) \iff \forall x \in M,\ \neg p(x)
+$$
+
+## 全称量词命题的否定
+
+再看一个例子：
+
+“每一个有理数都是实数”可以写成
+
+$$
+\forall x \in \mathbb Q,\ x \in \mathbb R
+$$
+
+它的否定不是“每一个有理数都不是实数”，那样太强了。只要原命题有一个例外，它就不成立。
+
+所以真正的否定是：
+
+$$
+\exists x \in \mathbb Q,\ x \notin \mathbb R
+$$
+
+也就是说：**全称量词命题的否定，是存在量词命题。**
+
+一般规律是：
+
+$$
+\neg(\forall x \in M,\ p(x)) \iff \exists x \in M,\ \neg p(x)
+$$
+
+## 讲解中的 Python 实验
+
+这里用程序模拟“存在”与“所有”的互相否定关系。
+
+<InlinePythonPlayground
+  title="Python 实验：否定 all 与 any"
+  description="all 类似全称量词，any 类似存在量词。"
+  code={`nums = [0, 1, 2, 3]
+
+p = all(x >= 0 for x in nums)
+not_p = any(x < 0 for x in nums)
+
+q = any(x == 2 for x in nums)
+not_q = all(x != 2 for x in nums)
+
+print("all(x >= 0):", p)
+print("其否定 any(x < 0):", not_p)
+print("any(x == 2):", q)
+print("其否定 all(x != 2):", not_q)
+`}
+/>
+
+## 例题 1
+
+写出下列命题的否定，并判断所得命题真假：
+
+1. $p: \forall x \in \mathbb R,\ x^2 \ge -1$
+2. $q: \forall x \in \lbrace 1,2,3,4,5 \rbrace,\ \frac{1}{x} < x$
+
+### 讲解
+
+第 1 题中，原命题是全称量词命题，所以否定应改成存在量词命题：
+
+$$
+\neg p: \exists x \in \mathbb R,\ x^2 < -1
+$$
+
+这个命题是假命题，因为任意实数平方都不小于 0，更不可能小于 -1。
+
+第 2 题中，否定是：
+
+$$
+\neg q: \exists x \in \lbrace 1,2,3,4,5 \rbrace,\ \frac{1}{x} \ge x
+$$
+
+当 $x=1$ 时，$\frac11 = 1 \ge 1$，成立，所以这个否定命题是真命题。
+
+## 例题 2
+
+写出下列命题的否定，并判断真假：
+
+1. $p: \exists a \in \mathbb R$，一次函数 $y=x+a$ 的图象经过原点；
+2. $q: \forall x \in (-3,+\infty),\ x^2 > 9$。
+
+### 讲解
+
+第 1 题中，原命题是存在量词命题，它的否定是：
+
+$$
+\neg p: \forall a \in \mathbb R,\ \text{一次函数 } y=x+a \text{ 的图象不经过原点}
+$$
+
+这是假命题，因为当 $a=0$ 时，函数 $y=x$ 经过原点。
+
+第 2 题中，原命题的否定是：
+
+$$
+\neg q: \exists x \in (-3,+\infty),\ x^2 \le 9
+$$
+
+取 $x=0$ 即可成立，所以 $\neg q$ 真。
+
+## 方法总结
+
+量词命题取否定时，不是只在句首加“不”，而是要同时做两件事：
+
+1. 换量词：$\forall$ 和 $\exists$ 互换；
+2. 否条件：把 $p(x)$ 改成 $\neg p(x)$。
+
+也就是：
+
+$$
+\neg(\forall x \in M,\ p(x)) \iff \exists x \in M,\ \neg p(x)
+$$
+
+$$
+\neg(\exists x \in M,\ p(x)) \iff \forall x \in M,\ \neg p(x)
+$$
+
+## 常见错误
+
+1. 否定“所有”时还保留“所有”；
+2. 否定“存在”时还保留“存在”；
+3. 只换量词，不否定条件；
+4. 把“不是所有……”误解成“所有都不……”；
+5. 写出否定后，不再检查真假。
+
+## 练习 1
+
+如果 $p$ 是真命题，那么 $\neg p$ 是真命题还是假命题？如果 $q$ 是假命题，那么 $\neg q$ 呢？
+
+### 答案
+
+$\neg p$ 是假命题；$\neg q$ 是真命题。
+
+### 讲解
+
+命题和它的否定必定一真一假，不可能同真，也不可能同假。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`p = True
+q = False
+
+print("not p =", not p)
+print("not q =", not q)
+`}
+/>
+
+## 练习 2
+
+写出下列命题的否定，并判断所得命题真假：
+
+1. 一切分数都是有理数；
+2. 有些三角形是锐角三角形。
+
+### 答案
+
+1. 否定：存在一个分数不是有理数，假；
+2. 否定：所有三角形都不是锐角三角形，假。
+
+### 讲解
+
+第 1 题中，分数本来就是有理数，所以否定命题是假。
+
+第 2 题中，锐角三角形当然存在，所以“所有三角形都不是锐角三角形”是假命题。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`fractions_are_rational = True
+exists_acute_triangle = True
+
+print("存在一个分数不是有理数:", not fractions_are_rational)
+print("所有三角形都不是锐角三角形:", not exists_acute_triangle)
+`}
+/>
+
+## 练习 3
+
+已知
+
+$$
+q: \forall x \in [-2,3),\ x^2 < 9
+$$
+
+写出 $\neg q$，并判断它的真假。
+
+### 答案
+
+$$
+\neg q: \exists x \in [-2,3),\ x^2 \ge 9
+$$
+
+该命题为假命题。
+
+### 讲解
+
+原命题是全称量词命题，否定后应变成存在量词命题，并把“小于 9”改成“不小于 9”。
+
+但在区间 $[-2,3)$ 中：
+
+- 当 $x=-2$ 时，$x^2=4$；
+- 当 $x$ 接近 3 时，$x^2$ 接近 9，但因为 3 不取到，所以达不到 9。
+
+因此区间中不存在 $x^2 \ge 9$ 的点，所以否定命题是假命题。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`values = [-2, -1, 0, 1, 2, 2.5, 2.9]
+print(any(x * x >= 9 for x in values))
+`}
+/>
+
+## 练习 4
+
+写出下列命题的否定，并判断真假：
+
+1. $\exists x \in \mathbb R,\ |x|+x=0$
+2. $\forall x \in \mathbb R,\ |x|+1-x \ne 0$
+
+### 答案
+
+1. 否定：$\forall x \in \mathbb R,\ |x|+x \ne 0$，假；
+2. 否定：$\exists x \in \mathbb R,\ |x|+1-x = 0$，假。
+
+### 讲解
+
+第 1 题原命题是真命题，因为取 $x=-1$ 时，$|-1|+(-1)=0$。因此它的否定是假命题。
+
+第 2 题中，要让 $|x|+1-x=0$，无论 $x$ 正负都无法成立，所以否定命题是假命题，原命题是真命题。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`vals = [-3, -1, 0, 1, 2]
+
+print(any(abs(x) + x == 0 for x in vals))
+print(any(abs(x) + 1 - x == 0 for x in vals))
+`}
+/>
+
+## 练习 5
+
+已知区间 $M=[a,a+1]$，且命题
+
+$$
+\forall x \in M,\ x+1>0
+$$
+
+是真命题。求 $a$ 的取值范围。
+
+### 答案
+
+$$
+a > -1
+$$
+
+### 讲解
+
+要让区间 $[a,a+1]$ 中每个数都满足 $x+1>0$，只需要保证最小的那个数也满足。
+
+区间中最小的数是 $a$，所以应有
+
+$$
+a+1>0
+$$
+
+即
+
+$$
+a>-1
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = -0.5
+sample = [a, a + 0.25, a + 0.5, a + 1]
+
+print(sample)
+print(all(x + 1 > 0 for x in sample))
+`}
+/>

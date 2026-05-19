@@ -1,7 +1,7 @@
 ---
 import KnowledgeLayout from "../../layouts/KnowledgeLayout.astro";
 import { getCollection, render } from "astro:content";
-import { getLangFromUrl, useTranslations } from "../../i18n/utils.ts";
+import { getLangFromUrl, useTranslations, withBase } from "../../i18n/utils.ts";
 import PythonEditor from "../../components/PythonEditor/PythonEditor";
 
 export async function getStaticPaths() {
@@ -16,19 +16,77 @@ export async function getStaticPaths() {
   );
 }
 
+function sortByChapterAndOrder(
+  a: { data: { chapter: string; order: number } },
+  b: { data: { chapter: string; order: number } },
+) {
+  return (
+    a.data.chapter.localeCompare(b.data.chapter, undefined, {
+      numeric: true,
+    }) || a.data.order - b.data.order
+  );
+}
+
+function formatChapterLabel(chapter: string, t: (key: string) => unknown) {
+  const match = chapter.match(/chapter-(\d+)/i);
+  if (!match) return chapter;
+  return String(t("chapter")).replace("{n}", match[1]);
+}
+
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const pageContentsLabel = String(t("pageContents"));
+const previousLessonLabel = String(t("previousLesson"));
+const nextLessonLabel = String(t("nextLesson"));
 const data = entry.data as {
   pythonSnippets?: string[];
   pythonSnippet?: string;
 };
 const snippets =
   data.pythonSnippets ?? (data.pythonSnippet ? [data.pythonSnippet] : []);
+
+const allEntries = await getCollection("knowledgePoints");
+const textbookEntries = allEntries
+  .filter((candidate) => candidate.data.textbook === entry.data.textbook)
+  .sort(sortByChapterAndOrder);
+
+const currentIndex = textbookEntries.findIndex(
+  (candidate) => candidate.id === entry.id,
+);
+const previousEntry =
+  currentIndex > 0 ? textbookEntries[currentIndex - 1] : null;
+const nextEntry =
+  currentIndex >= 0 && currentIndex < textbookEntries.length - 1
+    ? textbookEntries[currentIndex + 1]
+    : null;
+
+const chapterSections = [
+  ...new Set(textbookEntries.map((item) => item.data.chapter)),
+].map((chapter) => ({
+  label: formatChapterLabel(chapter, t),
+  isOpen:
+    chapter === entry.data.chapter ||
+    textbookEntries.some(
+      (item) => item.data.chapter === chapter && item.id === entry.id,
+    ),
+  items: textbookEntries
+    .filter((item) => item.data.chapter === chapter)
+    .map((item) => ({
+      id: item.id,
+      title: item.data.title,
+      href: withBase(`/${lang}/${item.id}/`),
+    })),
+}));
 ---
 
-<KnowledgeLayout title={entry.data.title} currentTextbook={entry.data.textbook}>
+<KnowledgeLayout
+  title={entry.data.title}
+  currentTextbook={entry.data.textbook}
+  currentEntryId={entry.id}
+  chapterSections={chapterSections}
+>
   <article class="lesson-page">
     <header class="lesson-header">
       <p class="eyebrow">{String(t("knowledgePoint"))}</p>
@@ -37,6 +95,30 @@ const snippets =
     {
       entry.data.description && (
         <p class="description">{entry.data.description}</p>
+      )
+    }
+    {
+      headings.length > 0 && (
+        <details class="page-contents" aria-label={pageContentsLabel}>
+          <summary class="page-contents-head">{pageContentsLabel}</summary>
+          <div class="page-contents-links">
+            {headings
+              .filter((heading) => heading.depth === 2 || heading.depth === 3)
+              .map((heading) => (
+                <a
+                  href={`#${heading.slug}`}
+                  class:list={[
+                    "page-contents-link",
+                    { sub: heading.depth === 3 },
+                  ]}
+                  data-toc-link
+                  data-target-id={heading.slug}
+                >
+                  {heading.text}
+                </a>
+              ))}
+          </div>
+        </details>
       )
     }
     <div class="content">
@@ -55,8 +137,91 @@ const snippets =
         </section>
       )
     }
+    {
+      (previousEntry || nextEntry) && (
+        <nav class="lesson-pagination" aria-label="Lesson pagination">
+          {previousEntry ? (
+            <a
+              class="lesson-nav-card previous"
+              href={withBase(`/${lang}/${previousEntry.id}/`)}
+            >
+              <span class="nav-label">{previousLessonLabel}</span>
+              <span class="nav-title">{previousEntry.data.title}</span>
+            </a>
+          ) : (
+            <div class="lesson-nav-card placeholder" />
+          )}
+          {nextEntry ? (
+            <a
+              class="lesson-nav-card next"
+              href={withBase(`/${lang}/${nextEntry.id}/`)}
+            >
+              <span class="nav-label">{nextLessonLabel}</span>
+              <span class="nav-title">{nextEntry.data.title}</span>
+            </a>
+          ) : (
+            <div class="lesson-nav-card placeholder" />
+          )}
+        </nav>
+      )
+    }
   </article>
 </KnowledgeLayout>
+
+<script is:inline>
+  (() => {
+    const links = Array.from(
+      document.querySelectorAll("[data-toc-link][data-target-id]"),
+    );
+    const sections = links
+      .map((link) => {
+        const id = link.getAttribute("data-target-id");
+        if (!id) return null;
+        const element = document.getElementById(id);
+        if (!element) return null;
+        return { link, element };
+      })
+      .filter(Boolean);
+
+    if (sections.length === 0) return;
+
+    const updateActive = () => {
+      let active = sections[0];
+      const threshold = 140;
+
+      for (const section of sections) {
+        if (section.element.getBoundingClientRect().top <= threshold) {
+          active = section;
+        }
+      }
+
+      for (const section of sections) {
+        section.link.classList.toggle("active", section === active);
+      }
+    };
+
+    const setActiveByHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      for (const section of sections) {
+        section.link.classList.toggle(
+          "active",
+          section.link.getAttribute("data-target-id") === hash,
+        );
+      }
+    };
+
+    updateActive();
+    document.addEventListener("scroll", updateActive, { passive: true });
+    window.addEventListener("resize", updateActive);
+    window.addEventListener("hashchange", setActiveByHash);
+    for (const section of sections) {
+      section.link.addEventListener("click", () => {
+        requestAnimationFrame(setActiveByHash);
+      });
+    }
+  })();
+</script>
 
 <style>
   .lesson-header {
@@ -85,29 +250,91 @@ const snippets =
     font-size: 1.1rem;
     margin: 0 0 22px;
   }
+
   .content {
     line-height: 1.86;
     color: var(--text);
     padding: 6px 2px;
   }
+
+  .page-contents {
+    margin: 0 0 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f8fbff, #f3f8ff 60%, #effcf8);
+    border: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+    overflow: hidden;
+  }
+
+  .page-contents-head {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 0.82rem;
+    color: var(--brand-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+  }
+
+  .page-contents-head::-webkit-details-marker {
+    display: none;
+  }
+
+  .page-contents-links {
+    display: grid;
+    gap: 6px;
+    padding: 0 16px 14px;
+  }
+
+  .page-contents-link {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .page-contents-link.sub {
+    padding-left: 14px;
+    color: var(--text-subtle);
+    font-size: 0.9rem;
+  }
+
+  .page-contents-link:hover {
+    color: var(--brand-strong);
+  }
+
+  .page-contents-link.active {
+    color: var(--brand-strong);
+    font-weight: 700;
+  }
+
+  .page-contents-link.active.sub {
+    color: var(--brand-strong);
+  }
+
   .content :global(h2) {
     margin-top: 2em;
     border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
     padding-bottom: 0.3em;
+    scroll-margin-top: 92px;
   }
+
   .content :global(h3) {
     margin-top: 1.5em;
+    scroll-margin-top: 92px;
   }
+
   .content :global(table) {
     width: 100%;
     border-collapse: collapse;
     margin: 1em 0;
   }
+
   .content :global(th),
   .content :global(td) {
     border: 1px solid var(--line);
     padding: 8px 12px;
   }
+
   .content :global(pre) {
     background: #282c34;
     color: #abb2bf;
@@ -115,10 +342,12 @@ const snippets =
     border-radius: 8px;
     overflow-x: auto;
   }
+
   .content :global(code) {
     font-family: "SFMono-Regular", Consolas, monospace;
     font-size: 0.9rem;
   }
+
   .runnable-python {
     margin-top: 2rem;
     border: 0;
@@ -140,12 +369,78 @@ const snippets =
     font-size: 0.92rem;
   }
 
+  .lesson-pagination {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .lesson-nav-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 78px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text);
+    background: linear-gradient(135deg, #f8fbff, #f2f8ff 55%, #eefcf8);
+    border: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+
+  .lesson-nav-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
+    border-color: #c6d2fa;
+  }
+
+  .lesson-nav-card.next {
+    text-align: right;
+  }
+
+  .lesson-nav-card.placeholder {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .nav-label {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-strong);
+    font-weight: 700;
+  }
+
+  .nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
   @media (max-width: 860px) {
     .lesson-header {
       padding: 14px;
     }
+
     .description {
       font-size: 1rem;
+    }
+
+    .lesson-pagination {
+      grid-template-columns: 1fr;
+    }
+
+    .lesson-nav-card.next {
+      text-align: left;
+    }
+
+    .lesson-nav-card.placeholder {
+      display: none;
     }
   }
 </style>

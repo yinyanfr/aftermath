@@ -1,0 +1,451 @@
+---
+title: "集合及其表示方法"
+description: "依据教材 1.1.1，从集合的定义、元素关系、常用数集、列举法、描述法与区间表示一步一步建立集合语言。"
+order: 1
+textbook: "compulsory-1"
+chapter: "chapter-1"
+tags:
+  - "集合"
+  - "表示方法"
+  - "区间"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 集合及其表示方法
+
+## 学习目标
+
+这一页对应教材 `1.1.1 集合及其表示方法`。学完以后，你应该能：
+
+1. 说清楚什么是集合，什么是元素；
+2. 正确使用 $a \in A$、$a \notin A$；
+3. 理解空集、有限集、无限集、常用数集；
+4. 会用列举法、描述法、区间表示法表示集合；
+5. 能判断一种说法能不能真正构成集合。
+
+## 为什么要学这个内容
+
+高中数学经常研究“满足某种条件的一类对象”，例如：
+
+- 方程的所有解；
+- 不等式的所有解；
+- 函数允许输入的所有数；
+- 图形中满足某种性质的所有点。
+
+这些内容都不是单个对象，而是一个“整体”。为了把这个整体准确说清楚，我们就要学习集合语言。
+
+## 预备知识
+
+这一页默认你已经知道自然数、整数、分数、小数、方程的解这些初中内容。
+
+先记住两个符号：
+
+- $a \in A$：读作“$a$ 属于 $A$”；
+- $a \notin A$：读作“$a$ 不属于 $A$”。
+
+## 集合的定义
+
+教材给出的定义是：把一些**能够确定的、不同的对象**汇集在一起，就说由这些对象组成一个集合。
+
+这里最重要的是三个词。
+
+### 1. 能够确定
+
+给定一个对象后，我们必须能明确判断它是不是这个集合的元素。
+
+例如：
+
+- “小于 10 的自然数”能构成集合；
+- “班里的高个子同学”通常不能直接构成集合，因为“高个子”没有统一标准。
+
+### 2. 不同
+
+集合中的相同元素只记一次。
+
+因此：
+
+$$
+\lbrace 1,2,2,3 \rbrace = \lbrace 1,2,3 \rbrace
+$$
+
+### 3. 汇集成整体
+
+集合关心的是“有哪些元素”，不关心书写顺序。
+
+因此：
+
+$$
+\lbrace 1,2,3 \rbrace = \lbrace 3,2,1 \rbrace
+$$
+
+## 元素与集合的关系
+
+如果 $a$ 是集合 $A$ 的元素，记作
+
+$$
+a \in A
+$$
+
+如果 $a$ 不是集合 $A$ 的元素，记作
+
+$$
+a \notin A
+$$
+
+例如，如果 $A$ 是所有小于 10 的自然数组成的集合，那么：
+
+- $0 \in A$；
+- $0.5 \notin A$。
+
+如果 $B$ 是方程 $x^2 = 1$ 的所有解组成的集合，那么：
+
+- $-1 \in B$；
+- $0 \notin B$；
+- $1 \in B$。
+
+## 空集、有限集、无限集
+
+不含任何元素的集合叫作**空集**，记作
+
+$$
+\varnothing
+$$
+
+例如，方程 $x+1=x+2$ 无解，所以它的解集是空集。
+
+含有有限个元素的集合叫**有限集**，含有无限多个元素的集合叫**无限集**。
+
+例如：
+
+- $\lbrace 1,2,3 \rbrace$ 是有限集；
+- 自然数集是无限集；
+- 空集可以看成有 0 个元素，所以它也是有限集。
+
+## 集合元素的三个特点
+
+教材总结了三个特点：
+
+1. 确定性；
+2. 互异性；
+3. 无序性。
+
+以后判断一个对象能不能构成集合，先问自己：
+
+- 标准是否明确？
+- 元素是否按“有无”记录，而不是按“出现次数”记录？
+
+## 常用数集
+
+| 符号                           | 含义     |
+| ------------------------------ | -------- |
+| $\mathbb N$                    | 自然数集 |
+| $\mathbb N^+$ 或 $\mathbb N^*$ | 正整数集 |
+| $\mathbb Z$                    | 整数集   |
+| $\mathbb Q$                    | 有理数集 |
+| $\mathbb R$                    | 实数集   |
+
+例如：
+
+- $0 \in \mathbb N$；
+- $-3 \in \mathbb Z$；
+- $\pi \notin \mathbb Q$；
+- 如果 $n \in \mathbb N^*$，那么 $n = 1,2,3,\dots$。
+
+## 例题 1
+
+判断下列对象能否构成集合：
+
+1. 你所在班级中身高不低于 175 cm 的同学；
+2. 你所在班级中的高个子同学；
+3. 不等式 $x-2>1$ 的所有解。
+
+### 讲解
+
+第 1 个对象能构成集合，因为“身高不低于 175 cm”标准明确。
+
+第 2 个对象通常不能直接构成集合，因为“高个子”不满足确定性。
+
+第 3 个对象能构成集合，因为 $x-2>1$ 等价于 $x>3$，所以它的解构成集合
+
+$$
+\lbrace x \in \mathbb R \mid x > 3 \rbrace
+$$
+
+## 列举法
+
+把集合中的元素一个一个写出来，并放进大括号中，这种方法叫**列举法**。
+
+例如：
+
+$$
+\lbrace 0,1 \rbrace
+$$
+
+$$
+\lbrace 1,2,3,4,6,8,12,24 \rbrace
+$$
+
+如果元素很多，但规律很明显，也可以写成：
+
+$$
+\lbrace 0,1,2,3,\dots,100 \rbrace
+$$
+
+## 讲解中的 Python 实验 1
+
+这段代码直接验证“集合不看顺序，也不看重复”。
+
+<InlinePythonPlayground
+  title="Python 实验：集合只看元素，不看顺序和重复"
+  description="把数学结论立刻变成可运行实验。"
+  code={`A = {1, 2, 3}
+B = {3, 2, 1}
+C = {1, 2, 2, 3}
+
+print("A =", A)
+print("B =", B)
+print("C =", C)
+print("A == B:", A == B)
+print("A == C:", A == C)
+`}
+/>
+
+## 描述法
+
+如果一个集合不方便一个一个列举出来，就可以用元素满足的共同性质来表示。
+
+如果集合中的元素满足性质 $p(x)$，那么可以写成：
+
+$$
+\lbrace x \mid p(x) \rbrace
+$$
+
+例如：
+
+$$
+\lbrace x \mid x > 3 \rbrace
+$$
+
+如果还要说明元素来自哪个集合，可以写成：
+
+$$
+\lbrace x \in \mathbb N \mid x = 3n+1,\ n \in \mathbb Z \rbrace
+$$
+
+## 例题 2
+
+用适当的方法表示下列集合：
+
+1. 方程 $x(x-1)=0$ 的所有解组成的集合；
+2. 平面直角坐标系中第一象限内所有点组成的集合。
+
+### 讲解
+
+第 1 个集合只有两个元素，因为方程的解是 $x=0$ 或 $x=1$，所以用列举法：
+
+$$
+\lbrace 0,1 \rbrace
+$$
+
+第 2 个集合有无限多个点，不适合列举，所以用描述法：
+
+$$
+\lbrace (x,y) \mid x>0,\ y>0 \rbrace
+$$
+
+## 区间及其表示
+
+如果 $a<b$，则：
+
+- $\lbrace x \mid a \le x \le b \rbrace$ 记作 $[a,b]$，叫闭区间；
+- $\lbrace x \mid a < x < b \rbrace$ 记作 $(a,b)$，叫开区间；
+- $\lbrace x \mid a \le x < b \rbrace$ 记作 $[a,b)$；
+- $\lbrace x \mid a < x \le b \rbrace$ 记作 $(a,b]$。
+
+无穷区间也常用：
+
+- $\lbrace x \mid x \ge a \rbrace = [a,+\infty)$；
+- $\lbrace x \mid x > a \rbrace = (a,+\infty)$；
+- $\lbrace x \mid x \le a \rbrace = (-\infty,a]$；
+- $\lbrace x \mid x < a \rbrace = (-\infty,a)$。
+
+## 讲解中的 Python 实验 2
+
+这里的实验帮助你把“不等式条件”和“数的范围”联系起来。
+
+<InlinePythonPlayground
+  title="Python 实验：满足 x > 3 的整数有哪些"
+  description="先在整数里观察，再理解对应的实数区间。"
+  code={`values = list(range(-2, 11))
+result = [x for x in values if x > 3]
+
+print("原始整数:", values)
+print("满足 x > 3 的整数:", result)
+`}
+/>
+
+## 方法总结
+
+这一页可以总结成五句话：
+
+1. 能否构成集合，先看是否满足确定性；
+2. 集合相同只看元素，不看顺序；
+3. 相同元素重复出现，只算一次；
+4. 元素少时优先列举法；
+5. 连续的实数范围优先用区间表示。
+
+## 常见错误
+
+1. 把 $a \in A$ 写成普通文本；
+2. 忘记集合不看顺序；
+3. 误以为重复写元素会改变集合；
+4. 写描述法时漏掉元素的范围；
+5. 把空集看成“不是集合”。
+
+## 练习 1
+
+用符号 $\in$ 或 $\notin$ 填空：
+
+1. $2$ 与 $\mathbb N$；
+2. $\frac{1}{3}$ 与 $\mathbb Z$；
+3. $\sqrt 9$ 与 $\mathbb Q$；
+4. $-3$ 与 $\mathbb N$。
+
+### 答案
+
+1. $2 \in \mathbb N$
+2. $\frac{1}{3} \notin \mathbb Z$
+3. $\sqrt 9 \in \mathbb Q$
+4. $-3 \notin \mathbb N$
+
+### 讲解
+
+$2$ 是自然数；$\frac{1}{3}$ 不是整数；$\sqrt 9 = 3$ 是有理数；$-3$ 不是自然数。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`from fractions import Fraction
+
+print("2 属于样例自然数集:", 2 in {0, 1, 2, 3, 4, 5})
+print("1/3 是否是整数:", Fraction(1, 3).denominator == 1)
+print("sqrt(9) =", 9 \*\* 0.5)
+print("-3 属于样例自然数集:", -3 in {0, 1, 2, 3, 4, 5})
+`}
+/>
+
+## 练习 2
+
+用列举法表示“大于 2 且小于 15 的所有素数”组成的集合。
+
+### 答案
+
+$$
+\lbrace 3,5,7,11,13 \rbrace
+$$
+
+### 讲解
+
+逐个检查 3 到 14 中的整数，能得到素数只有 3、5、7、11、13。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`primes = []
+for x in range(3, 15):
+    is_prime = True
+    for d in range(2, int(x ** 0.5) + 1):
+        if x % d == 0:
+            is_prime = False
+            break
+    if is_prime:
+        primes.append(x)
+
+print(set(primes))
+`}
+/>
+
+## 练习 3
+
+用描述法表示“小于 1500 的正偶数”组成的集合。
+
+### 答案
+
+$$
+\lbrace x \in \mathbb N^* \mid x < 1500,\ x = 2n,\ n \in \mathbb N^* \rbrace
+$$
+
+### 讲解
+
+“正偶数”说明它是正整数，并且可以写成 $2n$ 的形式；“小于 1500”补上了范围限制。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`numbers = {x for x in range(1, 1500) if x % 2 == 0}
+print("元素个数:", len(numbers))
+print("最小元素:", min(numbers))
+print("最大元素:", max(numbers))
+`}
+/>
+
+## 练习 4
+
+用适当的方法表示下列集合：
+
+1. 方程 $x^2 = 2$ 的所有解组成的集合；
+2. 所有矩形组成的集合。
+
+### 答案
+
+1. $\lbrace -\sqrt 2, \sqrt 2 \rbrace$
+2. $\lbrace x \mid x \text{ 是矩形} \rbrace$
+
+### 讲解
+
+第 1 题只有两个元素，适合列举法；第 2 题元素无限多，适合描述法。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+solution_set = {-math.sqrt(2), math.sqrt(2)}
+print(solution_set)
+print("矩形集合无法靠列举法写完。")
+`}
+/>
+
+## 练习 5
+
+用区间表示不等式 $2x-\frac{1}{2} > x$ 的所有解组成的集合。
+
+### 答案
+
+$$
+\left( \frac{1}{2}, +\infty \right)
+$$
+
+### 讲解
+
+移项得
+
+$$
+x > \frac{1}{2}
+$$
+
+所以解集是
+
+$$
+\left( \frac{1}{2}, +\infty \right)
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`values = [x / 2 for x in range(-2, 9)]
+solutions = [x for x in values if 2 * x - 0.5 > x]
+print(solutions)
+`}
+/>

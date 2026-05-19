@@ -1,0 +1,46 @@
+---
+import PythonEditor from "./PythonEditor/PythonEditor";
+import { getLangFromUrl } from "../i18n/utils.ts";
+
+interface Props {
+  code: string;
+  title?: string;
+  description?: string;
+}
+
+const { code, title, description }: Props = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<section class="inline-playground">
+  {
+    title && (
+      <div class="inline-playground-head">
+        <h3>{title}</h3>
+        {description && <p>{description}</p>}
+      </div>
+    )
+  }
+  <PythonEditor client:load lang={lang} defaultValue={code} />
+</section>
+
+<style>
+  .inline-playground {
+    margin: 18px 0;
+  }
+
+  .inline-playground-head {
+    margin-bottom: 8px;
+  }
+
+  .inline-playground-head h3 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+  }
+
+  .inline-playground-head p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--text-subtle);
+  }
+</style>

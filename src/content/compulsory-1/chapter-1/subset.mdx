@@ -1,0 +1,401 @@
+---
+title: "集合的基本关系"
+description: "依据教材 1.1.2，系统学习子集、真子集、集合相等，以及用 Venn 图和元素分析法判断集合关系。"
+order: 2
+textbook: "compulsory-1"
+chapter: "chapter-1"
+tags:
+  - "子集"
+  - "真子集"
+  - "集合相等"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 集合的基本关系
+
+## 学习目标
+
+这一页对应教材 `1.1.2 集合的基本关系`。学完以后，你应该能：
+
+1. 理解子集、真子集、集合相等的定义；
+2. 区分 $a \in A$ 与 $A \subseteq B$；
+3. 用元素分析法判断集合之间的关系；
+4. 列出一个有限集的所有子集；
+5. 借助 Venn 图和数轴理解集合关系。
+
+## 为什么要学这个内容
+
+上一页学的是“哪些对象放进同一个集合里”。这一页要学的是“两个集合之间有什么关系”。
+
+例如：
+
+- 女同学组成的集合和全班同学组成的集合是什么关系？
+- 偶数集和整数集是什么关系？
+- 两种不同写法表示的集合，会不会其实是同一个集合？
+
+这些问题都离不开子集、真子集和集合相等。
+
+## 预备知识
+
+先复习两点：
+
+1. 集合相同时只看元素，不看顺序；
+2. 判断集合关系，最终一定要回到元素本身。
+
+另外要特别分清：
+
+- $a \in A$：元素和集合的关系；
+- $A \subseteq B$：集合和集合的关系。
+
+## 子集的定义
+
+如果集合 $A$ 的任意一个元素都是集合 $B$ 的元素，那么称 $A$ 是 $B$ 的**子集**，记作
+
+$$
+A \subseteq B
+$$
+
+也可以写成
+
+$$
+B \supseteq A
+$$
+
+这个定义里最重要的词是“任意一个”。只要 $A$ 里有一个元素不在 $B$ 中，$A$ 就不是 $B$ 的子集。
+
+例如：
+
+$$
+A = \lbrace 1,3 \rbrace, \quad B = \lbrace 1,3,5,6 \rbrace
+$$
+
+因为 $A$ 中每个元素都属于 $B$，所以 $A \subseteq B$。
+
+## 任何集合都是自己的子集
+
+教材指出：
+
+$$
+A \subseteq A
+$$
+
+原因非常直接：$A$ 中的每一个元素当然都属于 $A$。
+
+## 空集是任何集合的子集
+
+教材规定：
+
+$$
+\varnothing \subseteq A
+$$
+
+这是因为空集中没有元素，所以你不可能从空集中找到一个“反例元素”去破坏子集条件。
+
+## 真子集的定义
+
+如果 $A \subseteq B$，并且 $B$ 中至少有一个元素不属于 $A$，那么称 $A$ 是 $B$ 的**真子集**，记作
+
+$$
+A \subsetneq B
+$$
+
+也就是说，真子集比子集多了一条要求：两个集合不能完全相同。
+
+例如：
+
+$$
+A = \lbrace 1,2 \rbrace, \quad B = \lbrace 1,2,3,4 \rbrace
+$$
+
+因为 $3 \in B$ 且 $3 \notin A$，所以 $A \subsetneq B$。
+
+## 讲解中的 Python 实验
+
+这里直接用程序验证子集、真子集和集合相等。
+
+<InlinePythonPlayground
+  title="Python 实验：子集、真子集、相等"
+  description="观察 <=、<、== 与数学定义的对应关系。"
+  code={`A = {1, 2}
+B = {1, 2, 3, 4}
+C = {2, 1}
+
+print("A <= B:", A <= B)
+print("A < B:", A < B)
+print("A == C:", A == C)
+print("B < B:", B < B)
+`}
+/>
+
+## 集合相等
+
+如果两个集合的元素完全相同，就称这两个集合相等，记作
+
+$$
+A = B
+$$
+
+教材还给出一个非常重要的等价关系：
+
+$$
+A = B \iff A \subseteq B \text{ 且 } B \subseteq A
+$$
+
+也就是说，两个集合互为子集，当且仅当它们相等。
+
+## Venn 图的直观理解
+
+如果把集合画成封闭曲线围起来的区域，那么：
+
+- $A \subseteq B$ 表示 $A$ 完全在 $B$ 里面；
+- $A \subsetneq B$ 表示 $A$ 完全在 $B$ 里面，而且 $B$ 还有一部分露在外面。
+
+Venn 图可以帮助你形成直观，但真正证明时还是要使用元素分析法。
+
+## 例题 1
+
+写出集合
+
+$$
+A = \lbrace 6,7,8 \rbrace
+$$
+
+的所有子集和真子集。
+
+### 讲解
+
+这个集合有 3 个元素。列所有子集时，最稳的方法是按元素个数分类。
+
+含 0 个元素的子集：
+
+$$
+\varnothing
+$$
+
+含 1 个元素的子集：
+
+$$
+\lbrace 6 \rbrace, \lbrace 7 \rbrace, \lbrace 8 \rbrace
+$$
+
+含 2 个元素的子集：
+
+$$
+\lbrace 6,7 \rbrace, \lbrace 6,8 \rbrace, \lbrace 7,8 \rbrace
+$$
+
+含 3 个元素的子集：
+
+$$
+\lbrace 6,7,8 \rbrace
+$$
+
+因此所有子集共有 8 个。去掉集合 $A$ 本身后，剩下的都是它的真子集。
+
+## 例题 2
+
+已知区间
+
+$$
+A = (-\infty, 2], \quad B = (-\infty, a)
+$$
+
+且 $B \subseteq A$，求实数 $a$ 的取值范围。
+
+### 讲解
+
+$B$ 中的每个元素都必须属于 $A$。如果 $a>2$，那么 $B$ 中会有一些大于 2 的数，它们不属于 $A$，矛盾。
+
+所以必须有：
+
+$$
+a \le 2
+$$
+
+## 方法总结
+
+判断集合关系时，最可靠的方法是元素分析法：
+
+1. 任取前一个集合中的一个元素；
+2. 证明它一定属于后一个集合；
+3. 如果还要判断真子集，再补充说明后一个集合中至少有一个元素不在前一个集合里。
+
+## 常见错误
+
+1. 把 $5 \in \lbrace 5 \rbrace$ 和 $\lbrace 5 \rbrace \subseteq \lbrace 5 \rbrace$ 混为一谈；
+2. 忘记任何集合都是自己的子集；
+3. 忘记空集是任何集合的子集；
+4. 把“子集”和“真子集”当成同一个概念；
+5. 只凭图形感觉判断，不回到元素定义。
+
+## 练习 1
+
+用合适的符号填空：
+
+1. $5$ 与 $\lbrace 5 \rbrace$；
+2. $\lbrace 1,2,3 \rbrace$ 与 $\lbrace 3,2,1 \rbrace$；
+3. $\varnothing$ 与 $\lbrace 0 \rbrace$。
+
+### 答案
+
+1. $5 \in \lbrace 5 \rbrace$
+2. $\lbrace 1,2,3 \rbrace = \lbrace 3,2,1 \rbrace$
+3. $\varnothing \subsetneq \lbrace 0 \rbrace$
+
+### 讲解
+
+第 1 题是元素与集合的关系；第 2 题两个集合元素完全相同；第 3 题空集是任何集合的子集，而 $\lbrace 0 \rbrace$ 还多了一个元素 0。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`A = {5}
+B = {1, 2, 3}
+C = {3, 2, 1}
+
+print(5 in A)
+print(B == C)
+print(set() < {0})
+`}
+/>
+
+## 练习 2
+
+判断下列关系：
+
+1. $\mathbb N$ 与 $\mathbb Z$；
+2. $\mathbb Z$ 与 $\mathbb Q$；
+3. $\mathbb Q$ 与 $\mathbb N$。
+
+### 答案
+
+1. $\mathbb N \subsetneq \mathbb Z$
+2. $\mathbb Z \subsetneq \mathbb Q$
+3. $\mathbb Q \nsubseteq \mathbb N$
+
+### 讲解
+
+自然数都属于整数，整数都属于有理数，但有理数不一定是自然数，例如 $\frac12$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`N = {0, 1, 2, 3, 4}
+Z = {-2, -1, 0, 1, 2, 3, 4}
+Q_sample = {-2, -1, 0, 0.5, 1, 1.5, 2}
+
+print("N < Z:", N < Z)
+print("Q_sample <= N:", Q_sample <= N)
+`}
+/>
+
+## 练习 3
+
+写出集合 $\lbrace 0,1,2 \rbrace$ 的所有子集。
+
+### 答案
+
+$$
+\varnothing,\ \lbrace 0 \rbrace,\ \lbrace 1 \rbrace,\ \lbrace 2 \rbrace,\ \lbrace 0,1 \rbrace,\ \lbrace 0,2 \rbrace,\ \lbrace 1,2 \rbrace,\ \lbrace 0,1,2 \rbrace
+$$
+
+### 讲解
+
+这是一个 3 元集合，所以共有 $2^3=8$ 个子集。按元素个数分类写出即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`from itertools import combinations
+
+A = [0, 1, 2]
+subsets = []
+for r in range(len(A) + 1):
+for item in combinations(A, r):
+subsets.append(set(item))
+
+for s in subsets:
+print(s)
+`}
+/>
+
+## 练习 4
+
+已知
+
+$$
+A = \lbrace x \mid x = 3m-1,\ m \in \mathbb N \rbrace, \quad B = \lbrace x \mid x = 3m+2,\ m \in \mathbb N \cup \lbrace 0 \rbrace \rbrace
+$$
+
+写出它们的前几个元素，并说明关系。
+
+### 答案
+
+两者前几个元素都可以写成：
+
+$$
+\lbrace 2,5,8,11,14,\dots \rbrace
+$$
+
+所以 $A = B$。
+
+### 讲解
+
+把参数依次代入后可发现两者得到的元素完全相同，因此两个集合相等。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`A = [3 * m - 1 for m in range(1, 8)]
+B = [3 * m + 2 for m in range(0, 7)]
+
+print(A)
+print(B)
+print(set(A) == set(B))
+`}
+/>
+
+## 练习 5
+
+已知
+
+$$
+\lbrace 1 \rbrace \subseteq A \subsetneq \lbrace 1,2,3,4 \rbrace
+$$
+
+用列举法写出所有可能的 $A$。
+
+### 答案
+
+$$
+\lbrace 1 \rbrace,
+\lbrace 1,2 \rbrace,
+\lbrace 1,3 \rbrace,
+\lbrace 1,4 \rbrace,
+\lbrace 1,2,3 \rbrace,
+\lbrace 1,2,4 \rbrace,
+\lbrace 1,3,4 \rbrace
+$$
+
+### 讲解
+
+$A$ 一定含有元素 1；其余元素只能从 2、3、4 中选；但不能把 2、3、4 全都选上，否则就不再是真子集了。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`from itertools import combinations
+
+base = [2, 3, 4]
+all_sets = []
+for r in range(0, len(base) + 1):
+for item in combinations(base, r):
+current = {1, \*item}
+if current != {1, 2, 3, 4}:
+all_sets.append(current)
+
+for s in all_sets:
+print(s)
+`}
+/>

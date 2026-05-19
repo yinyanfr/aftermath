@@ -42,6 +42,10 @@ const ui = {
     knowledgePoint: "知识点",
     pythonPlayground: "Python 实验区",
     pythonPlaygroundDesc: "修改代码、运行并即时对比输出结果。",
+    chapterDirectory: "章节目录",
+    pageContents: "本页目录",
+    previousLesson: "上一节",
+    nextLesson: "下一节",
   },
   "zh-hant": {
     siteTitle: "數理回聲",
@@ -86,6 +90,10 @@ const ui = {
     knowledgePoint: "知識點",
     pythonPlayground: "Python 實驗區",
     pythonPlaygroundDesc: "修改程式碼、執行並即時比對輸出結果。",
+    chapterDirectory: "章節目錄",
+    pageContents: "本頁目錄",
+    previousLesson: "上一節",
+    nextLesson: "下一節",
   },
   "en-us": {
     siteTitle: "Aftermath",
@@ -136,6 +144,10 @@ const ui = {
     knowledgePoint: "Knowledge Point",
     pythonPlayground: "Python Playground",
     pythonPlaygroundDesc: "Modify, run, and compare outputs instantly.",
+    chapterDirectory: "Chapter Directory",
+    pageContents: "On This Page",
+    previousLesson: "Previous",
+    nextLesson: "Next",
   },
   "ja-jp": {
     siteTitle: "アフターマス",
@@ -184,6 +196,10 @@ const ui = {
     knowledgePoint: "知識ポイント",
     pythonPlayground: "Python 実験エリア",
     pythonPlaygroundDesc: "コードを修正して実行し、出力をすぐ比較できます。",
+    chapterDirectory: "章内目次",
+    pageContents: "このページ",
+    previousLesson: "前の節",
+    nextLesson: "次の節",
   },
 } as const;
 

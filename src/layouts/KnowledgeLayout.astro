@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import { getLangFromUrl, useTranslations } from "../i18n/utils.ts";
+import { getLangFromUrl, useTranslations, withBase } from "../i18n/utils.ts";
 import { textbooks } from "../data/textbooks.ts";
 
 const lang = getLangFromUrl(Astro.url);
@@ -8,14 +8,35 @@ const t = useTranslations(lang);
 const textbookLabels = t("textbooks") as unknown as Record<string, string>;
 const siteTitle = String(t("siteTitle"));
 const platformTagline = String(t("platformTagline"));
+const chapterDirectory = String(t("chapterDirectory"));
 
-const localePrefix = `/${lang}`;
+const localePrefix = withBase(`/${lang}`);
+
+interface ChapterNavItem {
+  href: string;
+  title: string;
+  id: string;
+}
+
+interface ChapterSection {
+  label: string;
+  items: ChapterNavItem[];
+  isOpen?: boolean;
+}
+
 interface Props {
   title?: string;
   currentTextbook?: string;
+  currentEntryId?: string;
+  chapterSections?: ChapterSection[];
 }
 
-const { title, currentTextbook } = Astro.props;
+const {
+  title,
+  currentTextbook,
+  currentEntryId,
+  chapterSections = [],
+} = Astro.props;
 ---
 
 <BaseLayout title={title}>
@@ -29,7 +50,7 @@ const { title, currentTextbook } = Astro.props;
         {
           textbooks.map((tb) => (
             <a
-              href={`${localePrefix}/${tb}/`}
+              href={withBase(`/${lang}/${tb}/`)}
               class:list={["nav-item", { active: currentTextbook === tb }]}
             >
               {textbookLabels[tb]}
@@ -37,6 +58,36 @@ const { title, currentTextbook } = Astro.props;
           ))
         }
       </nav>
+      {
+        currentTextbook && chapterSections.length > 0 && (
+          <section class="chapter-directory">
+            <h2>{chapterDirectory}</h2>
+            <div class="chapter-sections">
+              {chapterSections.map((section) => (
+                <details class="chapter-section" open={section.isOpen}>
+                  <summary>{section.label}</summary>
+                  <div class="chapter-links">
+                    {section.items.map((item, index) => (
+                      <a
+                        href={item.href}
+                        class:list={[
+                          "chapter-link",
+                          { active: item.id === currentEntryId },
+                        ]}
+                      >
+                        <span class="chapter-link-index">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span>{item.title}</span>
+                      </a>
+                    ))}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </section>
+        )
+      }
     </aside>
     <main class="content">
       <div class="content-surface">
@@ -59,6 +110,7 @@ const { title, currentTextbook } = Astro.props;
     box-shadow: var(--shadow-soft);
     overflow: hidden;
   }
+
   .sidebar {
     width: 292px;
     border-right: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
@@ -69,11 +121,13 @@ const { title, currentTextbook } = Astro.props;
     overflow-y: auto;
     background: linear-gradient(180deg, #f8fbff, #f2f6ff);
   }
+
   .sidebar-header {
     margin-bottom: 18px;
     padding: 8px 10px 12px;
     border-bottom: 0;
   }
+
   .logo {
     display: inline-block;
     font-size: 1.35rem;
@@ -82,17 +136,20 @@ const { title, currentTextbook } = Astro.props;
     color: var(--brand-strong);
     margin-bottom: 4px;
   }
+
   .tagline {
     font-size: 0.78rem;
     color: var(--text-subtle);
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
+
   .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
+
   .nav-item {
     display: block;
     padding: 10px 12px;
@@ -106,22 +163,108 @@ const { title, currentTextbook } = Astro.props;
       border-color 0.2s,
       transform 0.2s;
   }
+
   .nav-item:hover {
     background-color: #f7f9ff;
     border-color: #dae3ff;
     transform: translateX(2px);
   }
+
   .nav-item.active {
     background: linear-gradient(135deg, #eaf0ff, #eefcf8);
     border-color: #bfcfff;
     color: var(--brand-strong);
     font-weight: 600;
   }
+
+  .chapter-directory {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+  }
+
+  .chapter-directory h2 {
+    margin: 0 0 12px;
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-subtle);
+  }
+
+  .chapter-sections {
+    display: grid;
+    gap: 14px;
+  }
+
+  .chapter-section {
+    border: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--panel) 78%, transparent);
+    overflow: hidden;
+  }
+
+  .chapter-section summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    color: var(--brand-strong);
+    font-weight: 600;
+    background: color-mix(in srgb, var(--panel-soft) 70%, transparent);
+  }
+
+  .chapter-section summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .chapter-links {
+    display: grid;
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .chapter-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: var(--text-subtle);
+    font-size: 0.88rem;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.2s,
+      border-color 0.2s;
+  }
+
+  .chapter-link:hover {
+    background: #f7f9ff;
+    border-color: #dae3ff;
+    color: var(--text);
+  }
+
+  .chapter-link.active {
+    background: color-mix(in srgb, var(--brand-soft) 45%, var(--panel) 55%);
+    border-color: #bfd0ff;
+    color: var(--brand-strong);
+    font-weight: 600;
+  }
+
+  .chapter-link-index {
+    font-variant-numeric: tabular-nums;
+    color: var(--brand-strong);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
   .content {
     flex: 1;
     padding: 24px;
     min-width: 0;
   }
+
   .content-surface {
     max-width: 980px;
     background: var(--panel);
@@ -135,9 +278,11 @@ const { title, currentTextbook } = Astro.props;
       width: calc(100% - 20px);
       margin: 10px auto;
     }
+
     .sidebar {
       width: 245px;
     }
+
     .content-surface {
       padding: 22px;
     }
@@ -147,6 +292,7 @@ const { title, currentTextbook } = Astro.props;
     .layout {
       display: block;
     }
+
     .sidebar {
       position: static;
       width: 100%;
@@ -155,14 +301,26 @@ const { title, currentTextbook } = Astro.props;
       border-right: 0;
       border-bottom: 1px solid var(--line);
     }
+
     .sidebar-nav {
       overflow-x: auto;
       display: grid;
       grid-template-columns: repeat(7, minmax(160px, 1fr));
     }
+
+    .chapter-directory {
+      margin-top: 14px;
+      padding-top: 14px;
+    }
+
+    .chapter-sections {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
     .content {
       padding: 0;
     }
+
     .content-surface {
       max-width: 100%;
       width: 100%;
