@@ -3,11 +3,21 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "sync:pyodide": "node scripts/sync-pyodide.mjs",
+    "predev": "npm run sync:pyodide",
+    "prebuild": "npm run sync:pyodide",
+    "prepreview": "npm run sync:pyodide",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "eslint . --ext .js,.mjs,.cjs,.ts,.tsx,.astro",
+    "lint:fix": "eslint . --ext .js,.mjs,.cjs,.ts,.tsx,.astro --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "npm run lint && npm run format:check && npm run build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@ant-design/icons": "^6.2.2",
@@ -19,15 +29,36 @@
     "astro": "^6.3.1",
     "codemirror": "^6.0.2",
     "katex": "^0.16.45",
+    "pyodide": "^0.29.4",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/katex": "^0.16.8",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "typescript": "^6.0.3"
+    "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.5",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.3"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,mdx,json,yml,yaml,css}": [
+      "prettier --write"
+    ]
   }
 }

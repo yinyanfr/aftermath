@@ -20,6 +20,7 @@ const knowledgePoints = defineCollection({
     chapter: z.string(),
     tags: z.array(z.string()).optional(),
     pythonSnippet: z.string().optional(),
+    pythonSnippets: z.array(z.string()).optional(),
   }),
 });
 

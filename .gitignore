@@ -145,3 +145,5 @@ vite.config.ts.timestamp-*
 .DS_Store
 textbooks/dist/
 .astro/
+.husky/_/
+textbooks/

@@ -1,58 +1,163 @@
 ---
 import KnowledgeLayout from "../../layouts/KnowledgeLayout.astro";
 import { getCollection } from "astro:content";
-import { useTranslations } from "../../i18n/utils.ts";
+import { useTranslations, withBase } from "../../i18n/utils.ts";
 import type { Locale } from "../../i18n/ui.ts";
+import { textbooks, type Textbook } from "../../data/textbooks.ts";
 
 export function getStaticPaths() {
-  const textbooks = [
-    "compulsory-1",
-    "compulsory-2",
-    "compulsory-3",
-    "compulsory-4",
-    "elective-compulsory-1",
-    "elective-compulsory-2",
-    "elective-compulsory-3",
-  ] as const;
-  const locales: Locale[] = ["zh-Hans", "zh-Hant", "en", "ja"];
+  const locales = ["zh-hans", "zh-hant", "en-us", "ja-jp"];
 
   return textbooks.flatMap((tb) =>
     locales.map((locale) => ({
       params: { locale, textbook: tb },
-    }))
+    })),
   );
 }
 
 const { locale, textbook } = Astro.params;
 const lang = locale as Locale;
 const t = useTranslations(lang);
-const tb = textbook as typeof textbooks[number];
+const textbookLabels = t("textbooks") as unknown as Record<string, string>;
+const tb = textbook as Textbook;
 
 const allEntries = await getCollection("knowledgePoints");
 const textbookEntries = allEntries.filter(
-  (entry) => entry.data.textbook === tb
+  (entry) => entry.data.textbook === tb,
 );
-const chapters = [...new Set(textbookEntries.map((e) => e.data.chapter))].sort();
+const chapters = [
+  ...new Set(textbookEntries.map((e) => e.data.chapter)),
+].sort();
 ---
 
-<KnowledgeLayout title={`${t("textbooks")[tb]}`} currentTextbook={tb}>
-  <h2>{t("textbooks")[tb]}</h2>
-  {chapters.length === 0 && <p>No content yet.</p>}
-  {chapters.map((chapter) => (
-    <section>
-      <h3>{chapter}</h3>
-      <ul>
-        {textbookEntries
-          .filter((e) => e.data.chapter === chapter)
-          .sort((a, b) => a.data.order - b.data.order)
-          .map((entry) => (
-            <li>
-              <a href={`/${lang}/${entry.id}/`}>
-                {entry.data.title}
-              </a>
-            </li>
-          ))}
-      </ul>
-    </section>
-  ))}
+<KnowledgeLayout title={textbookLabels[tb]} currentTextbook={tb}>
+  <div class="textbook-page">
+    <header class="textbook-header">
+      <h1>{textbookLabels[tb as keyof typeof textbookLabels]}</h1>
+      <p>{String(t("textbookIntro"))}</p>
+    </header>
+
+    {
+      chapters.length === 0 && (
+        <div class="empty-state">
+          <h2>{String(t("contentComingSoon"))}</h2>
+          <p>{String(t("contentComingSoonDesc"))}</p>
+        </div>
+      )
+    }
+
+    <div class="chapter-list">
+      {
+        chapters.map((chapter) => {
+          const points = textbookEntries
+            .filter((e) => e.data.chapter === chapter)
+            .sort((a, b) => a.data.order - b.data.order);
+
+          return (
+            <section class="chapter-card">
+              <h2>{chapter}</h2>
+              <ol>
+                {points.map((entry, index) => (
+                  <li>
+                    <a href={withBase(`/${lang}/${entry.id}/`)}>
+                      <span class="index">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <span class="name">{entry.data.title}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })
+      }
+    </div>
+  </div>
 </KnowledgeLayout>
+
+<style>
+  .textbook-header {
+    border: 0;
+    border-radius: var(--radius-md);
+    padding: 18px;
+    background: linear-gradient(135deg, #f5f9ff, #eefaf7);
+    margin-bottom: 16px;
+  }
+
+  .textbook-header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
+  }
+
+  .chapter-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .chapter-card {
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--panel-soft);
+    padding: 16px;
+  }
+
+  .chapter-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.06rem;
+  }
+
+  .chapter-card ol {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .chapter-card li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--line) 45%, transparent);
+    border-radius: 10px;
+    background: var(--panel);
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      transform 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .chapter-card li a:hover {
+    border-color: #c6d2fa;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .index {
+    min-width: 26px;
+    text-align: right;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--brand-strong);
+  }
+
+  .name {
+    font-weight: 600;
+  }
+
+  .empty-state {
+    border: 0;
+    background: #f7faff;
+    border-radius: var(--radius-md);
+    padding: 16px;
+  }
+
+  .empty-state h2 {
+    font-size: 1.02rem;
+    margin-bottom: 6px;
+  }
+</style>

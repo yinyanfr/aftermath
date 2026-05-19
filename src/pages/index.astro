@@ -1,12 +1,5 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
----
+import { withBase } from "../i18n/utils.ts";
 
-<html>
-  <head>
-    <meta http-equiv="refresh" content={`0;url=${getRelativeLocaleUrl("zh-Hans", "/")}`} />
-  </head>
-  <body>
-    <p>Redirecting...</p>
-  </body>
-</html>
+return Astro.redirect(withBase("/zh-hans/"));
+---

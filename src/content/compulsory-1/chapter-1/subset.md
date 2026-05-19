@@ -5,6 +5,31 @@ order: 2
 textbook: "compulsory-1"
 chapter: "chapter-1"
 tags: ["集合", "子集"]
+pythonSnippets:
+  - |
+    # 子集判断
+    A = {1, 2, 3}
+    B = {1, 2, 3, 4, 5}
+
+    print(f"A 是否为 B 的子集: {A.issubset(B)}")
+    print(f"A 是否为 B 的真子集: {A < B}")
+    print(f"A 是否为自身的子集: {A <= A}")
+    print(f"空集是否为 A 的子集: {set().issubset(A)}")
+  - |
+    # 用函数封装子集关系
+    def relation(a, b):
+        if a == b:
+            return "A = B"
+        if a.issubset(b):
+            return "A 是 B 的真子集"
+        return "A 不是 B 的子集"
+
+    A = {1, 2}
+    B = {1, 2, 3}
+    C = {1, 3, 5}
+
+    print("A 与 B:", relation(A, B))
+    print("A 与 C:", relation(A, C))
 ---
 
 ## 子集与真子集

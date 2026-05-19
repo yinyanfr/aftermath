@@ -1,80 +1,284 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { useTranslations } from "../../i18n/utils.ts";
+import { useTranslations, withBase } from "../../i18n/utils.ts";
 import type { Locale } from "../../i18n/ui.ts";
+import { textbooks } from "../../data/textbooks.ts";
 
 export function getStaticPaths() {
   return [
-    { params: { locale: "zh-Hans" } },
-    { params: { locale: "zh-Hant" } },
-    { params: { locale: "en" } },
-    { params: { locale: "ja" } },
+    { params: { locale: "zh-hans" } },
+    { params: { locale: "zh-hant" } },
+    { params: { locale: "en-us" } },
+    { params: { locale: "ja-jp" } },
   ];
 }
 
 const { locale } = Astro.params;
 const lang = locale as Locale;
 const t = useTranslations(lang);
+const textbookLabels = t("textbooks") as unknown as Record<string, string>;
+const siteTitle = String(t("siteTitle"));
+const siteDescription = String(t("siteDescription"));
 
-const textbooks = [
-  "compulsory-1",
-  "compulsory-2",
-  "compulsory-3",
-  "compulsory-4",
-  "elective-compulsory-1",
-  "elective-compulsory-2",
-  "elective-compulsory-3",
-] as const;
+const compulsory = textbooks.filter((tb) => tb.startsWith("compulsory-"));
+const electiveCompulsory = textbooks.filter((tb) =>
+  tb.startsWith("elective-compulsory-"),
+);
 ---
 
 <BaseLayout>
-  <div class="home">
-    <h1>{t("siteTitle")}</h1>
-    <p>{t("siteDescription")}</p>
-    <div class="textbook-grid">
-      {textbooks.map((tb) => (
-        <a href={`/${lang}/${tb}/`} class="textbook-card">
-          <h3>{t("textbooks")[tb]}</h3>
-        </a>
-      ))}
-    </div>
+  <div class="home-shell">
+    <section class="hero">
+      <p class="kicker">{String(t("heroKicker"))}</p>
+      <h1>{siteTitle}</h1>
+      <p class="lead">{siteDescription}</p>
+      <p class="summary">{String(t("heroSummary"))}</p>
+      <div class="hero-actions">
+        <a class="primary-action" href={withBase(`/${lang}/compulsory-1/`)}
+          >{String(t("startCompulsory"))}</a
+        >
+        <a
+          class="secondary-action"
+          href={withBase(`/${lang}/elective-compulsory-1/`)}
+          >{String(t("exploreElective"))}</a
+        >
+      </div>
+    </section>
+
+    <section class="capabilities">
+      <h2>{String(t("whatYouCanDo"))}</h2>
+      <div class="cap-grid">
+        <article>
+          <h3>{String(t("learnWithStructure"))}</h3>
+          <p>{String(t("learnWithStructureDesc"))}</p>
+        </article>
+        <article>
+          <h3>{String(t("understandWithExamples"))}</h3>
+          <p>{String(t("understandWithExamplesDesc"))}</p>
+        </article>
+        <article>
+          <h3>{String(t("experimentWithPython"))}</h3>
+          <p>{String(t("experimentWithPythonDesc"))}</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalog">
+      <div class="catalog-group">
+        <div class="group-head">
+          <h2>{String(t("compulsorySeries"))}</h2>
+          <p>{String(t("compulsorySeriesDesc"))}</p>
+        </div>
+        <div class="textbook-grid">
+          {
+            compulsory.map((tb) => (
+              <a href={withBase(`/${lang}/${tb}/`)} class="textbook-card">
+                <h3>{textbookLabels[tb as keyof typeof textbookLabels]}</h3>
+                <span>{String(t("openTextbook"))}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="catalog-group">
+        <div class="group-head">
+          <h2>{String(t("electiveSeries"))}</h2>
+          <p>{String(t("electiveSeriesDesc"))}</p>
+        </div>
+        <div class="textbook-grid">
+          {
+            electiveCompulsory.map((tb) => (
+              <a href={withBase(`/${lang}/${tb}/`)} class="textbook-card">
+                <h3>{textbookLabels[tb as keyof typeof textbookLabels]}</h3>
+                <span>{String(t("openTextbook"))}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-  .home {
-    max-width: 960px;
+  .home-shell {
+    max-width: 1180px;
     margin: 0 auto;
-    padding: 48px 24px;
+    padding: 26px 24px 56px;
   }
+
+  .hero {
+    border: 1px solid var(--line);
+    background: linear-gradient(135deg, #f8fbff, #f1f8ff 65%, #eefcf8);
+    border-radius: 22px;
+    padding: 36px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .kicker {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--brand-strong);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
   h1 {
-    font-size: 2rem;
-    margin-bottom: 8px;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    margin-bottom: 14px;
   }
-  p {
-    color: #666;
-    margin-bottom: 32px;
+
+  .lead {
+    font-size: 1.08rem;
+    max-width: 660px;
+    margin-bottom: 12px;
   }
+
+  .summary {
+    max-width: 740px;
+    margin-bottom: 22px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-actions a {
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 11px;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+  }
+
+  .primary-action {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(46, 91, 255, 0.3);
+  }
+
+  .primary-action:hover {
+    background: var(--brand-strong);
+  }
+
+  .secondary-action {
+    background: var(--panel);
+    color: var(--brand-strong);
+    border-color: #bfd0ff;
+  }
+
+  .secondary-action:hover {
+    background: #f4f7ff;
+  }
+
+  .capabilities {
+    margin-top: 22px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 24px;
+  }
+
+  .capabilities h2,
+  .catalog h2 {
+    font-size: 1.22rem;
+    margin-bottom: 16px;
+  }
+
+  .cap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .cap-grid article {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    background: var(--panel-soft);
+  }
+
+  .cap-grid h3 {
+    margin-bottom: 6px;
+    font-size: 1rem;
+  }
+
+  .catalog {
+    margin-top: 22px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .catalog-group {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--panel);
+    padding: 24px;
+  }
+
+  .group-head {
+    margin-bottom: 16px;
+  }
+
+  .group-head p {
+    margin-top: 6px;
+  }
+
   .textbook-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 12px;
   }
+
   .textbook-card {
     display: block;
-    padding: 20px;
-    border: 1px solid #e8e8e8;
-    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: linear-gradient(180deg, #fff, #f8fbff);
     text-decoration: none;
-    color: #333;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    color: var(--text);
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s,
+      transform 0.2s;
   }
+
   .textbook-card:hover {
-    border-color: #1677ff;
-    box-shadow: 0 2px 8px rgba(22, 119, 255, 0.15);
+    border-color: #b7c9ff;
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
   }
+
   .textbook-card h3 {
-    margin: 0;
     font-size: 1rem;
+    margin-bottom: 6px;
+  }
+
+  .textbook-card span {
+    font-size: 0.83rem;
+    color: var(--brand-strong);
+    font-weight: 600;
+  }
+
+  @media (max-width: 860px) {
+    .home-shell {
+      padding: 14px 12px 36px;
+    }
+    .hero {
+      padding: 24px 18px;
+      border-radius: 16px;
+    }
+    .cap-grid {
+      grid-template-columns: 1fr;
+    }
+    .catalog-group,
+    .capabilities {
+      padding: 18px;
+    }
   }
 </style>

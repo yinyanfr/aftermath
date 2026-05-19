@@ -6,7 +6,10 @@ interface MathDisplayProps {
   displayMode?: boolean;
 }
 
-export default function MathDisplay({ math, displayMode = true }: MathDisplayProps) {
+export default function MathDisplay({
+  math,
+  displayMode = true,
+}: MathDisplayProps) {
   const containerRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -16,7 +19,7 @@ export default function MathDisplay({ math, displayMode = true }: MathDisplayPro
         displayMode,
         throwOnError: false,
       });
-    } catch (e) {
+    } catch {
       if (containerRef.current) {
         containerRef.current.textContent = math;
       }

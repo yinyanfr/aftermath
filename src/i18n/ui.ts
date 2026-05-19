@@ -1,6 +1,6 @@
-export default {
-  "zh-Hans": {
-    siteTitle: "后数学",
+const ui = {
+  "zh-hans": {
+    siteTitle: "数理回声",
     siteDescription: "交互式高中数学学习平台",
     textbooks: {
       "compulsory-1": "必修 第一册",
@@ -17,9 +17,34 @@ export default {
     loadingPython: "正在加载 Python 环境...",
     outputLabel: "输出",
     language: "语言",
+    platformTagline: "数学 + Python 实验室",
+    heroKicker: "交互式数学学习平台",
+    heroSummary:
+      "沿教材逻辑循序学习，并用可编辑、可运行的 Python 片段即时验证你的理解。",
+    startCompulsory: "从必修第一册开始",
+    exploreElective: "浏览选择性必修",
+    whatYouCanDo: "你可以在这里做什么",
+    learnWithStructure: "按体系学习",
+    learnWithStructureDesc: "内容严格对应高中教材结构，按章节循序展开。",
+    understandWithExamples: "用例题理解",
+    understandWithExamplesDesc: "每个知识点都结合概念讲解与推理过程。",
+    experimentWithPython: "用 Python 验证",
+    experimentWithPythonDesc: "直接改代码、运行代码、观察输出变化。",
+    compulsorySeries: "必修系列",
+    compulsorySeriesDesc: "面向核心课程的基础学习主线。",
+    electiveSeries: "选择性必修系列",
+    electiveSeriesDesc: "用于提升问题分析与综合应用能力。",
+    openTextbook: "打开教材",
+    textbookIntro:
+      "按章节浏览并配合可运行 Python 实验，形成“概念-推理-验证”的完整学习闭环。",
+    contentComingSoon: "内容即将上线",
+    contentComingSoonDesc: "该教材目录结构已就绪，知识点会陆续补充。",
+    knowledgePoint: "知识点",
+    pythonPlayground: "Python 实验区",
+    pythonPlaygroundDesc: "修改代码、运行并即时对比输出结果。",
   },
-  "zh-Hant": {
-    siteTitle: "後數學",
+  "zh-hant": {
+    siteTitle: "數理回聲",
     siteDescription: "互動式高中數學學習平台",
     textbooks: {
       "compulsory-1": "必修 第一冊",
@@ -36,8 +61,33 @@ export default {
     loadingPython: "正在載入 Python 環境...",
     outputLabel: "輸出",
     language: "語言",
+    platformTagline: "數學 + Python 實驗室",
+    heroKicker: "互動式數學學習平台",
+    heroSummary:
+      "沿教材邏輯循序學習，並用可編輯、可執行的 Python 片段即時驗證你的理解。",
+    startCompulsory: "從必修第一冊開始",
+    exploreElective: "瀏覽選擇性必修",
+    whatYouCanDo: "你可以在這裡做什麼",
+    learnWithStructure: "按體系學習",
+    learnWithStructureDesc: "內容嚴格對應高中教材結構，按章節循序展開。",
+    understandWithExamples: "用例題理解",
+    understandWithExamplesDesc: "每個知識點都結合概念講解與推理過程。",
+    experimentWithPython: "用 Python 驗證",
+    experimentWithPythonDesc: "直接改程式碼、執行程式碼、觀察輸出變化。",
+    compulsorySeries: "必修系列",
+    compulsorySeriesDesc: "面向核心課程的基礎學習主線。",
+    electiveSeries: "選擇性必修系列",
+    electiveSeriesDesc: "用於提升問題分析與綜合應用能力。",
+    openTextbook: "打開教材",
+    textbookIntro:
+      "按章節瀏覽並配合可執行 Python 實驗，形成「概念-推理-驗證」的完整學習閉環。",
+    contentComingSoon: "內容即將上線",
+    contentComingSoonDesc: "該教材目錄結構已就緒，知識點會陸續補充。",
+    knowledgePoint: "知識點",
+    pythonPlayground: "Python 實驗區",
+    pythonPlaygroundDesc: "修改程式碼、執行並即時比對輸出結果。",
   },
-  en: {
+  "en-us": {
     siteTitle: "Aftermath",
     siteDescription: "Interactive high school math learning platform",
     textbooks: {
@@ -55,8 +105,39 @@ export default {
     loadingPython: "Loading Python environment...",
     outputLabel: "Output",
     language: "Language",
+    platformTagline: "Math + Python Lab",
+    heroKicker: "Interactive Math Learning Platform",
+    heroSummary:
+      "Follow textbook logic and verify your understanding with editable, runnable Python snippets.",
+    startCompulsory: "Start Compulsory Vol. 1",
+    exploreElective: "Explore Elective Track",
+    whatYouCanDo: "What You Can Do Here",
+    learnWithStructure: "Learn with Structure",
+    learnWithStructureDesc:
+      "Content follows the full high-school sequence, chapter by chapter.",
+    understandWithExamples: "Understand with Examples",
+    understandWithExamplesDesc:
+      "Each knowledge point combines explanation and worked reasoning.",
+    experimentWithPython: "Experiment with Python",
+    experimentWithPythonDesc:
+      "Edit code, run code, and inspect output in one place.",
+    compulsorySeries: "Compulsory Series",
+    compulsorySeriesDesc:
+      "Foundation sequence for core curriculum understanding.",
+    electiveSeries: "Elective-Compulsory Series",
+    electiveSeriesDesc:
+      "Advanced extensions for deeper problem-solving ability.",
+    openTextbook: "Open textbook",
+    textbookIntro:
+      "Navigate chapter by chapter and practice with embedded runnable Python labs.",
+    contentComingSoon: "Content is coming soon",
+    contentComingSoonDesc:
+      "This textbook shell is ready. Chapters will appear here as soon as they are authored.",
+    knowledgePoint: "Knowledge Point",
+    pythonPlayground: "Python Playground",
+    pythonPlaygroundDesc: "Modify, run, and compare outputs instantly.",
   },
-  ja: {
+  "ja-jp": {
     siteTitle: "アフターマス",
     siteDescription: "インタラクティブ高校数学学习プラットフォーム",
     textbooks: {
@@ -74,8 +155,39 @@ export default {
     loadingPython: "Python環境を読み込み中...",
     outputLabel: "出力",
     language: "言語",
+    platformTagline: "数学 + Python ラボ",
+    heroKicker: "インタラクティブ数学学習プラットフォーム",
+    heroSummary:
+      "教科書の流れに沿って学び、編集可能な Python コードで理解をすぐ検証できます。",
+    startCompulsory: "必修第1巻から始める",
+    exploreElective: "選択必修を確認",
+    whatYouCanDo: "このサイトでできること",
+    learnWithStructure: "体系的に学ぶ",
+    learnWithStructureDesc:
+      "内容は高校数学の教科書構成に沿って章ごとに整理されています。",
+    understandWithExamples: "例で理解する",
+    understandWithExamplesDesc:
+      "各知識点は概念説明と推論プロセスを組み合わせています。",
+    experimentWithPython: "Pythonで検証する",
+    experimentWithPythonDesc:
+      "コードを編集・実行し、出力をその場で確認できます。",
+    compulsorySeries: "必修シリーズ",
+    compulsorySeriesDesc: "基礎力を固めるためのコア学習ライン。",
+    electiveSeries: "選択必修シリーズ",
+    electiveSeriesDesc: "応用的な分析力と問題解決力を強化します。",
+    openTextbook: "教材を開く",
+    textbookIntro:
+      "章ごとに進みながら、実行可能な Python 実験で「概念-推論-検証」をつなげます。",
+    contentComingSoon: "コンテンツ準備中",
+    contentComingSoonDesc:
+      "この教材の構成は準備済みです。知識点は順次追加されます。",
+    knowledgePoint: "知識ポイント",
+    pythonPlayground: "Python 実験エリア",
+    pythonPlaygroundDesc: "コードを修正して実行し、出力をすぐ比較できます。",
   },
 } as const;
 
-export type Locale = keyof typeof import("./ui.ts");
-export type TranslationKey = keyof (typeof import("./ui.ts"))["zh-Hans"];
+export default ui;
+
+export type Locale = keyof typeof ui;
+export type TranslationKey = keyof (typeof ui)["zh-hans"];

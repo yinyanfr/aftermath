@@ -4,27 +4,97 @@ import { EditorState } from "@codemirror/state";
 import { python } from "@codemirror/lang-python";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { Button, Spin } from "antd";
+import { withBase } from "../../i18n/utils.ts";
 
 interface PythonEditorProps {
   defaultValue?: string;
   lang: string;
 }
 
-const LOCALE_UI: Record<string, { run: string; reset: string; loading: string; output: string }> = {
-  "zh-Hans": { run: "运行代码", reset: "重置", loading: "正在加载 Python 环境...", output: "输出" },
-  "zh-Hant": { run: "執行代碼", reset: "重設", loading: "正在載入 Python 環境...", output: "輸出" },
-  en: { run: "Run Code", reset: "Reset", loading: "Loading Python environment...", output: "Output" },
-  ja: { run: "コードを実行", reset: "リセット", loading: "Python環境を読み込み中...", output: "出力" },
+interface PyodideRuntime {
+  loadPackage: (packages: string[]) => Promise<unknown>;
+  runPython: (code: string) => string;
+  runPythonAsync: (code: string) => Promise<unknown>;
+}
+
+declare global {
+  interface Window {
+    loadPyodide?: (options: { indexURL: string }) => Promise<PyodideRuntime>;
+  }
+}
+
+const LOCALE_UI: Record<
+  string,
+  { run: string; reset: string; loading: string; output: string }
+> = {
+  "zh-hans": {
+    run: "运行代码",
+    reset: "重置",
+    loading: "正在加载 Python 环境...",
+    output: "输出",
+  },
+  "zh-hant": {
+    run: "執行代碼",
+    reset: "重設",
+    loading: "正在載入 Python 環境...",
+    output: "輸出",
+  },
+  "en-us": {
+    run: "Run Code",
+    reset: "Reset",
+    loading: "Loading Python environment...",
+    output: "Output",
+  },
+  "ja-jp": {
+    run: "コードを実行",
+    reset: "リセット",
+    loading: "Python環境を読み込み中...",
+    output: "出力",
+  },
 };
 
-export default function PythonEditor({ defaultValue = "", lang }: PythonEditorProps) {
+export default function PythonEditor({
+  defaultValue = "",
+  lang,
+}: PythonEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<EditorView | null>(null);
   const [output, setOutput] = useState<string>("");
   const [isRunning, setIsRunning] = useState(false);
-  const [pyodide, setPyodide] = useState<any>(null);
+  const [pyodide, setPyodide] = useState<PyodideRuntime | null>(null);
   const [loadingPyodide, setLoadingPyodide] = useState(false);
-  const ui = LOCALE_UI[lang] || LOCALE_UI.en;
+  const ui = LOCALE_UI[lang] || LOCALE_UI["zh-hans"];
+
+  async function ensurePyodideScript() {
+    if (typeof window === "undefined") return;
+    if (window.loadPyodide) return;
+
+    await new Promise<void>((resolve, reject) => {
+      const existing = document.querySelector<HTMLScriptElement>(
+        'script[data-pyodide="true"]',
+      );
+      if (existing) {
+        existing.addEventListener("load", () => resolve(), { once: true });
+        existing.addEventListener(
+          "error",
+          () => reject(new Error("Failed to load Pyodide script.")),
+          {
+            once: true,
+          },
+        );
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = withBase("/vendor/pyodide/pyodide.js");
+      script.async = true;
+      script.dataset.pyodide = "true";
+      script.onload = () => resolve();
+      script.onerror = () =>
+        reject(new Error("Failed to load Pyodide script."));
+      document.head.appendChild(script);
+    });
+  }
 
   useEffect(() => {
     if (!editorRef.current) return;
@@ -48,9 +118,13 @@ export default function PythonEditor({ defaultValue = "", lang }: PythonEditorPr
     if (pyodide) return pyodide;
     setLoadingPyodide(true);
 
-    const pyodideModule = await import("https://cdn.jsdelivr.net/pyodide/v0.27.5/full/pyodide.js");
-    const instance = await pyodideModule.loadPyodide({
-      indexURL: "https://cdn.jsdelivr.net/pyodide/v0.27.5/full/",
+    await ensurePyodideScript();
+    if (!window.loadPyodide) {
+      throw new Error("loadPyodide is unavailable after loading local script.");
+    }
+
+    const instance = await window.loadPyodide({
+      indexURL: withBase("/vendor/pyodide/"),
     });
 
     await instance.loadPackage(["numpy", "sympy", "matplotlib"]);
@@ -65,10 +139,7 @@ export default function PythonEditor({ defaultValue = "", lang }: PythonEditorPr
     setOutput("");
 
     try {
-      let py: any = pyodide;
-      if (!py) {
-        py = await loadPyodide();
-      }
+      const py = pyodide ?? (await loadPyodide());
 
       py.runPython(`
 import sys
@@ -82,8 +153,8 @@ sys.stderr = StringIO()
       const stdout = py.runPython("sys.stdout.getvalue()");
       const stderr = py.runPython("sys.stderr.getvalue()");
       setOutput(stdout || stderr || "(no output)");
-    } catch (err: any) {
-      setOutput(err.message || String(err));
+    } catch (error: unknown) {
+      setOutput(error instanceof Error ? error.message : String(error));
     } finally {
       setIsRunning(false);
     }
@@ -106,7 +177,12 @@ sys.stderr = StringIO()
     <div className="python-editor">
       <div ref={editorRef} className="editor-container" />
       <div className="editor-actions">
-        <Button type="primary" onClick={handleRun} loading={isRunning} disabled={loadingPyodide}>
+        <Button
+          type="primary"
+          onClick={handleRun}
+          loading={isRunning}
+          disabled={loadingPyodide}
+        >
           {ui.run}
         </Button>
         <Button onClick={handleReset}>{ui.reset}</Button>
@@ -120,40 +196,46 @@ sys.stderr = StringIO()
       )}
       <style>{`
         .python-editor {
-          margin: 16px 0;
-          border: 1px solid #e8e8e8;
-          border-radius: 8px;
+          margin: 14px 0;
+          border: 1px solid #cdd8f2;
+          border-radius: 12px;
           overflow: hidden;
+          background: #ffffff;
+          box-shadow: 0 4px 16px rgba(24, 53, 123, 0.08);
         }
         .editor-container {
-          min-height: 120px;
+          min-height: 160px;
         }
         .editor-container .cm-editor {
           height: auto;
+        }
+        .editor-container .cm-scroller {
+          font-size: 13.5px;
         }
         .editor-actions {
           display: flex;
           align-items: center;
           gap: 8px;
-          padding: 8px 12px;
-          border-top: 1px solid #e8e8e8;
-          background: #fafafa;
+          padding: 10px 12px;
+          border-top: 1px solid #dbe4f8;
+          background: linear-gradient(180deg, #f6f9ff, #f0f6ff);
         }
         .editor-output {
           padding: 12px;
-          border-top: 1px solid #e8e8e8;
-          background: #f6f8fa;
+          border-top: 1px solid #dbe4f8;
+          background: #f8fbff;
         }
         .editor-output h4 {
           margin: 0 0 8px;
           font-size: 0.85rem;
-          color: #666;
+          color: #435377;
         }
         .editor-output pre {
           margin: 0;
           font-family: 'SFMono-Regular', Consolas, monospace;
           font-size: 0.85rem;
           white-space: pre-wrap;
+          color: #1f2b42;
         }
       `}</style>
     </div>

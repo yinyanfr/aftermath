@@ -2,17 +2,17 @@
 import KnowledgeLayout from "../../layouts/KnowledgeLayout.astro";
 import { getCollection, render } from "astro:content";
 import { getLangFromUrl, useTranslations } from "../../i18n/utils.ts";
-import type { Locale } from "../../i18n/ui.ts";
+import PythonEditor from "../../components/PythonEditor/PythonEditor";
 
 export async function getStaticPaths() {
   const entries = await getCollection("knowledgePoints");
-  const locales: Locale[] = ["zh-Hans", "zh-Hant", "en", "ja"];
+  const locales = ["zh-hans", "zh-hant", "en-us", "ja-jp"];
 
   return entries.flatMap((entry) =>
     locales.map((locale) => ({
       params: { locale, slug: entry.id },
       props: { entry },
-    }))
+    })),
   );
 }
 
@@ -20,30 +20,79 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const data = entry.data as {
+  pythonSnippets?: string[];
+  pythonSnippet?: string;
+};
+const snippets =
+  data.pythonSnippets ?? (data.pythonSnippet ? [data.pythonSnippet] : []);
 ---
 
 <KnowledgeLayout title={entry.data.title} currentTextbook={entry.data.textbook}>
-  <article>
-    <h1>{entry.data.title}</h1>
-    {entry.data.description && <p class="description">{entry.data.description}</p>}
+  <article class="lesson-page">
+    <header class="lesson-header">
+      <p class="eyebrow">{String(t("knowledgePoint"))}</p>
+      <h1>{entry.data.title}</h1>
+    </header>
+    {
+      entry.data.description && (
+        <p class="description">{entry.data.description}</p>
+      )
+    }
     <div class="content">
       <Content />
     </div>
+    {
+      snippets.length > 0 && (
+        <section class="runnable-python">
+          <div class="playground-head">
+            <h2>{String(t("pythonPlayground"))}</h2>
+            <p>{String(t("pythonPlaygroundDesc"))}</p>
+          </div>
+          {snippets.map((snippet) => (
+            <PythonEditor client:load lang={lang} defaultValue={snippet} />
+          ))}
+        </section>
+      )
+    }
   </article>
 </KnowledgeLayout>
 
 <style>
+  .lesson-header {
+    border: 0;
+    background: linear-gradient(135deg, #f6faff, #eef7ff 60%, #edf9f5);
+    border-radius: var(--radius-md);
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+
+  .eyebrow {
+    font-size: 0.78rem;
+    color: var(--brand-strong);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .lesson-header h1 {
+    font-size: clamp(1.55rem, 2.6vw, 2.2rem);
+  }
+
   .description {
-    color: #666;
+    color: var(--text-subtle);
     font-size: 1.1rem;
-    margin-bottom: 24px;
+    margin: 0 0 22px;
   }
   .content {
-    line-height: 1.8;
+    line-height: 1.86;
+    color: var(--text);
+    padding: 6px 2px;
   }
   .content :global(h2) {
     margin-top: 2em;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
     padding-bottom: 0.3em;
   }
   .content :global(h3) {
@@ -56,7 +105,7 @@ const t = useTranslations(lang);
   }
   .content :global(th),
   .content :global(td) {
-    border: 1px solid #e8e8e8;
+    border: 1px solid var(--line);
     padding: 8px 12px;
   }
   .content :global(pre) {
@@ -67,7 +116,36 @@ const t = useTranslations(lang);
     overflow-x: auto;
   }
   .content :global(code) {
-    font-family: 'SFMono-Regular', Consolas, monospace;
+    font-family: "SFMono-Regular", Consolas, monospace;
     font-size: 0.9rem;
+  }
+  .runnable-python {
+    margin-top: 2rem;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: #f7fbff;
+    padding: 14px;
+  }
+
+  .playground-head {
+    margin-bottom: 10px;
+  }
+
+  .playground-head h2 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .playground-head p {
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 860px) {
+    .lesson-header {
+      padding: 14px;
+    }
+    .description {
+      font-size: 1rem;
+    }
   }
 </style>

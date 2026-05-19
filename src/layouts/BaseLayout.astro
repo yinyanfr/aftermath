@@ -1,15 +1,44 @@
 ---
-import { getLangFromUrl, useTranslations } from "../i18n/utils.ts";
+import {
+  getLangFromUrl,
+  stripBase,
+  useTranslations,
+  withBase,
+} from "../i18n/utils.ts";
+import "katex/dist/katex.min.css";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const siteTitle = String(t("siteTitle"));
+const siteDescription = String(t("siteDescription"));
+const languageLabel = String(t("language"));
+
+const localeOptions = [
+  { code: "zh-hans", label: "简体中文" },
+  { code: "zh-hant", label: "繁體中文" },
+  { code: "en-us", label: "English" },
+  { code: "ja-jp", label: "日本語" },
+] as const;
+
+const pathParts = stripBase(Astro.url.pathname).split("/").filter(Boolean);
+const currentLocaleFromPath = pathParts[0] ?? "zh-hans";
+const supported = new Set<string>(localeOptions.map((l) => l.code));
+const currentLocale = supported.has(currentLocaleFromPath)
+  ? currentLocaleFromPath
+  : "zh-hans";
+const restPath = supported.has(currentLocaleFromPath)
+  ? pathParts.slice(1)
+  : pathParts;
+const suffix = restPath.length > 0 ? `/${restPath.join("/")}/` : "/";
+
+const githubUrl = "https://github.com/yan/aftermath";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = t("siteTitle"), description = t("siteDescription") } = Astro.props;
+const { title = siteTitle, description = siteDescription } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,11 +47,390 @@ const { title = t("siteTitle"), description = t("siteDescription") } = Astro.pro
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.45/dist/katex.min.css" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-header-inner">
+          <a href={withBase(`/${lang}/`)} class="brand-link">{siteTitle}</a>
+
+          <div class="header-controls">
+            <label class="sr-only" for="locale-select">{languageLabel}</label>
+            <select
+              id="locale-select"
+              class="locale-select"
+              aria-label={languageLabel}
+            >
+              {
+                localeOptions.map((option) => (
+                  <option
+                    value={withBase(`/${option.code}${suffix}`)}
+                    selected={option.code === currentLocale}
+                  >
+                    {option.label}
+                  </option>
+                ))
+              }
+            </select>
+
+            <button type="button" id="theme-toggle" class="theme-toggle">
+              <span class="theme-icon" data-theme-icon aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="theme-icon-svg" data-icon-dark>
+                  <path
+                    d="M14.5 2.5a1 1 0 0 1 .9 1.43A8.5 8.5 0 1 0 20.1 15.2a1 1 0 0 1 1.42.9A10.5 10.5 0 1 1 14.5 2.5Z"
+                  ></path>
+                </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  class="theme-icon-svg is-hidden"
+                  data-icon-light
+                >
+                  <circle cx="12" cy="12" r="4.5"></circle>
+                  <path
+                    d="M12 2.5v2.3M12 19.2v2.3M4.5 12H2.2M21.8 12h-2.3M5.9 5.9 4.3 4.3M19.7 19.7l-1.6-1.6M18.1 5.9l1.6-1.6M4.3 19.7l1.6-1.6"
+                  ></path>
+                </svg>
+              </span>
+              <span class="sr-only" data-theme-label>Dark</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <slot />
+
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <span>Aftermath</span>
+          <a href={githubUrl} target="_blank" rel="noreferrer">
+            GitHub Project
+          </a>
+        </div>
+      </footer>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const key = "aftermath-theme";
+        const btn = document.getElementById("theme-toggle");
+        const label = btn?.querySelector("[data-theme-label]");
+        const darkIcon = btn?.querySelector("[data-icon-dark]");
+        const lightIcon = btn?.querySelector("[data-icon-light]");
+        const localeSelect = document.getElementById("locale-select");
+
+        const apply = (theme) => {
+          root.dataset.theme = theme;
+          if (label)
+            label.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+          if (darkIcon)
+            darkIcon.classList.toggle("is-hidden", theme === "dark");
+          if (lightIcon)
+            lightIcon.classList.toggle("is-hidden", theme !== "dark");
+        };
+
+        const stored = localStorage.getItem(key);
+        const initial =
+          stored ??
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
+        apply(initial);
+
+        btn?.addEventListener("click", () => {
+          const next = root.dataset.theme === "dark" ? "light" : "dark";
+          localStorage.setItem(key, next);
+          apply(next);
+        });
+
+        localeSelect?.addEventListener("change", (event) => {
+          const nextUrl = event.target?.value;
+          if (typeof nextUrl === "string" && nextUrl.length > 0) {
+            window.location.href = nextUrl;
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
+
+<style is:global>
+  :root {
+    --bg: #f4f6fb;
+    --bg-accent: #e8eefc;
+    --panel: #ffffff;
+    --panel-soft: #f8faff;
+    --text: #192235;
+    --text-subtle: #53607a;
+    --line: #d9e0ef;
+    --brand: #2e5bff;
+    --brand-strong: #163cc9;
+    --brand-soft: #e8eeff;
+    --success: #0f766e;
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --shadow-soft: 0 10px 30px rgba(38, 67, 133, 0.08);
+    --shadow-card: 0 6px 20px rgba(27, 48, 99, 0.08);
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f1422;
+    --bg-accent: #131c31;
+    --panel: #111a2d;
+    --panel-soft: #162138;
+    --text: #e9efff;
+    --text-subtle: #a6b2ce;
+    --line: #2b395d;
+    --brand: #5f84ff;
+    --brand-strong: #9bb4ff;
+    --brand-soft: #1b2e5f;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+  }
+
+  body {
+    color: var(--text);
+    font-family:
+      "Avenir Next", "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+      "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+    background:
+      radial-gradient(
+        1200px 420px at 15% -10%,
+        rgba(46, 91, 255, 0.16),
+        transparent 64%
+      ),
+      radial-gradient(
+        900px 360px at 92% 2%,
+        rgba(45, 212, 191, 0.12),
+        transparent 60%
+      ),
+      linear-gradient(180deg, var(--bg-accent), var(--bg));
+    line-height: 1.65;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(105, 129, 182, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(105, 129, 182, 0.08) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(circle at center, black 20%, transparent 78%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .site-shell {
+    position: relative;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--panel) 84%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  }
+
+  .site-header-inner {
+    width: min(1380px, calc(100% - 24px));
+    margin: 0 auto;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand-link {
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .locale-select {
+    min-width: 126px;
+    max-width: 170px;
+    height: 34px;
+    padding: 0 30px 0 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    border-radius: 10px;
+    background-color: color-mix(in srgb, var(--panel) 82%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 35%, transparent);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, var(--text-subtle) 50%),
+      linear-gradient(135deg, var(--text-subtle) 50%, transparent 50%);
+    background-position:
+      calc(100% - 14px) 13px,
+      calc(100% - 9px) 13px;
+    background-size:
+      5px 5px,
+      5px 5px;
+    background-repeat: no-repeat;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+    cursor: pointer;
+  }
+
+  .locale-select:hover {
+    border-color: color-mix(in srgb, var(--brand) 28%, var(--line) 72%);
+    background-color: color-mix(
+      in srgb,
+      var(--panel) 75%,
+      var(--brand-soft) 25%
+    );
+  }
+
+  .locale-select:focus-visible,
+  .theme-toggle:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--brand) 80%, white 20%);
+    outline-offset: 1px;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    background: color-mix(in srgb, var(--panel) 85%, transparent);
+    color: var(--text);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .theme-icon-svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  [data-icon-dark] {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  .is-hidden {
+    display: none;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+  }
+
+  .site-footer {
+    margin-top: 28px;
+    border-top: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+  }
+
+  .site-footer-inner {
+    width: min(1380px, calc(100% - 24px));
+    margin: 0 auto;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--text-subtle);
+    font-size: 0.9rem;
+  }
+
+  .site-footer-inner a {
+    color: var(--brand-strong);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: var(--brand-strong);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-subtle);
+  }
+  @media (max-width: 900px) {
+    body {
+      font-size: 15px;
+    }
+    .site-header-inner,
+    .site-footer-inner {
+      width: calc(100% - 16px);
+    }
+    .site-header-inner {
+      min-height: 66px;
+      flex-wrap: wrap;
+      padding: 8px 0;
+    }
+    .header-controls {
+      margin-left: auto;
+      width: auto;
+      gap: 8px;
+    }
+    .locale-select {
+      min-width: 108px;
+      max-width: 140px;
+      font-size: 0.78rem;
+    }
+  }
+</style>

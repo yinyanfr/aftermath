@@ -3,10 +3,14 @@
 ## Commands
 
 - `npm run dev` — Start dev server
+- `npm run lint` — ESLint
+- `npm run format` — Prettier write
+- `npm run format:check` — Prettier check
+- `npm run check` — Lint, format check, build
 - `npm run build` — Production build (static SSG)
 - `npm run preview` — Preview production build
 
-No test runner yet.
+Pre-commit runs `lint-staged` via Husky. GitHub Actions runs `npm run check`.
 
 ## Tech stack
 
@@ -21,6 +25,7 @@ No test runner yet.
 ## Content structure
 
 Content is in `src/content/` organized by textbook in English:
+
 - `compulsory-1` through `compulsory-4` (必修)
 - `elective-compulsory-1` through `elective-compulsory-3` (选择性必修)
 
@@ -38,7 +43,7 @@ Content collection is defined in `src/content.config.ts` using Astro's Content L
 
 ## Key architecture decisions
 
-- KaTeX CSS is loaded from CDN in `BaseLayout.astro`; KaTeX rendering is done server-side via remark-math/rehype-katex plugins
+- KaTeX CSS is loaded from CDN in `BaseLayout.astro`; math renders through remark-math/rehype-katex
 - PythonEditor is a React island that lazy-loads Pyodide (~10MB) on demand
 - In MDX files, `{` and `}` in LaTeX are interpreted as JSX — use `.md` files for math-heavy content, or escape braces
 - The `~` path alias maps to `src/` (configured in both tsconfig.json and astro.config.mjs vite.resolve.alias)
