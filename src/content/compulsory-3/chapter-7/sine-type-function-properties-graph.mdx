@@ -1,0 +1,297 @@
+---
+title: "正弦型函数的性质与图象"
+description: "对应教材 7.3.2，研究 y=A sin(ωx+φ) 的值域、周期、振幅、初相与图象变换。"
+order: 8
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "正弦型函数"
+  - "振幅"
+  - "周期"
+  - "图象变换"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 正弦型函数的性质与图象
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 认识 $y=A\sin(\omega x+\varphi)$ 的一般形式；
+2. 说出振幅、周期、初相；
+3. 会由 $A,\omega,\varphi$ 判断图象变化；
+4. 会用五点法画一个周期内的图象；
+5. 能把实际振动模型写成正弦型函数。
+
+## 为什么要学这个内容
+
+$y=\sin x$ 是标准模板，但真实世界中的波动往往不会刚好“振幅是 1、周期是 $2\pi$、起点正好经过原点”。
+
+真正常见的模型是
+
+$$
+y=A\sin(\omega x+\varphi)
+$$
+
+它只是标准正弦曲线经过伸缩和平移后的结果。
+
+## 预备知识
+
+你需要先会：
+
+1. 正弦函数的基本性质；
+2. 周期函数概念；
+3. 图象平移与伸缩的基本理解。
+
+## 基本性质
+
+对函数
+
+$$
+y=A\sin(\omega x+\varphi)
+$$
+
+其中 $A\ne0$，$\omega\ne0$。
+
+有：
+
+1. 定义域是全体实数；
+2. 值域是 $[-|A|,|A|]$；
+3. 振幅是 $|A|$；
+4. 周期是 $\dfrac{2\pi}{|\omega|}$；
+5. 初相常记为 $\varphi$。
+
+## 图象怎样变化
+
+从 $y=\sin x$ 出发：
+
+1. $A$ 改变纵向伸缩；
+2. $\omega$ 改变横向压缩或拉伸，从而改变周期；
+3. $\varphi$ 改变左右平移。
+
+当写成
+
+$$
+y=A\sin\omega\left(x+\frac\varphi\omega\right)
+$$
+
+就能更直接看出平移量是 $-\dfrac\varphi\omega$。
+
+## 直观理解
+
+1. 振幅表示“摆动有多高”；
+2. 周期表示“多久重复一次”；
+3. 初相表示“从哪里开始”。
+
+这三个量正好对应很多物理情境里最关心的三个问题。
+
+## 例题 1
+
+求 $y=2\sin x$ 的值域、周期和振幅。
+
+### 讲解
+
+因为 $A=2$，$\omega=1$，所以：
+
+1. 振幅是 2；
+2. 值域是 $[-2,2]$；
+3. 周期是 $2\pi$。
+
+## 例题 2
+
+求 $y=3\sin(2x+\dfrac\pi3)$ 的振幅、周期和一个周期区间。
+
+### 讲解
+
+这里 $A=3$，$\omega=2$。
+
+所以：
+
+1. 振幅是 3；
+2. 周期是 $\dfrac{2\pi}{2}=\pi$。
+
+令
+
+$$
+0\le2x+\frac\pi3\le2\pi
+$$
+
+可得一个周期区间：
+
+$$
+-\frac\pi6\le x\le\frac{5\pi}6
+$$
+
+## 方法总结
+
+看正弦型函数时，先盯住三个参数：
+
+1. 看 $A$，先知道高度范围；
+2. 看 $\omega$，先知道周期；
+3. 看 $\varphi$，再看起点往哪边平移。
+
+## 常见错误
+
+1. 周期误写成 $2\pi\omega$；
+2. 把振幅写成 $A$ 而忽略绝对值；
+3. 平移方向看反；
+4. 画图时还沿用 $y=\sin x$ 的原五点横坐标。
+
+## 练习 1
+
+求函数 $y=-5\sin(x+\dfrac\pi6)$ 的振幅、周期和值域。
+
+### 答案
+
+振幅为 5，周期为 $2\pi$，值域为 $[-5,5]$。
+
+### 讲解
+
+$A=-5$，所以振幅取绝对值，等于 5。
+
+$\omega=1$，所以周期是 $2\pi$。
+
+值域因此是 $[-5,5]$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+values = [-5 * math.sin(x / 20 + math.pi / 6) for x in range(-200, 201)]
+print(min(values), max(values))
+`}
+/>
+
+## 练习 2
+
+求函数 $y=\sin3x$ 的周期。
+
+### 答案
+
+$$
+\frac{2\pi}{3}
+$$
+
+### 讲解
+
+这里 $\omega=3$，所以周期为
+
+$$
+T=\frac{2\pi}{|3|}=\frac{2\pi}{3}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+T = 2 _ math.pi / 3
+print(T)
+print(math.sin(0), math.sin(3 _ T))
+`}
+/>
+
+## 练习 3
+
+求函数 $y=2\sin(2x-\dfrac\pi4)$ 的振幅和周期。
+
+### 答案
+
+振幅为 2，周期为 $\pi$。
+
+### 讲解
+
+$A=2$，所以振幅为 2。
+
+$\omega=2$，所以周期为
+
+$$
+\frac{2\pi}{2}=\pi
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+A = 2
+omega = 2
+print(abs(A), 2 \* math.pi / abs(omega))
+`}
+/>
+
+## 练习 4
+
+函数 $y=3\sin(4\pi x+\dfrac\pi4)$ 的频率是多少？
+
+### 答案
+
+频率是 2。
+
+### 讲解
+
+周期为
+
+$$
+T=\frac{2\pi}{4\pi}=\frac12
+$$
+
+频率是单位时间内完成的次数，即
+
+$$
+f=\frac1T=2
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+omega = 4 _ math.pi
+T = 2 _ math.pi / omega
+f = 1 / T
+print(T, f)
+`}
+/>
+
+## 练习 5
+
+某小球位移满足 $h=2\sin(8\pi t+\dfrac\pi4)$。求振幅、周期和 1 秒内完成的次数。
+
+### 答案
+
+振幅为 2，周期为 $\dfrac14$ 秒，1 秒内完成 4 次。
+
+### 讲解
+
+$A=2$，所以振幅是 2。
+
+$\omega=8\pi$，所以
+
+$$
+T=\frac{2\pi}{8\pi}=\frac14
+$$
+
+频率为
+
+$$
+f=\frac1T=4
+$$
+
+所以 1 秒内完成 4 次。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+A = 2
+omega = 8 _ math.pi
+T = 2 _ math.pi / omega
+f = 1 / T
+print(A, T, f)
+`}
+/>

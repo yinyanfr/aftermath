@@ -1,0 +1,388 @@
+---
+title: "三角恒等变换的应用"
+description: "对应教材 8.2.4，综合运用和差公式、倍角公式进行化简、求值、证明与简单求解。"
+order: 7
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "三角恒等变换"
+  - "化简"
+  - "求值"
+  - "恒等证明"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 三角恒等变换的应用
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 根据式子结构选择合适的恒等变换；
+2. 用和差公式、倍角公式进行化简；
+3. 用恒等变换求值；
+4. 证明简单的三角恒等式；
+5. 处理限定范围内的简单三角方程。
+
+## 为什么要学这个内容
+
+前面几页学了很多公式，如果它们只是停留在“会背”，几乎没有意义。
+
+真正做题时，你需要判断：
+
+1. 什么时候拆角；
+2. 什么时候合角；
+3. 什么时候把平方项换成一次角；
+4. 什么时候把式子统一成同一种三角函数。
+
+这页就是把前面的公式真正用起来。
+
+## 预备知识
+
+你需要会：
+
+1. 余弦和差公式；
+2. 正弦和差公式；
+3. 正切和差公式；
+4. 倍角公式与 $\sin^2\alpha+\cos^2\alpha=1$。
+
+## 常见应用类型
+
+### 1. 化简
+
+例如把
+
+$$
+\cos(\alpha+\beta)+\cos(\alpha-\beta)
+$$
+
+化成更简洁的乘积形式。
+
+### 2. 求值
+
+例如已知 $\sin\alpha,\cos\alpha,\sin\beta,\cos\beta$，求 $\sin(\alpha+\beta)$ 或 $\cos2\alpha$。
+
+### 3. 证明
+
+把左边与右边分别变形，尽量朝同一目标靠近。
+
+### 4. 解简单方程
+
+例如先把方程化成 $\sin2x=a$、$\cos2x=b$ 或 $\tan x=t$ 这类熟悉结构，再求解。
+
+## 直观理解
+
+三角恒等变换没有固定套路，但有一个核心原则：
+
+**让式子变得更像你会处理的样子。**
+
+如果题目里角很复杂，就拆角；如果平方很多，就考虑倍角；如果有分式，就可能统一成正切；如果两边长得不一样，就想办法把它们变成共同的中间形式。
+
+## 例题 1
+
+化简：
+
+$$
+\cos(\alpha+\beta)+\cos(\alpha-\beta)
+$$
+
+### 讲解
+
+分别展开：
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+$$
+\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta
+$$
+
+相加后中间项抵消，得到
+
+$$
+2\cos\alpha\cos\beta
+$$
+
+## 例题 2
+
+已知 $\sin\alpha=\frac35$，$\cos\alpha=\frac45$，求
+
+$$
+\sin^2\alpha-\cos2\alpha
+$$
+
+### 讲解
+
+先用
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+则原式变为
+
+$$
+\sin^2\alpha-(1-2\sin^2\alpha)=3\sin^2\alpha-1
+$$
+
+再代入 $\sin^2\alpha=\left(\frac35\right)^2=\frac9{25}$，得
+
+$$
+3\cdot\frac9{25}-1=\frac{27}{25}-1=\frac2{25}
+$$
+
+## 方法总结
+
+1. 先观察角结构：和、差、倍角还是平方；
+2. 选择最少步骤的公式，不要机械乱套；
+3. 能统一成一种函数就尽量统一；
+4. 证明题尽量从更复杂的一边下手；
+5. 求方程时先化成标准型再求解。
+
+## 常见错误
+
+1. 一道题里乱用多个公式，越化越复杂；
+2. 平方项没有想到用倍角；
+3. 分式里没有检查分母是否为 0；
+4. 证明题只改一边但目标不明确；
+5. 方程求出代数值后不结合范围筛选。
+
+## 练习 1
+
+化简：
+
+$$
+\sin(\alpha+\beta)+\sin(\alpha-\beta)
+$$
+
+### 答案
+
+$$
+2\sin\alpha\cos\beta
+$$
+
+### 讲解
+
+分别展开：
+
+$$
+\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+$$
+
+$$
+\sin(\alpha-\beta)=\sin\alpha\cos\beta-\cos\alpha\sin\beta
+$$
+
+相加后，$\cos\alpha\sin\beta$ 抵消，得到
+
+$$
+2\sin\alpha\cos\beta
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.radians(40)
+beta = math.radians(15)
+left = math.sin(alpha + beta) + math.sin(alpha - beta)
+right = 2 _ math.sin(alpha) _ math.cos(beta)
+print(left)
+print(right)
+`}
+/>
+
+## 练习 2
+
+求值：
+
+$$
+\sin75^\circ\cos15^\circ-\cos75^\circ\sin15^\circ
+$$
+
+### 答案
+
+$$
+\frac{\sqrt3}{2}
+$$
+
+### 讲解
+
+这是正弦差角公式：
+
+$$
+\sin75^\circ\cos15^\circ-\cos75^\circ\sin15^\circ=\sin(75^\circ-15^\circ)=\sin60^\circ=\frac{\sqrt3}{2}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+value = math.sin(math.radians(75)) _ math.cos(math.radians(15)) - math.cos(math.radians(75)) _ math.sin(math.radians(15))
+print(value)
+`}
+/>
+
+## 练习 3
+
+化简：
+
+$$
+1-\cos2\alpha
+$$
+
+### 答案
+
+$$
+2\sin^2\alpha
+$$
+
+### 讲解
+
+由余弦倍角公式
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+移项可得
+
+$$
+1-\cos2\alpha=2\sin^2\alpha
+$$
+
+这个结果在把一次角化成平方项时非常常见。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.radians(28)
+left = 1 - math.cos(2 _ alpha)
+right = 2 _ math.sin(alpha) \*\* 2
+print(left)
+print(right)
+`}
+/>
+
+## 练习 4
+
+已知 $\sin\alpha=\frac35$，$\cos\alpha=\frac45$，$\sin\beta=\frac{12}{13}$，$\cos\beta=\frac5{13}$，且 $\alpha,\beta$ 都是锐角，求
+
+$$
+\cos(\alpha-\beta)+\sin(\alpha+\beta)
+$$
+
+### 答案
+
+$$
+\frac{119}{65}
+$$
+
+### 讲解
+
+先分别求两项。
+
+由差角余弦公式：
+
+$$
+\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta
+$$
+
+$$
+=\frac45\cdot\frac5{13}+\frac35\cdot\frac{12}{13}=\frac{20}{65}+\frac{36}{65}=\frac{56}{65}
+$$
+
+由和角正弦公式：
+
+$$
+\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+$$
+
+$$
+=\frac35\cdot\frac5{13}+\frac45\cdot\frac{12}{13}=\frac{15}{65}+\frac{48}{65}=\frac{63}{65}
+$$
+
+所以原式为
+
+$$
+\frac{56}{65}+\frac{63}{65}=\frac{119}{65}
+$$
+
+因此原式等于
+
+$$
+\frac{119}{65}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`value = (4 / 5 * 5 / 13 + 3 / 5 * 12 / 13) + (3 / 5 * 5 / 13 + 4 / 5 * 12 / 13)
+print(value)
+`}
+/>
+
+## 练习 5
+
+在区间 $0^\circ\le x&lt;180^\circ$ 内，解方程
+
+$$
+\sin2x=\frac{\sqrt3}{2}
+$$
+
+### 答案
+
+$$
+x=30^\circ,\ 60^\circ
+$$
+
+### 讲解
+
+令
+
+$$
+2x=\theta
+$$
+
+则方程变成
+
+$$
+\sin\theta=\frac{\sqrt3}{2}
+$$
+
+在 $0^\circ\le x&lt;180^\circ$ 内，有
+
+$$
+0^\circ\le2x&lt;360^\circ
+$$
+
+所以在这个范围内
+
+$$
+2x=60^\circ \quad \text{或} \quad 2x=120^\circ
+$$
+
+于是
+
+$$
+x=30^\circ \quad \text{或} \quad x=60^\circ
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+solutions = []
+for x in range(0, 180):
+if abs(math.sin(math.radians(2 \* x)) - math.sqrt(3) / 2) < 1e-9:
+solutions.append(x)
+print(solutions)
+`}
+/>

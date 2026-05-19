@@ -158,8 +158,9 @@ days = ["周一", "周二", "周三", "周四", "周五"]
 for day, temp in zip(days, temps):
 print(day, temp)
 
-for i in range(1, len(temps)):
-print(days[i - 1], "到", days[i], "变化:", temps[i] - temps[i - 1])`}
+    for i in range(1, len(temps)):
+        print(days[i - 1], "到", days[i], "变化:", temps[i] - temps[i - 1])`}
+
 />
 
 ## 练习 3
@@ -244,11 +245,11 @@ print(f"{stem} | {leaves}")`}
   title="练习 5：频数分布观察"
   description="找出频数最大的区间。"
   code={`intervals = {
-    "150-155": 5,
-    "155-160": 12,
-    "160-165": 18,
-    "165-170": 10,
-    "170-175": 5,
+"150-155": 5,
+"155-160": 12,
+"160-165": 18,
+"165-170": 10,
+"170-175": 5,
 }
 
 total = sum(intervals.values())
@@ -256,6 +257,7 @@ print("总人数:", total)
 for interval, count in intervals.items():
 print(interval, "频率=", count / total)
 
-max_interval = max(intervals, key=intervals.get)
+    max_interval = max(intervals, key=intervals.get)
+
 print("最多的区间:", max_interval)`}
 />

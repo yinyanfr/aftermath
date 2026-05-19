@@ -471,7 +471,8 @@ print(left <= right)
     B = {x / 10 for x in range(int(a * 10) + 1, 50)}
     return sorted((A | B))[:8], sorted((A | B))[-8:]
 
-print("a = 3 时的并集样本:", sample_union(3))
+    print("a = 3 时的并集样本:", sample_union(3))
+
 print("a = 2 时的并集样本:", sample_union(2))
 print("a = 1 时的并集样本:", sample_union(1))
 `}

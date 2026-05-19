@@ -1,0 +1,342 @@
+---
+title: "单位圆与三角函数线"
+description: "对应教材 7.2.2，借助单位圆、正弦线、余弦线、正切线直观理解三角函数。"
+order: 4
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "单位圆"
+  - "三角函数线"
+  - "正弦线"
+  - "正切线"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 单位圆与三角函数线
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 说出单位圆上点坐标与三角函数的关系；
+2. 用单位圆直观解释正弦和余弦；
+3. 理解正切线为什么画在直线 $x=1$ 上；
+4. 通过三角函数线比较函数值大小；
+5. 用三角函数线理解实际情境中的高度变化。
+
+## 为什么要学这个内容
+
+上一页我们已经会“算”，但如果只会代公式，三角函数还是一堆分式。
+
+单位圆的作用，是把这些分式变成图上的长度和坐标。这样以后研究性质、图象、大小比较都会直观很多。
+
+## 预备知识
+
+你需要先会：
+
+1. 任意角三角函数的定义；
+2. 点到原点距离公式；
+3. 平面直角坐标系中的单位圆方程 $x^2+y^2=1$。
+
+## 单位圆上的点坐标
+
+单位圆就是半径为 1、圆心在原点的圆。
+
+如果角 $\alpha$ 的终边与单位圆交于点 $P(x,y)$，因为此时
+
+$$
+r=1
+$$
+
+所以
+
+$$
+\sin\alpha=y,\quad \cos\alpha=x
+$$
+
+于是交点坐标可以直接写成：
+
+$$
+P(\cos\alpha,\sin\alpha)
+$$
+
+## 三角函数线
+
+1. 从 $P$ 向 x 轴作垂线，竖直那一段可以看成正弦线；
+2. 从原点到垂足的有向线段可以看成余弦线；
+3. 角的终边或其反向延长线与直线 $x=1$ 的交点，给出正切线。
+
+因为在直线 $x=1$ 上有
+
+$$
+\tan\alpha=\frac y 1=y
+$$
+
+所以交点的纵坐标就是正切值。
+
+## 直观理解
+
+单位圆最厉害的地方是把“比值”直接变成“坐标”。
+
+于是：
+
+1. 正弦就是点有多高；
+2. 余弦就是点离 y 轴有多远并带正负方向；
+3. 正切就是终边和直线 $x=1$ 相交时到底有多高。
+
+这就是为什么三角函数本质上和圆周运动密切相关。
+
+## 推导或证明
+
+若 $P(x,y)$ 在角 $\alpha$ 的终边与单位圆上，则
+
+$$
+x^2+y^2=1
+$$
+
+而任意角定义中
+
+$$
+\sin\alpha=\frac y r,\quad \cos\alpha=\frac x r
+$$
+
+单位圆上 $r=1$，所以立即得到
+
+$$
+\sin\alpha=y,\quad \cos\alpha=x
+$$
+
+这说明单位圆并没有改定义，而是把原定义变得更简单了。
+
+## 例题 1
+
+写出角 $\dfrac{5\pi}{6}$ 在单位圆上的交点坐标，并求三角函数值。
+
+### 讲解
+
+$\dfrac{5\pi}{6}=\pi-\dfrac\pi6$，终边在第二象限。
+
+参考角是 $\dfrac\pi6$，所以单位圆交点坐标为
+
+$$
+\left(-\frac{\sqrt3}{2},\frac12\right)
+$$
+
+因此
+
+$$
+\sin\frac{5\pi}{6}=\frac12,
+\quad
+\cos\frac{5\pi}{6}=-\frac{\sqrt3}{2},
+\quad
+\tan\frac{5\pi}{6}=-\frac{\sqrt3}{3}
+$$
+
+## 例题 2
+
+某摩天轮圆心离地面 20 m，半径 8 m。若某座舱对应角为 $\alpha$，写出它离地高度 $h$。
+
+### 讲解
+
+圆心高度固定是 20 m。
+
+座舱相对圆心的竖直高度是半径乘正弦，也就是 $8\sin\alpha$。
+
+所以总高度为
+
+$$
+h=20+8\sin\alpha
+$$
+
+这就是单位圆思想在实际建模中的最直接应用。
+
+## 方法总结
+
+单位圆题最常见的三步是：
+
+1. 先找终边所在象限；
+2. 再确定单位圆交点坐标；
+3. 最后把横坐标看成余弦，纵坐标看成正弦。
+
+## 常见错误
+
+1. 把点坐标顺序写成 $(\sin\alpha,\cos\alpha)$；
+2. 忘记第二、三象限余弦为负；
+3. 画正切线时忘记用直线 $x=1$；
+4. 建模时漏掉圆心本身的高度。
+
+## 练习 1
+
+写出角 $\dfrac\pi4$ 在单位圆上的交点坐标，并求正弦、余弦、正切值。
+
+### 答案
+
+交点坐标是
+
+$$
+\left(\frac{\sqrt2}{2},\frac{\sqrt2}{2}\right)
+$$
+
+所以
+
+$$
+\sin\frac\pi4=\frac{\sqrt2}{2},\quad \cos\frac\pi4=\frac{\sqrt2}{2},\quad \tan\frac\pi4=1
+$$
+
+### 讲解
+
+$\dfrac\pi4$ 在第一象限，且参考角就是 45°，单位圆上横纵坐标相等，所以坐标是
+
+$$
+\left(\frac{\sqrt2}{2},\frac{\sqrt2}{2}\right)
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+a = math.pi / 4
+print(math.cos(a), math.sin(a), math.tan(a))
+`}
+/>
+
+## 练习 2
+
+已知单位圆上点 $P$ 的坐标为 $(-\dfrac12,\dfrac{\sqrt3}{2})$，求对应角的余弦、正弦、正切值。
+
+### 答案
+
+$$
+\cos\alpha=-\frac12,
+\quad
+\sin\alpha=\frac{\sqrt3}{2},
+\quad
+\tan\alpha=-\sqrt3
+$$
+
+### 讲解
+
+单位圆上点坐标就是
+
+$$
+(\cos\alpha,\sin\alpha)
+$$
+
+所以横坐标直接给出余弦，纵坐标直接给出正弦，再用
+
+$$
+\tan\alpha=\frac{\sin\alpha}{\cos\alpha}
+$$
+
+得到正切。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+x = -0.5
+y = math.sqrt(3) / 2
+print(x, y, y / x)
+`}
+/>
+
+## 练习 3
+
+比较大小：若 $0<\alpha<\beta<\dfrac\pi2$，则 $\sin\alpha$ 与 $\sin\beta$ 谁大？
+
+### 答案
+
+$\sin\alpha<\sin\beta$。
+
+### 讲解
+
+在第一象限内，角越大，单位圆交点越高，所以纵坐标越大。
+
+而单位圆交点的纵坐标就是正弦，因此
+
+$$
+\sin\alpha<\sin\beta
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.pi / 6
+beta = math.pi / 3
+print(math.sin(alpha), math.sin(beta), math.sin(alpha) < math.sin(beta))
+`}
+/>
+
+## 练习 4
+
+比较大小：若 $0<\alpha<\dfrac\pi4$，则 $\sin\alpha$ 与 $\cos\alpha$ 谁大？
+
+### 答案
+
+$\sin\alpha<\cos\alpha$。
+
+### 讲解
+
+当 $0<\alpha<\dfrac\pi4$ 时，单位圆上的点还没有到达直线 $y=x$。因此横坐标大于纵坐标。
+
+又因为横坐标是余弦、纵坐标是正弦，所以
+
+$$
+\sin\alpha<\cos\alpha
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.pi / 6
+print(math.sin(alpha), math.cos(alpha), math.sin(alpha) < math.cos(alpha))
+`}
+/>
+
+## 练习 5
+
+某转轮圆心离地 15 m，半径 6 m。若座舱对应角为 $\alpha$，写出座舱离地高度公式，并求 $\alpha=\dfrac\pi2$ 时的高度。
+
+### 答案
+
+$$
+h=15+6\sin\alpha
+$$
+
+当 $\alpha=\dfrac\pi2$ 时，
+
+$$
+h=21
+$$
+
+### 讲解
+
+相对圆心的竖直高度是 $6\sin\alpha$，再加上圆心离地 15 m，得到
+
+$$
+h=15+6\sin\alpha
+$$
+
+当 $\alpha=\dfrac\pi2$ 时，$\sin\dfrac\pi2=1$，所以
+
+$$
+h=15+6=21
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.pi / 2
+h = 15 + 6 \* math.sin(alpha)
+print(h)
+`}
+/>

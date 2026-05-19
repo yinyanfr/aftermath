@@ -93,12 +93,13 @@ $$
   code={`def fee(x):
     if 0 < x <= 220:
         return 3.45 * x
-    if 220 < x <= 300:
-        return 4.83 * x - 303.6
-    return 5.83 * x - 603.6
+        if 220 < x <= 300:
+            return 4.83 * x - 303.6
+            return 5.83 * x - 603.6
 
-for x in [100, 220, 260, 320]:
-print(x, fee(x))
+            for x in [100, 220, 260, 320]:
+                print(x, fee(x))
+
 `}
 />
 
@@ -264,8 +265,9 @@ print(a)
 def f(Q):
 return 0.3 \* Q + 3000 / Q
 
-for Q in [50, 100, 150]:
-print(Q, f(Q))
+    for Q in [50, 100, 150]:
+        print(Q, f(Q))
+
 `}
 />
 
@@ -299,8 +301,9 @@ $$
   code={`def width(x):
     return 1600 / x
 
-for x in [20, 25, 40, 50, 80]:
-print(x, width(x))
+    for x in [20, 25, 40, 50, 80]:
+        print(x, width(x))
+
 `}
 />
 
@@ -329,7 +332,8 @@ print(x, width(x))
 def revenue(x):
     return -200 * (x - 3) ** 2 + 33800
 
-for x in range(0, 7):
-print(x, revenue(x))
+    for x in range(0, 7):
+        print(x, revenue(x))
+
 `}
 />

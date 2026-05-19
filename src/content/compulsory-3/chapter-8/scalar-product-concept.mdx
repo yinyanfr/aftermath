@@ -1,0 +1,356 @@
+---
+title: "向量数量积的概念"
+description: "对应教材 8.1.1，建立向量数量积的定义、几何意义以及与夹角、长度、投影的关系。"
+order: 1
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "数量积"
+  - "夹角"
+  - "投影"
+  - "垂直"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 向量数量积的概念
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 准确说出向量数量积的定义；
+2. 理解数量积为什么结果是一个数量而不是向量；
+3. 会用 $\vec a\cdot\vec b=|\vec a||\vec b|\cos\theta$ 计算数量积；
+4. 会用数量积判断垂直、求夹角、求投影；
+5. 知道 $\vec a\cdot\vec a=|\vec a|^2$ 的意义。
+
+## 为什么要学这个内容
+
+前面我们学过向量加法、减法和数乘，它们都得到新的向量。
+
+但很多几何问题真正想问的是：
+
+1. 两个方向有多接近；
+2. 一个向量在另一个方向上“投过去”有多长；
+3. 两个向量是否垂直。
+
+这些问题只靠加减法并不好直接表达，所以需要一种新的运算，这就是**向量的数量积**。
+
+## 预备知识
+
+你需要会：
+
+1. 向量的模；
+2. 两个非零向量的夹角；
+3. 余弦的基本意义：在直角三角形中 $\cos\theta=\frac{\text{邻边}}{\text{斜边}}$。
+
+## 数量积的定义
+
+设 $\vec a,\vec b$ 是两个非零向量，它们的夹角为 $\theta$，其中 $0\le \theta\le \pi$。
+
+向量 $\vec a$ 与 $\vec b$ 的**数量积**定义为
+
+$$
+\vec a\cdot\vec b=|\vec a||\vec b|\cos\theta
+$$
+
+当 $\vec a=\vec0$ 或 $\vec b=\vec0$ 时，规定
+
+$$
+\vec a\cdot\vec b=0
+$$
+
+这里结果是一个实数，所以它叫数量积，也常叫**点积**。
+
+## 夹角不同，数量积符号也不同
+
+因为 $|\vec a|,|\vec b|\ge0$，数量积的正负主要由 $\cos\theta$ 决定。
+
+1. 当 $0\le\theta&lt;\frac\pi2$ 时，$\cos\theta&gt;0$，所以 $\vec a\cdot\vec b&gt;0$；
+2. 当 $\theta=\frac\pi2$ 时，$\cos\theta=0$，所以 $\vec a\cdot\vec b=0$；
+3. 当 $\frac\pi2&lt;\theta\le\pi$ 时，$\cos\theta&lt;0$，所以 $\vec a\cdot\vec b&lt;0$。
+
+这条结论非常重要，因为它把“锐角、直角、钝角”变成了代数符号判断。
+
+## 几何意义：投影
+
+把 $\vec a$ 在 $\vec b$ 的方向上做投影，如果记这个投影长度为 $|\vec a|\cos\theta$，那么
+
+$$
+\vec a\cdot\vec b=\left(|\vec a|\cos\theta\right)|\vec b|
+$$
+
+也可以写成
+
+$$
+\vec a\cdot\vec b=\left(|\vec b|\cos\theta\right)|\vec a|
+$$
+
+所以数量积可以理解为：
+
+1. 一个向量在另一个向量方向上的投影长度；
+2. 再乘上另一个向量的模。
+
+## 两个基本结论
+
+### 1. 向量和自己做数量积
+
+因为 $\vec a$ 与自己夹角为 $0$，所以
+
+$$
+\vec a\cdot\vec a=|\vec a||\vec a|\cos0=|\vec a|^2
+$$
+
+这说明数量积可以用来求长度平方。
+
+### 2. 垂直判定
+
+对于非零向量 $\vec a,\vec b$，
+
+$$
+\vec a\perp\vec b \iff \vec a\cdot\vec b=0
+$$
+
+因为垂直时夹角是 $\frac\pi2$，余弦为 0；反过来若数量积为 0，在两向量都非零时只能说明余弦为 0，于是夹角是 $\frac\pi2$。
+
+## 直观理解
+
+数量积不是把两个向量“拼起来”，而是在问：
+
+“$\vec a$ 在 $\vec b$ 的方向上到底有多少成分？”
+
+如果两个向量方向很接近，这个成分大，数量积为正且较大。
+
+如果两个向量正交，沿着对方方向完全没有贡献，数量积就是 0。
+
+如果两个向量大致朝反方向，这个成分为负，数量积就小于 0。
+
+## 推导或证明
+
+为什么数量积能体现投影？
+
+设 $\theta$ 是 $\vec a$ 与 $\vec b$ 的夹角，在以 $\vec a$ 为斜边的直角三角形里，$\vec a$ 在 $\vec b$ 方向上的有向投影长度就是
+
+$$
+|\vec a|\cos\theta
+$$
+
+再乘上 $|\vec b|$，就得到
+
+$$
+|\vec b|\cdot |\vec a|\cos\theta=\vec a\cdot\vec b
+$$
+
+因此数量积天然带有“投影”信息。
+
+## 例题 1
+
+已知 $|\vec a|=3$，$|\vec b|=4$，夹角为 $60^\circ$，求 $\vec a\cdot\vec b$。
+
+### 讲解
+
+直接用定义：
+
+$$
+\vec a\cdot\vec b=|\vec a||\vec b|\cos60^\circ=3\times4\times\frac12=6
+$$
+
+## 例题 2
+
+已知非零向量 $\vec a,\vec b$ 满足 $\vec a\cdot\vec b=0$，说明它们的位置关系。
+
+### 讲解
+
+由数量积定义：
+
+$$
+|\vec a||\vec b|\cos\theta=0
+$$
+
+因为 $|\vec a|\ne0,|\vec b|\ne0$，所以只能是
+
+$$
+\cos\theta=0
+$$
+
+于是 $\theta=90^\circ$，因此 $\vec a\perp\vec b$。
+
+## 方法总结
+
+遇到数量积题，优先看这三条：
+
+1. 定义式 $\vec a\cdot\vec b=|\vec a||\vec b|\cos\theta$；
+2. $\vec a\cdot\vec a=|\vec a|^2$；
+3. $\vec a\perp\vec b \iff \vec a\cdot\vec b=0$。
+
+## 常见错误
+
+1. 以为数量积结果还是向量；
+2. 忘记夹角取 $0$ 到 $\pi$；
+3. 把垂直判定用于两个都为零的情形而不说明；
+4. 只记公式，不理解投影意义；
+5. 把 $\vec a\cdot\vec a$ 误写成 $|\vec a|$。
+
+## 练习 1
+
+已知 $|\vec a|=5$，$|\vec b|=2$，且 $\vec a$ 与 $\vec b$ 的夹角为 $60^\circ$，求 $\vec a\cdot\vec b$。
+
+### 答案
+
+$$
+\vec a\cdot\vec b=5
+$$
+
+### 讲解
+
+由定义
+
+$$
+\vec a\cdot\vec b=|\vec a||\vec b|\cos60^\circ=5\times2\times\frac12=5
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+a = 5
+b = 2
+theta = math.radians(60)
+print(a _ b _ math.cos(theta))
+`}
+/>
+
+## 练习 2
+
+已知 $|\vec a|=4$，求 $\vec a\cdot\vec a$。
+
+### 答案
+
+$$
+\vec a\cdot\vec a=16
+$$
+
+### 讲解
+
+向量与自己夹角为 $0$，因此
+
+$$
+\vec a\cdot\vec a=|\vec a|^2=4^2=16
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`mod_a = 4
+print(mod_a ** 2)
+`}
+/>
+
+## 练习 3
+
+已知 $|\vec a|=3$，$|\vec b|=2$，且 $\vec a\perp\vec b$，求 $\vec a\cdot\vec b$。
+
+### 答案
+
+$$
+0
+$$
+
+### 讲解
+
+垂直说明夹角是 $90^\circ$，所以
+
+$$
+\vec a\cdot\vec b=|\vec a||\vec b|\cos90^\circ=3\times2\times0=0
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(3 _ 2 _ math.cos(math.radians(90)))
+`}
+/>
+
+## 练习 4
+
+已知非零向量 $\vec a,\vec b$ 满足 $|\vec a|=2$，$|\vec b|=6$，$\vec a\cdot\vec b=-6$，求它们夹角的余弦值，并判断夹角是锐角、直角还是钝角。
+
+### 答案
+
+$$
+\cos\theta=-\frac12
+$$
+
+夹角是钝角。
+
+### 讲解
+
+由定义变形得
+
+$$
+\cos\theta=\frac{\vec a\cdot\vec b}{|\vec a||\vec b|}=\frac{-6}{2\times6}=-\frac12
+$$
+
+余弦为负，所以夹角大于 $90^\circ$，是钝角。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`dot_value = -6
+mod_a = 2
+mod_b = 6
+cos_theta = dot_value / (mod_a * mod_b)
+print(cos_theta)
+print("钝角" if cos_theta < 0 else "非钝角")
+`}
+/>
+
+## 练习 5
+
+在平面上，设 $\vec a$ 的模为 5，$\vec b$ 的模为 1，且 $\vec a$ 在 $\vec b$ 方向上的投影长度为 3。求 $\vec a\cdot\vec b$，并判断夹角的大致范围。
+
+### 答案
+
+$$
+\vec a\cdot\vec b=3
+$$
+
+夹角是锐角。
+
+### 讲解
+
+因为 $\vec b$ 的模等于 1，所以
+
+$$
+\vec a\cdot\vec b=\left(\vec a\text{ 在 }\vec b\text{ 方向上的投影长度}\right)\times|\vec b|=3\times1=3
+$$
+
+也可以写成
+
+$$
+3=|\vec a||\vec b|\cos\theta=5\times1\times\cos\theta
+$$
+
+所以
+
+$$
+\cos\theta=\frac35&gt;0
+$$
+
+因此夹角是锐角。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`projection = 3
+mod_b = 1
+dot_value = projection * mod_b
+cos_theta = dot_value / 5
+print(dot_value)
+print(cos_theta)
+`}
+/>

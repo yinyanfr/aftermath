@@ -125,11 +125,12 @@ $$
   code={`def left(x):
     return x * x - x
 
-def right(x):
-return x - 2
+    def right(x):
+        return x - 2
 
-for x in range(-2, 6):
-diff = left(x) - right(x)
+        for x in range(-2, 6):
+            diff = left(x) - right(x)
+
 print(x, left(x), right(x), diff)
 `}
 />
@@ -261,7 +262,8 @@ $$
 for x in samples:
     print(x, x + 5 > x + 2)
 
-a, b = 1, 4
+    a, b = 1, 4
+
 print(3 _ a < 3 _ b)
 print(-5 _ a > -5 _ b)
 `}
@@ -413,9 +415,9 @@ $$
 
 <InlinePythonPlayground
   code={`samples = [
-    (2, 1.9, 0.1, 100),
-    (2.1, 2, 9, 10),
-    (5, 4, 1, 8),
+(2, 1.9, 0.1, 100),
+(2.1, 2, 9, 10),
+(5, 4, 1, 8),
 ]
 
 for a, b, c, d in samples:

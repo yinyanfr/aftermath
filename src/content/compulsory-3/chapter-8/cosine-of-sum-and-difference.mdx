@@ -1,0 +1,342 @@
+---
+title: "两角和与差的余弦"
+description: "对应教材 8.2.1，建立余弦和差公式，并通过特殊角和单位圆坐标理解它们的来源与用途。"
+order: 4
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "余弦和差公式"
+  - "三角恒等变换"
+  - "特殊角"
+  - "单位圆"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 两角和与差的余弦
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 准确写出 $\cos(\alpha+\beta)$ 和 $\cos(\alpha-\beta)$；
+2. 理解两个公式为什么只差中间符号；
+3. 会用公式求特殊角的余弦值；
+4. 会把复杂角拆成两个熟悉角；
+5. 能在简单恒等变形里使用余弦和差公式。
+
+## 为什么要学这个内容
+
+我们已经会求 $30^\circ,45^\circ,60^\circ$ 这类特殊角的三角函数值。
+
+但如果题目给出 $15^\circ,75^\circ,105^\circ$ 呢？
+
+这些角看上去陌生，但它们往往可以拆成两个熟悉角的和或差。余弦和差公式正是完成这种“拆角计算”的核心工具。
+
+## 预备知识
+
+你需要会：
+
+1. 任意角三角函数的定义；
+2. 特殊角 $30^\circ,45^\circ,60^\circ$ 的正弦、余弦值；
+3. 单位圆上点的坐标意义：点 $P(\cos\theta,\sin\theta)$。
+
+## 公式
+
+对任意角 $\alpha,\beta$，有
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+$$
+\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta
+$$
+
+最容易记的方法是：
+
+1. 余弦前面总是“余余”；
+2. 后面总是“正正”；
+3. 和公式用减号，差公式用加号。
+
+## 直观理解
+
+为什么和差公式里会同时出现正弦和余弦？
+
+因为一个角转动以后，平面上的横坐标和纵坐标会一起变化。余弦只看横坐标，但转动的结果同时受原来的横向分量和纵向分量影响，所以公式里自然会同时出现 $\cos$ 和 $\sin$。
+
+## 推导或证明
+
+这里给出一种和本章前半部分非常一致的推导方法：用单位向量的数量积。
+
+设
+
+$$
+\vec u=(\cos\alpha,\sin\alpha),\quad \vec v=(\cos(-\beta),\sin(-\beta))=(\cos\beta,-\sin\beta)
+$$
+
+这两个向量都是单位向量，所以它们的数量积等于夹角余弦。
+
+它们的夹角是 $\alpha-(-\beta)=\alpha+\beta$，因此
+
+$$
+\vec u\cdot\vec v=\cos(\alpha+\beta)
+$$
+
+另一方面，由坐标公式
+
+$$
+\vec u\cdot\vec v=\cos\alpha\cos\beta+\sin\alpha(-\sin\beta)
+$$
+
+所以
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+把 $\beta$ 换成 $-\beta$，立刻得到差公式。
+
+## 例题 1
+
+求 $\cos75^\circ$。
+
+### 讲解
+
+把 $75^\circ$ 拆成 $45^\circ+30^\circ$：
+
+$$
+\cos75^\circ=\cos(45^\circ+30^\circ)
+$$
+
+由和角公式：
+
+$$
+\cos75^\circ=\cos45^\circ\cos30^\circ-\sin45^\circ\sin30^\circ
+$$
+
+代入特殊角值得
+
+$$
+=\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}-\frac{\sqrt2}{2}\cdot\frac12
+=\frac{\sqrt6-\sqrt2}{4}
+$$
+
+## 例题 2
+
+求 $\cos15^\circ$。
+
+### 讲解
+
+把 $15^\circ$ 写成 $45^\circ-30^\circ$：
+
+$$
+\cos15^\circ=\cos(45^\circ-30^\circ)
+$$
+
+由差角公式：
+
+$$
+\cos15^\circ=\cos45^\circ\cos30^\circ+\sin45^\circ\sin30^\circ
+$$
+
+所以
+
+$$
+\cos15^\circ=\frac{\sqrt6+\sqrt2}{4}
+$$
+
+## 方法总结
+
+和差公式题的关键动作是“拆角”。
+
+1. 先把陌生角拆成熟悉角的和或差；
+2. 再写公式；
+3. 最后代入特殊角值并整理。
+
+## 常见错误
+
+1. 把和角和差角的符号写反；
+2. 记成“余余加正正”；
+3. 只拆角，不代入完整公式；
+4. 特殊角值代错；
+5. 忘记结果还需要化简。
+
+## 练习 1
+
+写出 $\cos(\alpha+\beta)$ 和 $\cos(\alpha-\beta)$ 的公式。
+
+### 答案
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+$$
+\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta
+$$
+
+### 讲解
+
+这两个公式是本节的核心。对比记忆时只抓住一点：
+
+1. “余余”在前；
+2. “正正”在后；
+3. 和用减，差用加。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`print("cos(a+b)=cos(a)cos(b)-sin(a)sin(b)")
+print("cos(a-b)=cos(a)cos(b)+sin(a)sin(b)")
+`}
+/>
+
+## 练习 2
+
+求 $\cos105^\circ$。
+
+### 答案
+
+$$
+\cos105^\circ=\frac{\sqrt2-\sqrt6}{4}
+$$
+
+### 讲解
+
+把 $105^\circ$ 拆成 $60^\circ+45^\circ$：
+
+$$
+\cos105^\circ=\cos60^\circ\cos45^\circ-\sin60^\circ\sin45^\circ
+$$
+
+$$
+=\frac12\cdot\frac{\sqrt2}{2}-\frac{\sqrt3}{2}\cdot\frac{\sqrt2}{2}
+=\frac{\sqrt2-\sqrt6}{4}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+value = math.cos(math.radians(105))
+print(value)
+`}
+/>
+
+## 练习 3
+
+求 $\cos15^\circ\cos15^\circ+\sin15^\circ\sin15^\circ$ 的值。
+
+### 答案
+
+$$
+1
+$$
+
+### 讲解
+
+把它看成差角公式：
+
+$$
+\cos(15^\circ-15^\circ)=\cos15^\circ\cos15^\circ+\sin15^\circ\sin15^\circ
+$$
+
+左边是
+
+$$
+\cos0^\circ=1
+$$
+
+所以原式等于 1。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+a = math.radians(15)
+value = math.cos(a) _ math.cos(a) + math.sin(a) _ math.sin(a)
+print(value)
+`}
+/>
+
+## 练习 4
+
+已知 $\cos\alpha=\frac45$，$\sin\alpha=\frac35$，$\cos\beta=\frac{12}{13}$，$\sin\beta=\frac5{13}$，且 $\alpha,\beta$ 都是锐角，求 $\cos(\alpha+\beta)$。
+
+### 答案
+
+$$
+\frac{33}{65}
+$$
+
+### 讲解
+
+由和角公式：
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+代入得
+
+$$
+\cos(\alpha+\beta)=\frac45\cdot\frac{12}{13}-\frac35\cdot\frac5{13}
+=\frac{48}{65}-\frac{15}{65}=\frac{33}{65}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`value = 4 / 5 * 12 / 13 - 3 / 5 * 5 / 13
+print(value)
+`}
+/>
+
+## 练习 5
+
+证明：
+
+$$
+\cos(\alpha+\beta)+\cos(\alpha-\beta)=2\cos\alpha\cos\beta
+$$
+
+### 答案
+
+结论成立。
+
+### 讲解
+
+分别展开两项：
+
+$$
+\cos(\alpha+\beta)=\cos\alpha\cos\beta-\sin\alpha\sin\beta
+$$
+
+$$
+\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta
+$$
+
+两式相加时，$-\sin\alpha\sin\beta$ 与 $+\sin\alpha\sin\beta$ 正好抵消，所以
+
+$$
+\cos(\alpha+\beta)+\cos(\alpha-\beta)=2\cos\alpha\cos\beta
+$$
+
+这是一条以后很常用的变形关系。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.radians(20)
+beta = math.radians(35)
+left = math.cos(alpha + beta) + math.cos(alpha - beta)
+right = 2 _ math.cos(alpha) _ math.cos(beta)
+print(left)
+print(right)
+`}
+/>

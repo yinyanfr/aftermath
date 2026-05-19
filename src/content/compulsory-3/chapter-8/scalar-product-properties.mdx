@@ -1,0 +1,359 @@
+---
+title: "向量数量积的运算律"
+description: "对应教材 8.1.2，学习数量积的交换律、分配律、数乘结合律，并用它们化简与求值。"
+order: 2
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "数量积运算律"
+  - "交换律"
+  - "分配律"
+  - "向量恒等式"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 向量数量积的运算律
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 熟练写出数量积的三条基本运算律；
+2. 知道数量积不满足结合律这一点要特别小心；
+3. 会展开 $\left(\vec a+\vec b\right)\cdot\left(\vec c+\vec d\right)$ 这类式子；
+4. 会用运算律求长度平方和夹角相关量；
+5. 能把几何关系转化成代数恒等式。
+
+## 为什么要学这个内容
+
+如果数量积只有定义式，那么每做一题都要回到“长度和夹角”，计算会很慢。
+
+运算律的作用是把数量积也变成一种可以像代数式那样展开、合并、化简的工具。这样向量法才真正开始高效。
+
+## 预备知识
+
+你需要会：
+
+1. 数量积的定义；
+2. 向量加法和数乘；
+3. 实数运算中的乘法交换律、分配律。
+
+## 数量积的三条基本运算律
+
+对任意向量 $\vec a,\vec b,\vec c$ 和任意实数 $\lambda$，有：
+
+### 1. 交换律
+
+$$
+\vec a\cdot\vec b=\vec b\cdot\vec a
+$$
+
+### 2. 分配律
+
+$$
+(\vec a+\vec b)\cdot\vec c=\vec a\cdot\vec c+\vec b\cdot\vec c
+$$
+
+同理也有
+
+$$
+\vec a\cdot(\vec b+\vec c)=\vec a\cdot\vec b+\vec a\cdot\vec c
+$$
+
+### 3. 数乘结合律
+
+$$
+(\lambda\vec a)\cdot\vec b=\lambda(\vec a\cdot\vec b)=\vec a\cdot(\lambda\vec b)
+$$
+
+## 一个重要提醒：数量积不满足向量意义下的结合律
+
+不能写成
+
+$$
+(\vec a\cdot\vec b)\cdot\vec c
+$$
+
+因为 $\vec a\cdot\vec b$ 已经是一个数，不再是向量，不能再和 $\vec c$ 做数量积。
+
+这和数的乘法很像，但又不完全一样，必须分清楚对象类型。
+
+## 常见恒等式
+
+由分配律和 $\vec a\cdot\vec a=|\vec a|^2$，可以得到很多常用结果。
+
+### 1. 平方展开
+
+$$
+(\vec a+\vec b)^2=(\vec a+\vec b)\cdot(\vec a+\vec b)=|\vec a|^2+2\vec a\cdot\vec b+|\vec b|^2
+$$
+
+这里的 $(\vec a+\vec b)^2$ 是简写，本质上指的是 $|\vec a+\vec b|^2$。
+
+同理
+
+$$
+|\vec a-\vec b|^2=|\vec a|^2-2\vec a\cdot\vec b+|\vec b|^2
+$$
+
+### 2. 和差积
+
+$$
+(\vec a+\vec b)\cdot(\vec a-\vec b)=|\vec a|^2-|\vec b|^2
+$$
+
+因为中间两项互相抵消。
+
+## 直观理解
+
+分配律告诉我们：数量积虽然和长度、角度有关，但它仍然保持了很强的线性结构。
+
+这意味着图形关系可以被翻译成代数展开式，然后一步一步化简。
+
+## 推导或证明
+
+以平方展开为例：
+
+$$
+\begin{aligned}
+|\vec a+\vec b|^2
+&=(\vec a+\vec b)\cdot(\vec a+\vec b)\\
+&=\vec a\cdot\vec a+\vec a\cdot\vec b+\vec b\cdot\vec a+\vec b\cdot\vec b\\
+&=|\vec a|^2+2\vec a\cdot\vec b+|\vec b|^2
+\end{aligned}
+$$
+
+第二步用分配律，第三步再用交换律。
+
+## 例题 1
+
+已知 $|\vec a|=2$，$|\vec b|=3$，$\vec a\cdot\vec b=4$，求 $|\vec a+\vec b|^2$。
+
+### 讲解
+
+直接用平方展开：
+
+$$
+|\vec a+\vec b|^2=|\vec a|^2+2\vec a\cdot\vec b+|\vec b|^2=4+8+9=21
+$$
+
+## 例题 2
+
+化简 $(2\vec a-\vec b)\cdot\vec a$。
+
+### 讲解
+
+先用分配律：
+
+$$
+(2\vec a-\vec b)\cdot\vec a=2\vec a\cdot\vec a-\vec b\cdot\vec a
+$$
+
+再用交换律：
+
+$$
+=2|\vec a|^2-\vec a\cdot\vec b
+$$
+
+## 方法总结
+
+数量积运算题通常按这个顺序：
+
+1. 先看能不能用交换律调整顺序；
+2. 再用分配律展开；
+3. 把 $\vec a\cdot\vec a$ 换成 $|\vec a|^2$；
+4. 最后代入已知量。
+
+## 常见错误
+
+1. 把数量积当成普通乘法，随意写结合；
+2. 展开时漏项；
+3. 忘记 $\vec a\cdot\vec b=\vec b\cdot\vec a$；
+4. 看见 $\vec a\cdot\vec a$ 没有化成模平方；
+5. 把 $|\vec a+\vec b|^2$ 错写成 $|\vec a|^2+|\vec b|^2$。
+
+## 练习 1
+
+已知 $|\vec a|=3$，$|\vec b|=4$，$\vec a\cdot\vec b=6$，求 $|\vec a-\vec b|^2$。
+
+### 答案
+
+$$
+13
+$$
+
+### 讲解
+
+用公式
+
+$$
+|\vec a-\vec b|^2=|\vec a|^2-2\vec a\cdot\vec b+|\vec b|^2
+$$
+
+代入得
+
+$$
+9-12+16=13
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`mod_a = 3
+mod_b = 4
+dot_value = 6
+print(mod_a ** 2 - 2 * dot_value + mod_b ** 2)
+`}
+/>
+
+## 练习 2
+
+化简 $(\vec a+2\vec b)\cdot\vec a$。
+
+### 答案
+
+$$
+|\vec a|^2+2\vec a\cdot\vec b
+$$
+
+### 讲解
+
+用分配律：
+
+$$
+(\vec a+2\vec b)\cdot\vec a=\vec a\cdot\vec a+2\vec b\cdot\vec a
+$$
+
+再用交换律：
+
+$$
+=|\vec a|^2+2\vec a\cdot\vec b
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 1)
+b = (2, -4)
+left = (a[0] + 2 * b[0]) * a[0] + (a[1] + 2 * b[1]) * a[1]
+right = (a[0]**2 + a[1]**2) + 2 * (a[0] * b[0] + a[1] * b[1])
+print(left)
+print(right)
+`}
+/>
+
+## 练习 3
+
+已知 $|\vec a|=5$，$|\vec b|=1$，且 $(\vec a+\vec b)\cdot(\vec a-\vec b)=24$，判断这个条件是否成立，并说明理由。
+
+### 答案
+
+条件成立。
+
+### 讲解
+
+由和差积公式
+
+$$
+(\vec a+\vec b)\cdot(\vec a-\vec b)=|\vec a|^2-|\vec b|^2=25-1=24
+$$
+
+这个结果与 $\vec a$、$\vec b$ 的夹角无关，只由模决定。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`mod_a = 5
+mod_b = 1
+print(mod_a ** 2 - mod_b ** 2)
+`}
+/>
+
+## 练习 4
+
+已知 $|\vec a|=2$，$|\vec b|=3$，且 $|\vec a+\vec b|^2=25$，求 $\vec a\cdot\vec b$。
+
+### 答案
+
+$$
+6
+$$
+
+### 讲解
+
+由平方展开
+
+$$
+|\vec a+\vec b|^2=|\vec a|^2+2\vec a\cdot\vec b+|\vec b|^2
+$$
+
+代入已知量：
+
+$$
+25=4+2\vec a\cdot\vec b+9
+$$
+
+所以
+
+$$
+2\vec a\cdot\vec b=12,
+\quad
+\vec a\cdot\vec b=6
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`value = (25 - 2**2 - 3**2) / 2
+print(value)
+`}
+/>
+
+## 练习 5
+
+已知非零向量 $\vec a,\vec b$ 满足 $|\vec a|=|\vec b|$，且 $(\vec a+\vec b)\cdot(\vec a-\vec b)=0$。说明这个条件为什么必然成立，并解释它揭示了什么结构特点。
+
+### 答案
+
+它必然成立，因为
+
+$$
+(\vec a+\vec b)\cdot(\vec a-\vec b)=|\vec a|^2-|\vec b|^2=0
+$$
+
+它说明当两个向量模相等时，和向量与差向量互相垂直。
+
+### 讲解
+
+先用和差积公式：
+
+$$
+(\vec a+\vec b)\cdot(\vec a-\vec b)=|\vec a|^2-|\vec b|^2
+$$
+
+题目给出 $|\vec a|=|\vec b|$，所以右边为 0。
+
+因此
+
+$$
+(\vec a+\vec b)\cdot(\vec a-\vec b)=0
+$$
+
+由垂直判定可知，$\vec a+\vec b$ 与 $\vec a-\vec b$ 垂直。
+
+这其实对应平行四边形中“菱形对角线互相垂直”的向量特征。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (2, 1)
+b = (1, 2)
+sum_vec = (a[0] + b[0], a[1] + b[1])
+diff_vec = (a[0] - b[0], a[1] - b[1])
+dot_value = sum_vec[0] * diff_vec[0] + sum_vec[1] * diff_vec[1]
+print(sum_vec)
+print(diff_vec)
+print(dot_value)
+`}
+/>

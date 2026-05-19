@@ -1,0 +1,387 @@
+---
+title: "诱导公式"
+description: "对应教材 7.2.4，研究与 2kπ、-α、π±α、π/2±α 有关的三角函数关系。"
+order: 6
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "诱导公式"
+  - "同终边角"
+  - "对称"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 诱导公式
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 理解诱导公式的几类来源；
+2. 会处理 $\alpha+2k\pi$、$-\alpha$、$\pi\pm\alpha$、$\dfrac\pi2\pm\alpha$；
+3. 能把任意角三角函数化成锐角三角函数；
+4. 会用“函数名是否变化、符号是否变化”进行判断；
+5. 能进行基础化简和求值。
+
+## 为什么要学这个内容
+
+如果直接记忆每个大角度的三角函数值，几乎不可能。
+
+诱导公式的作用，是把陌生角一步步变成熟悉角。比如 $\sin154^\circ$，你不必重新算，只要把它变成 $\sin26^\circ$ 就行。
+
+## 预备知识
+
+你需要先会：
+
+1. 单位圆上的点坐标；
+2. 终边相同角；
+3. 关于 x 轴、y 轴、直线 $y=x$ 的对称。
+
+## 诱导公式的核心思想
+
+角变了，三角函数为什么还能联系起来？
+
+因为很多角的终边之间有明显的几何关系：
+
+1. 加减整周，终边相同；
+2. 变成 $-\alpha$，相当于关于 x 轴对称；
+3. 变成 $\pi-\alpha$ 或 $\pi+\alpha$，相当于关于 y 轴或原点方向翻转；
+4. 变成 $\dfrac\pi2\pm\alpha$，相当于横纵坐标交换。
+
+## 主要公式
+
+### 1. 与整周有关
+
+$$
+\sin(\alpha+2k\pi)=\sin\alpha
+$$
+
+$$
+\cos(\alpha+2k\pi)=\cos\alpha
+$$
+
+$$
+\tan(\alpha+2k\pi)=\tan\alpha
+$$
+
+### 2. 与负角有关
+
+$$
+\sin(-\alpha)=-\sin\alpha
+$$
+
+$$
+\cos(-\alpha)=\cos\alpha
+$$
+
+$$
+\tan(-\alpha)=-\tan\alpha
+$$
+
+### 3. 与 $\pi\pm\alpha$ 有关
+
+$$
+\sin(\pi-\alpha)=\sin\alpha,
+\quad
+\cos(\pi-\alpha)=-\cos\alpha,
+\quad
+\tan(\pi-\alpha)=-\tan\alpha
+$$
+
+$$
+\sin(\pi+\alpha)=-\sin\alpha,
+\quad
+\cos(\pi+\alpha)=-\cos\alpha,
+\quad
+\tan(\pi+\alpha)=\tan\alpha
+$$
+
+### 4. 与 $\dfrac\pi2\pm\alpha$ 有关
+
+$$
+\sin\left(\frac\pi2-\alpha\right)=\cos\alpha,
+\quad
+\cos\left(\frac\pi2-\alpha\right)=\sin\alpha
+$$
+
+$$
+\sin\left(\frac\pi2+\alpha\right)=\cos\alpha,
+\quad
+\cos\left(\frac\pi2+\alpha\right)=-\sin\alpha
+$$
+
+## 直观理解
+
+背诱导公式时，不要死背整句，最好问自己两个问题：
+
+1. 函数名变不变？
+2. 符号变不变？
+
+例如 $\dfrac\pi2-\alpha$ 会把横坐标和纵坐标交换，所以正弦和余弦会“改名”。
+
+$-\alpha$ 关于 x 轴对称，所以纵坐标变号、横坐标不变，于是正弦变号、余弦不变。
+
+## 例题 1
+
+求 $\sin\dfrac{13\pi}{2}$，$\cos\dfrac{19\pi}{3}$，$\tan405^\circ$。
+
+### 讲解
+
+$$
+\sin\frac{13\pi}{2}=\sin\left(\frac\pi2+6\pi\right)=\sin\frac\pi2=1
+$$
+
+$$
+\cos\frac{19\pi}{3}=\cos\left(\frac\pi3+6\pi\right)=\cos\frac\pi3=\frac12
+$$
+
+$$
+\tan405^\circ=\tan(45^\circ+360^\circ)=\tan45^\circ=1
+$$
+
+## 例题 2
+
+求 $\sin120^\circ$，$\cos135^\circ$，$\tan\dfrac{8\pi}{3}$。
+
+### 讲解
+
+$$
+\sin120^\circ=\sin(180^\circ-60^\circ)=\sin60^\circ=\frac{\sqrt3}{2}
+$$
+
+$$
+\cos135^\circ=\cos(180^\circ-45^\circ)=-\cos45^\circ=-\frac{\sqrt2}{2}
+$$
+
+$$
+\tan\frac{8\pi}{3}=\tan\left(\frac{2\pi}{3}+2\pi\right)=\tan\frac{2\pi}{3}=-\tan\frac\pi3=-\sqrt3
+$$
+
+## 方法总结
+
+化简角度时，优先顺序通常是：
+
+1. 先去掉整周；
+2. 再想能不能化成负角、补角、同名角；
+3. 最后尽量落到 0 到 $\dfrac\pi4$ 或常见特殊角上。
+
+## 常见错误
+
+1. 只记函数名变化，不看符号；
+2. 把 $\cos(\pi-\alpha)$ 错写成 $\cos\alpha$；
+3. 忘记正切周期是 $\pi$，但用 $2\pi$ 也仍然成立；
+4. 化简到最后没有继续落到特殊角。
+
+## 练习 1
+
+求 $\sin(-\dfrac\pi6)$，$\cos(-\dfrac\pi4)$，$\tan(-\dfrac\pi3)$。
+
+### 答案
+
+$$
+\sin\left(-\frac\pi6\right)=-\frac12,
+\quad
+\cos\left(-\frac\pi4\right)=\frac{\sqrt2}{2},
+\quad
+\tan\left(-\frac\pi3\right)=-\sqrt3
+$$
+
+### 讲解
+
+直接用负角公式：
+
+1. 正弦是奇函数；
+2. 余弦是偶函数；
+3. 正切是奇函数。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.sin(-math.pi / 6))
+print(math.cos(-math.pi / 4))
+print(math.tan(-math.pi / 3))
+`}
+/>
+
+## 练习 2
+
+求 $\sin\dfrac{7\pi}{6}$，$\cos\dfrac{4\pi}{3}$，$\tan\dfrac{4\pi}{3}$。
+
+### 答案
+
+$$
+\sin\frac{7\pi}{6}=-\frac12,
+\quad
+\cos\frac{4\pi}{3}=-\frac12,
+\quad
+\tan\frac{4\pi}{3}=\sqrt3
+$$
+
+### 讲解
+
+利用 $\pi+\alpha$ 型：
+
+$$
+\sin\left(\pi+\frac\pi6\right)=-\sin\frac\pi6
+$$
+
+$$
+\cos\left(\pi+\frac\pi3\right)=-\cos\frac\pi3
+$$
+
+$$
+\tan\left(\pi+\frac\pi3\right)=\tan\frac\pi3
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.sin(7 _ math.pi / 6))
+print(math.cos(4 _ math.pi / 3))
+print(math.tan(4 \* math.pi / 3))
+`}
+/>
+
+## 练习 3
+
+把 $\sin115^\circ$，$\cos105^\circ$，$\tan160^\circ$ 化成锐角的三角函数。
+
+### 答案
+
+$$
+\sin115^\circ=\sin65^\circ,
+\quad
+\cos105^\circ=-\sin15^\circ,
+\quad
+\tan160^\circ=-\tan20^\circ
+$$
+
+### 讲解
+
+$$
+\sin115^\circ=\sin(180^\circ-65^\circ)=\sin65^\circ
+$$
+
+$$
+\cos105^\circ=\cos(90^\circ+15^\circ)=-\sin15^\circ
+$$
+
+$$
+\tan160^\circ=\tan(180^\circ-20^\circ)=-\tan20^\circ
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.sin(math.radians(115)), math.sin(math.radians(65)))
+print(math.cos(math.radians(105)), -math.sin(math.radians(15)))
+print(math.tan(math.radians(160)), -math.tan(math.radians(20)))
+`}
+/>
+
+## 练习 4
+
+计算 $\sin(-36^\circ)+\cos54^\circ+\sin108^\circ+\cos162^\circ$。
+
+### 答案
+
+$$
+0
+$$
+
+### 讲解
+
+分别化简：
+
+$$
+\sin(-36^\circ)=-\sin36^\circ
+$$
+
+$$
+\cos54^\circ=\sin36^\circ
+$$
+
+$$
+\sin108^\circ=\sin(90^\circ+18^\circ)=\cos18^\circ
+$$
+
+$$
+\cos162^\circ=\cos(180^\circ-18^\circ)=-\cos18^\circ
+$$
+
+两两相消，结果为 0。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+value = (
+math.sin(math.radians(-36)) + math.cos(math.radians(54)) + math.sin(math.radians(108)) + math.cos(math.radians(162))
+)
+print(value)
+`}
+/>
+
+## 练习 5
+
+化简 $\cos(\alpha+2\pi)\tan(\pi+\alpha)\sin(-\alpha)$。
+
+### 答案
+
+$$
+-\sin\alpha\tan\alpha\cos\alpha
+$$
+
+进一步可化成
+
+$$
+-\sin^2\alpha
+$$
+
+### 讲解
+
+由诱导公式：
+
+$$
+\cos(\alpha+2\pi)=\cos\alpha
+$$
+
+$$
+\tan(\pi+\alpha)=\tan\alpha
+$$
+
+$$
+\sin(-\alpha)=-\sin\alpha
+$$
+
+所以原式变为
+
+$$
+\cos\alpha\tan\alpha\cdot(-\sin\alpha)
+$$
+
+再用 $\tan\alpha=\dfrac{\sin\alpha}{\cos\alpha}$，可得结果为
+
+$$
+-\sin^2\alpha
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = 0.7
+left = math.cos(alpha + 2 _ math.pi) _ math.tan(math.pi + alpha) \* math.sin(-alpha)
+right = -(math.sin(alpha) \*\* 2)
+print(left, right)
+`}
+/>

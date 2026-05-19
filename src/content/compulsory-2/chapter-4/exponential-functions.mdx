@@ -334,10 +334,11 @@ print(a, b, a > b)
   code={`def f(x):
     return 3**x
 
-def g(x):
-return 2\*x + 1
+    def g(x):
+        return 2*x + 1
 
-for x in [-1, 0, 1, 2, 3]:
-print(x, f(x), g(x), f(x) - g(x))
+        for x in [-1, 0, 1, 2, 3]:
+            print(x, f(x), g(x), f(x) - g(x))
+
 `}
 />

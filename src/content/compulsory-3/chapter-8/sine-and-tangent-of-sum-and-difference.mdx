@@ -1,0 +1,326 @@
+---
+title: "两角和与差的正弦、正切"
+description: "对应教材 8.2.2，建立正弦和差公式、正切和差公式，并学习它们与余弦和差公式的联系。"
+order: 5
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "正弦和差公式"
+  - "正切和差公式"
+  - "三角恒等变换"
+  - "特殊角求值"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 两角和与差的正弦、正切
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 写出正弦和差公式；
+2. 写出正切和差公式并理解分母条件；
+3. 用公式计算 $15^\circ,75^\circ$ 这类特殊角的值；
+4. 会把一个角拆成熟悉角来求值；
+5. 知道正切公式是由正弦、余弦相除得到的。
+
+## 为什么要学这个内容
+
+上一页只解决了余弦。可实际题目里更常见的是正弦和正切。
+
+特别是正切，一旦学会和差公式，很多斜率、倾斜角、代数式求值都会变得顺手。
+
+## 预备知识
+
+你需要会：
+
+1. 余弦和差公式；
+2. $\tan\theta=\frac{\sin\theta}{\cos\theta}$；
+3. 特殊角的正弦、余弦、正切值。
+
+## 正弦和差公式
+
+对任意角 $\alpha,\beta$，有
+
+$$
+\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+$$
+
+$$
+\sin(\alpha-\beta)=\sin\alpha\cos\beta-\cos\alpha\sin\beta
+$$
+
+记忆方法：
+
+1. 正弦前面总是“正余”；
+2. 后面总是“余正”；
+3. 和用加，差用减。
+
+## 正切和差公式
+
+在分母不为 0 的前提下，
+
+$$
+\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}
+$$
+
+$$
+\tan(\alpha-\beta)=\frac{\tan\alpha-\tan\beta}{1+\tan\alpha\tan\beta}
+$$
+
+这里必须注意：只有当相关角的正切有意义，并且分母不为 0 时，公式才可以直接使用。
+
+## 推导或证明
+
+### 正弦和差公式的来历
+
+利用诱导公式
+
+$$
+\sin\theta=\cos\left(\frac\pi2-\theta\right)
+$$
+
+于是
+
+$$
+\sin(\alpha+\beta)=\cos\left[\frac\pi2-(\alpha+\beta)\right]
+$$
+
+再用余弦差角公式展开，就可以得到正弦和角公式。
+
+### 正切和差公式的来历
+
+由定义
+
+$$
+\tan(\alpha+\beta)=\frac{\sin(\alpha+\beta)}{\cos(\alpha+\beta)}
+$$
+
+把分子分母分别代入正弦和角、余弦和角公式，再同除以 $\cos\alpha\cos\beta$，便得到
+
+$$
+\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}
+$$
+
+差角公式同理。
+
+## 直观理解
+
+正弦公式和余弦公式其实是一组互相配合的坐标变化规律。
+
+正弦看纵向分量，余弦看横向分量，而正切是纵向与横向的比值，所以它的公式自然会写成一个分式。
+
+## 例题 1
+
+求 $\sin75^\circ$。
+
+### 讲解
+
+$$
+\sin75^\circ=\sin(45^\circ+30^\circ)
+$$
+
+由和角公式：
+
+$$
+=\sin45^\circ\cos30^\circ+\cos45^\circ\sin30^\circ
+$$
+
+$$
+=\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}+\frac{\sqrt2}{2}\cdot\frac12
+=\frac{\sqrt6+\sqrt2}{4}
+$$
+
+## 例题 2
+
+求 $\tan15^\circ$。
+
+### 讲解
+
+$$
+\tan15^\circ=\tan(45^\circ-30^\circ)
+$$
+
+由差角公式：
+
+$$
+\tan15^\circ=\frac{\tan45^\circ-\tan30^\circ}{1+\tan45^\circ\tan30^\circ}
+$$
+
+$$
+=\frac{1-\frac1{\sqrt3}}{1+\frac1{\sqrt3}}=2-\sqrt3
+$$
+
+## 方法总结
+
+1. 求陌生角三角函数值时，优先拆角；
+2. 看到正弦，想“正余加余正”；
+3. 看到正切，先检查分母能不能为 0；
+4. 做恒等变换时，尽量统一到正弦余弦后再化简。
+
+## 常见错误
+
+1. 把正弦和角公式记成减号；
+2. 把正切公式分母符号写反；
+3. 忽略正切公式的分母条件；
+4. 特殊角正切值代错；
+5. 最后不化到最简形式。
+
+## 练习 1
+
+写出 $\sin(\alpha+\beta)$ 与 $\sin(\alpha-\beta)$ 的公式。
+
+### 答案
+
+$$
+\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+$$
+
+$$
+\sin(\alpha-\beta)=\sin\alpha\cos\beta-\cos\alpha\sin\beta
+$$
+
+### 讲解
+
+正弦和差公式最关键的特征是：结构完全相同，只是中间符号跟随角里的和差变化。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`print("sin(a+b)=sin(a)cos(b)+cos(a)sin(b)")
+print("sin(a-b)=sin(a)cos(b)-cos(a)sin(b)")
+`}
+/>
+
+## 练习 2
+
+求 $\sin15^\circ$。
+
+### 答案
+
+$$
+\sin15^\circ=\frac{\sqrt6-\sqrt2}{4}
+$$
+
+### 讲解
+
+把 $15^\circ$ 写成 $45^\circ-30^\circ$：
+
+$$
+\sin15^\circ=\sin45^\circ\cos30^\circ-\cos45^\circ\sin30^\circ
+$$
+
+$$
+=\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}-\frac{\sqrt2}{2}\cdot\frac12
+=\frac{\sqrt6-\sqrt2}{4}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.sin(math.radians(15)))
+`}
+/>
+
+## 练习 3
+
+求 $\tan75^\circ$。
+
+### 答案
+
+$$
+2+\sqrt3
+$$
+
+### 讲解
+
+$$
+\tan75^\circ=\tan(45^\circ+30^\circ)
+$$
+
+由正切和角公式：
+
+$$
+\tan75^\circ=\frac{1+\frac1{\sqrt3}}{1-\frac1{\sqrt3}}=2+\sqrt3
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.tan(math.radians(75)))
+`}
+/>
+
+## 练习 4
+
+已知 $\sin\alpha=\frac35$，$\cos\alpha=\frac45$，$\sin\beta=\frac{12}{13}$，$\cos\beta=\frac5{13}$，且 $\alpha,\beta$ 都是锐角，求 $\sin(\alpha+\beta)$。
+
+### 答案
+
+$$
+\frac{63}{65}
+$$
+
+### 讲解
+
+由和角公式：
+
+$$
+\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta
+$$
+
+代入得
+
+$$
+\sin(\alpha+\beta)=\frac35\cdot\frac5{13}+\frac45\cdot\frac{12}{13}
+=\frac{15}{65}+\frac{48}{65}=\frac{63}{65}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`value = 3 / 5 * 5 / 13 + 4 / 5 * 12 / 13
+print(value)
+`}
+/>
+
+## 练习 5
+
+已知 $\tan\alpha=2$，$\tan\beta=\frac13$，且 $\alpha+\beta$ 的正切有意义，求 $\tan(\alpha+\beta)$。
+
+### 答案
+
+$$
+7
+$$
+
+### 讲解
+
+直接用正切和角公式：
+
+$$
+\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}
+$$
+
+代入得
+
+$$
+\tan(\alpha+\beta)=\frac{2+\frac13}{1-\frac23}
+=\frac{\frac73}{\frac13}=7
+$$
+
+这里分母 $1-\tan\alpha\tan\beta=\frac13\ne0$，所以公式可以正常使用。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`tan_alpha = 2
+tan_beta = 1 / 3
+print((tan_alpha + tan_beta) / (1 - tan_alpha * tan_beta))
+`}
+/>

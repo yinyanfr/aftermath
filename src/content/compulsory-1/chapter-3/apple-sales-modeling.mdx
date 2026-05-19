@@ -179,8 +179,9 @@ $$
   code={`def z(t):
     return -0.001 * t**2 + 0.06 * t + 0.1
 
-for t in [0, 10, 20, 30, 40, 50]:
-print(t, z(t))
+    for t in [0, 10, 20, 30, 40, 50]:
+        print(t, z(t))
+
 `}
 />
 
@@ -265,8 +266,9 @@ $$
   code={`def z(t):
     return -0.002 * t**2 + 0.08 * t + 0.2
 
-for t in [0, 10, 20, 30, 40]:
-print(t, z(t))
+    for t in [0, 10, 20, 30, 40]:
+        print(t, z(t))
+
 `}
 />
 
@@ -290,14 +292,15 @@ print(t, z(t))
   code={`def price(t):
     return 0.8 + 0.02 * t
 
-def cost(t):
-return 0.1 + 0.01 \* t
+    def cost(t):
+        return 0.1 + 0.01 * t
 
-def profit(t):
-return price(t) - cost(t)
+        def profit(t):
+            return price(t) - cost(t)
 
-for t in [0, 10, 20, 30]:
-print(t, price(t), cost(t), profit(t))
+            for t in [0, 10, 20, 30]:
+                print(t, price(t), cost(t), profit(t))
+
 `}
 />
 
@@ -346,17 +349,18 @@ print(points_quad)
 def f(x):
     return -0.5 * x + 5
 
-def h(t):
-return -0.14 \* t + 9.6
+    def h(t):
+        return -0.14 * t + 9.6
 
-def g(t):
-return 0.01 \* t + 0.1
+        def g(t):
+            return 0.01 * t + 0.1
 
-def z(t):
-return f(h(t)) - g(t)
+            def z(t):
+                return f(h(t)) - g(t)
 
-for t in [0, 10, 20, 30]:
-print(t, z(t))
+                for t in [0, 10, 20, 30]:
+                    print(t, z(t))
+
 `}
 />
 
@@ -381,9 +385,9 @@ print(t, z(t))
 <InlinePythonPlayground
   code={`# 这不是数值计算题，而是提醒：不同假设会导致不同模型
 assumptions = [
-    "价格近似一次函数",
-    "成本近似一次函数",
-    "市场数量近似二次函数",
+"价格近似一次函数",
+"成本近似一次函数",
+"市场数量近似二次函数",
 ]
 
 for item in assumptions:

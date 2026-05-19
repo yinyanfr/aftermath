@@ -1,0 +1,382 @@
+---
+title: "倍角公式"
+description: "对应教材 8.2.3，由和角公式推出正弦、余弦、正切倍角公式，并学习它们的几种常用变形。"
+order: 6
+textbook: "compulsory-3"
+chapter: "chapter-8"
+tags:
+  - "倍角公式"
+  - "二倍角"
+  - "降幂"
+  - "三角恒等变换"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 倍角公式
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 写出 $\sin2\alpha,\cos2\alpha,\tan2\alpha$ 的公式；
+2. 知道 $\cos2\alpha$ 的三种常见写法；
+3. 会把平方形式转成一次角，或把一次角转成平方形式；
+4. 会用倍角公式求值与化简；
+5. 会在简单方程和恒等变换中灵活选式。
+
+## 为什么要学这个内容
+
+和差公式解决的是“把一个角拆成两个角”。
+
+倍角公式正好反过来，它解决的是“把两个相同的角合起来”。很多式子里出现 $\sin^2\alpha,\cos^2\alpha$，如果想继续化简，倍角公式往往是关键一步。
+
+## 预备知识
+
+你需要会：
+
+1. 正弦、余弦、正切和差公式；
+2. 同角三角函数基本关系式 $\sin^2\alpha+\cos^2\alpha=1$；
+3. 特殊角三角函数值。
+
+## 正弦倍角公式
+
+把和角公式中的 $\beta$ 换成 $\alpha$：
+
+$$
+\sin2\alpha=\sin(\alpha+\alpha)=2\sin\alpha\cos\alpha
+$$
+
+## 余弦倍角公式
+
+同理，由余弦和角公式得到
+
+$$
+\cos2\alpha=\cos^2\alpha-\sin^2\alpha
+$$
+
+再结合
+
+$$
+\sin^2\alpha+\cos^2\alpha=1
+$$
+
+可以得到两种等价形式：
+
+$$
+\cos2\alpha=2\cos^2\alpha-1
+$$
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+这三种写法要根据题目结构灵活选。
+
+## 正切倍角公式
+
+由正切和角公式可得
+
+$$
+\tan2\alpha=\frac{2\tan\alpha}{1-\tan^2\alpha}
+$$
+
+前提是分母不为 0，也就是 $\tan^2\alpha\ne1$。
+
+## 直观理解
+
+倍角公式的本质是“两个相同转动合成一次更大的转动”。
+
+1. $\sin2\alpha$ 反映横纵分量同时参与；
+2. $\cos2\alpha$ 常常把平方项压缩成一次角；
+3. $\tan2\alpha$ 适合处理比值结构，但要多注意定义条件。
+
+## 推导或证明
+
+以余弦倍角公式的变形为例：
+
+从
+
+$$
+\cos2\alpha=\cos^2\alpha-\sin^2\alpha
+$$
+
+出发，如果想把式子全部化成 $\cos\alpha$，就用
+
+$$
+\sin^2\alpha=1-\cos^2\alpha
+$$
+
+代入，得到
+
+$$
+\cos2\alpha=\cos^2\alpha-(1-\cos^2\alpha)=2\cos^2\alpha-1
+$$
+
+如果想全部化成 $\sin\alpha$，就反过来处理，得到
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+## 例题 1
+
+已知 $\sin\alpha=\frac35$，$\cos\alpha=\frac45$，求 $\sin2\alpha$ 与 $\cos2\alpha$。
+
+### 讲解
+
+$$
+\sin2\alpha=2\cdot\frac35\cdot\frac45=\frac{24}{25}
+$$
+
+$$
+\cos2\alpha=\left(\frac45\right)^2-\left(\frac35\right)^2=\frac{16}{25}-\frac9{25}=\frac7{25}
+$$
+
+## 例题 2
+
+求 $\cos30^\circ$，若已知 $30^\circ=2\times15^\circ$ 且 $\sin15^\circ=\frac{\sqrt6-\sqrt2}{4}$。
+
+### 讲解
+
+用形式
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+取 $\alpha=15^\circ$，则
+
+$$
+\cos30^\circ=1-2\sin^215^\circ
+$$
+
+虽然直接求 $\cos30^\circ$ 更简单，但这个例子说明了倍角公式可以把平方项转成一次角，也可以反过来使用。
+
+## 方法总结
+
+1. 出现 $2\alpha$ 时，优先想到倍角公式；
+2. 出现 $\sin^2\alpha,\cos^2\alpha$ 时，优先想到余弦倍角的变形；
+3. 需要统一成 $\sin$ 或统一成 $\cos$ 时，选最省步数的那一种；
+4. 用正切倍角时，先检查分母是否为 0。
+
+## 常见错误
+
+1. 把 $\sin2\alpha$ 误写成 $2\sin\alpha$；
+2. 把 $\cos2\alpha$ 的三个公式混淆；
+3. 只记一种形式，遇到题不会变通；
+4. 忘记正切倍角公式的分母条件；
+5. 化简平方时漏掉括号。
+
+## 练习 1
+
+写出 $\sin2\alpha,\cos2\alpha,\tan2\alpha$ 的公式。
+
+### 答案
+
+$$
+\sin2\alpha=2\sin\alpha\cos\alpha
+$$
+
+$$
+\cos2\alpha=\cos^2\alpha-\sin^2\alpha=2\cos^2\alpha-1=1-2\sin^2\alpha
+$$
+
+$$
+\tan2\alpha=\frac{2\tan\alpha}{1-\tan^2\alpha}
+$$
+
+### 讲解
+
+这三个公式分别来自和角公式里取 $\beta=\alpha$。其中余弦倍角公式最常用，因为它有三种常见变形。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`print("sin2a = 2sin(a)cos(a)")
+print("cos2a = cos(a)^2 - sin(a)^2 = 2cos(a)^2 - 1 = 1 - 2sin(a)^2")
+print("tan2a = 2tan(a)/(1-tan(a)^2)")
+`}
+/>
+
+## 练习 2
+
+已知 $\sin\alpha=\frac35$，$\cos\alpha=\frac45$，求 $\tan2\alpha$。
+
+### 答案
+
+$$
+\tan2\alpha=\frac{24}{7}
+$$
+
+### 讲解
+
+先求
+
+$$
+\tan\alpha=\frac{\sin\alpha}{\cos\alpha}=\frac34
+$$
+
+再用倍角公式：
+
+$$
+\tan2\alpha=\frac{2\cdot\frac34}{1-\left(\frac34\right)^2}
+=\frac{\frac32}{1-\frac9{16}}=rac{\frac32}{\frac7{16}}=\frac{24}{7}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`tan_alpha = 3 / 4
+print(2 * tan_alpha / (1 - tan_alpha ** 2))
+`}
+/>
+
+## 练习 3
+
+若 $\cos2\alpha=\frac12$，求 $\sin^2\alpha$。
+
+### 答案
+
+$$
+\sin^2\alpha=\frac14
+$$
+
+### 讲解
+
+直接用
+
+$$
+\cos2\alpha=1-2\sin^2\alpha
+$$
+
+代入得
+
+$$
+\frac12=1-2\sin^2\alpha
+$$
+
+所以
+
+$$
+2\sin^2\alpha=\frac12,
+\quad
+\sin^2\alpha=\frac14
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`value = (1 - 1 / 2) / 2
+print(value)
+`}
+/>
+
+## 练习 4
+
+化简：
+
+$$
+\sin^2\alpha+\cos2\alpha
+$$
+
+### 答案
+
+$$
+\cos^2\alpha
+$$
+
+### 讲解
+
+把 $\cos2\alpha$ 换成 $1-2\sin^2\alpha$：
+
+$$
+\sin^2\alpha+\cos2\alpha=\sin^2\alpha+1-2\sin^2\alpha=1-\sin^2\alpha
+$$
+
+再用同角关系：
+
+$$
+1-\sin^2\alpha=\cos^2\alpha
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+alpha = math.radians(23)
+left = math.sin(alpha) ** 2 + math.cos(2 \* alpha)
+right = math.cos(alpha) ** 2
+print(left)
+print(right)
+`}
+/>
+
+## 练习 5
+
+已知 $0^\circ&lt;\alpha&lt;90^\circ$，且 $\sin2\alpha=\frac45$，$\cos2\alpha=\frac35$，求 $\tan\alpha$。
+
+### 答案
+
+$$
+\tan\alpha=\frac12
+$$
+
+### 讲解
+
+设 $t=\tan\alpha$，则
+
+$$
+\tan2\alpha=\frac{\sin2\alpha}{\cos2\alpha}=\frac{4/5}{3/5}=\frac43
+$$
+
+因此
+
+$$
+\frac{2t}{1-t^2}=\frac43
+$$
+
+交叉相乘：
+
+$$
+6t=4-4t^2
+$$
+
+整理得
+
+$$
+4t^2+6t-4=0
+$$
+
+$$
+2t^2+3t-2=0
+$$
+
+分解因式：
+
+$$
+(2t-1)(t+2)=0
+$$
+
+得 $t=\frac12$ 或 $t=-2$。
+
+因为 $0^\circ&lt;\alpha&lt;90^\circ$，所以 $\tan\alpha&gt;0$，故
+
+$$
+\tan\alpha=\frac12
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+solutions = []
+for t in [i / 100 for i in range(-500, 501)]:
+if abs(2 \* t / (1 - t \*\* 2) - 4 / 3) < 1e-6:
+solutions.append(t)
+print(solutions[:10])
+print(0.5)
+`}
+/>

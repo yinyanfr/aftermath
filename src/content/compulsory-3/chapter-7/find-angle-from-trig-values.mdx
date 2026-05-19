@@ -1,0 +1,284 @@
+---
+title: "已知三角函数值求角"
+description: "对应教材 7.3.5，利用单位圆与函数图象由已知三角函数值或范围求角或求角的范围。"
+order: 11
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "求角"
+  - "反三角函数"
+  - "解三角方程"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 已知三角函数值求角
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 已知正弦值求所有对应角；
+2. 已知余弦值或正切值求角；
+3. 在指定区间内筛选解；
+4. 已知不等式求角的范围；
+5. 理解 arcsin、arccos、arctan 的主值含义。
+
+## 为什么要学这个内容
+
+前几页一直在做“角到函数值”的正向过程。这一页反过来，做“函数值到角”的逆向过程。
+
+这在解方程、研究周期现象、做题设参数时都非常常见。
+
+## 预备知识
+
+你需要先会：
+
+1. 单位圆与三角函数线；
+2. 正弦、余弦、正切函数图象；
+3. 象限角与终边相同角。
+
+## 基本思路
+
+已知三角函数值求角，通常分两步：
+
+1. 先找一个基本角；
+2. 再利用周期和象限把所有解写出来。
+
+例如，若
+
+$$
+\sin x=\frac12
+$$
+
+则单位圆上对应的点在第一、第二象限，所以
+
+$$
+x=\frac\pi6+2k\pi\quad 或\quad x=\frac{5\pi}6+2k\pi
+$$
+
+## 主值思想
+
+为了方便计算器和软件表示，人们约定：
+
+1. $\arcsin y$ 表示落在 $[-\dfrac\pi2,\dfrac\pi2]$ 内的那个角；
+2. $\arccos y$ 表示落在 $[0,\pi]$ 内的那个角；
+3. $\arctan y$ 表示落在 $(-\dfrac\pi2,\dfrac\pi2)$ 内的那个角。
+
+它们给的是“一个标准代表”，不是全部解。
+
+## 例题 1
+
+求满足 $\sin x=\dfrac12$ 的所有 $x$。
+
+### 讲解
+
+基本角是 $\dfrac\pi6$。
+
+正弦为正，说明在第一、第二象限，所以
+
+$$
+x=\frac\pi6+2k\pi\quad 或\quad x=\frac{5\pi}6+2k\pi
+$$
+
+## 例题 2
+
+已知 $\tan x=-1$，且 $x\in(3\pi,5\pi)$，求 $x$。
+
+### 讲解
+
+因为 $\tan\dfrac{-\pi}{4}=-1$，而正切周期是 $\pi$，所以通解为
+
+$$
+x=-\frac\pi4+k\pi
+$$
+
+再由
+
+$$
+3\pi<x<5\pi
+$$
+
+筛选，可得
+
+$$
+x=\frac{15\pi}4\quad 或\quad \frac{19\pi}4
+$$
+
+## 方法总结
+
+1. 正弦先看“上半圆还是下半圆”；
+2. 余弦先看“左半圆还是右半圆”；
+3. 正切先找一个基本解，再加 $k\pi$；
+4. 有区间时，最后一定要筛选。
+
+## 常见错误
+
+1. 只写一个角，漏掉另一个象限的解；
+2. 把正弦和余弦都写成加 $k\pi$；
+3. 忘记根据题目给定区间筛选；
+4. 把主值误当成全部解。
+
+## 练习 1
+
+求满足 $\cos x=-\dfrac12$ 的所有 $x$。
+
+### 答案
+
+$$
+x=\frac{2\pi}3+2k\pi\quad 或\quad x=\frac{4\pi}3+2k\pi
+$$
+
+### 讲解
+
+基本角是 $\dfrac\pi3$。
+
+余弦为负，说明在第二、第三象限，所以对应角分别是 $\dfrac{2\pi}3$ 和 $\dfrac{4\pi}3$。再加整周即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+solutions = [2 * math.pi / 3, 4 * math.pi / 3]
+for s in solutions:
+print(s, math.cos(s))
+`}
+/>
+
+## 练习 2
+
+求满足 $\tan x=\sqrt3$ 的所有 $x$。
+
+### 答案
+
+$$
+x=\frac\pi3+k\pi
+$$
+
+### 讲解
+
+因为
+
+$$
+\tan\frac\pi3=\sqrt3
+$$
+
+而正切的周期是 $\pi$，所以通解为
+
+$$
+x=\frac\pi3+k\pi
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+for k in range(-2, 3):
+x = math.pi / 3 + k \* math.pi
+print(k, x, round(math.tan(x), 10))
+`}
+/>
+
+## 练习 3
+
+在区间 $[0,2\pi]$ 内，求满足 $\sin x=-\dfrac{\sqrt2}{2}$ 的 $x$。
+
+### 答案
+
+$$
+x=\frac{5\pi}4\quad 或\quad \frac{7\pi}4
+$$
+
+### 讲解
+
+基本角是 $\dfrac\pi4$。
+
+正弦为负，说明在第三、第四象限，所以对应角是
+
+$$
+\pi+\frac\pi4=\frac{5\pi}4
+$$
+
+和
+
+$$
+2\pi-\frac\pi4=\frac{7\pi}4
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+for x in [5 * math.pi / 4, 7 * math.pi / 4]:
+print(x, math.sin(x))
+`}
+/>
+
+## 练习 4
+
+求不等式 $\sin x\ge\dfrac12$ 的解集。
+
+### 答案
+
+$$
+\frac\pi6+2k\pi\le x\le \frac{5\pi}6+2k\pi \quad (k\in \mathbb Z)
+$$
+
+### 讲解
+
+在一个周期内，$\sin x=\dfrac12$ 的两个边界角是 $\dfrac\pi6$ 和 $\dfrac{5\pi}6$。
+
+正弦大于等于 $\dfrac12$ 时，终边位于这两个角之间的上部区域，因此解集是
+
+$$
+\frac\pi6+2k\pi\le x\le \frac{5\pi}6+2k\pi
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+samples = [0, math.pi / 6, math.pi / 2, 5 * math.pi / 6, math.pi]
+for x in samples:
+print(x, math.sin(x) >= 0.5)
+`}
+/>
+
+## 练习 5
+
+求 $\arcsin\dfrac12$，$\arccos(-1)$，$\arctan1$。
+
+### 答案
+
+$$
+\arcsin\frac12=\frac\pi6,
+\quad
+\arccos(-1)=\pi,
+\quad
+\arctan1=\frac\pi4
+$$
+
+### 讲解
+
+按主值范围判断：
+
+1. $\arcsin$ 取在 $[-\dfrac\pi2,\dfrac\pi2]$；
+2. $\arccos$ 取在 $[0,\pi]$；
+3. $\arctan$ 取在 $(-\dfrac\pi2,\dfrac\pi2)$。
+
+因此对应主值分别是 $\dfrac\pi6$、$\pi$、$\dfrac\pi4$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+print(math.asin(0.5))
+print(math.acos(-1))
+print(math.atan(1))
+`}
+/>

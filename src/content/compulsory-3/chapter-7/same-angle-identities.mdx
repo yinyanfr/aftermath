@@ -1,0 +1,437 @@
+---
+title: "同角三角函数的基本关系式"
+description: "对应教材 7.2.3，掌握 sin²α+cos²α=1 与 tanα=sinα/cosα，并会用它们求值与化简。"
+order: 5
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "同角三角函数"
+  - "基本关系式"
+  - "恒等式"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 同角三角函数的基本关系式
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 会写出同角三角函数的两个基本关系式；
+2. 理解这两个关系式从哪里来；
+3. 已知一个三角函数值求另外两个；
+4. 结合象限确定符号；
+5. 用关系式做简单化简与证明。
+
+## 为什么要学这个内容
+
+三角函数不是三个互相孤立的量。正弦、余弦、正切之间有固定联系。
+
+这些联系就像“通用转接头”：给你一个量，再给你象限信息，你通常就能把另外两个量求出来。它们也是后面所有三角恒等变换的起点。
+
+## 预备知识
+
+你需要先会：
+
+1. 任意角三角函数定义；
+2. 单位圆和勾股定理；
+3. 象限中的符号规律。
+
+## 两个基本关系式
+
+设角 $\alpha$ 的终边上有点 $P(x,y)$，且
+
+$$
+r=\sqrt{x^2+y^2}
+$$
+
+则
+
+$$
+\sin\alpha=\frac y r,
+\quad
+\cos\alpha=\frac x r,
+\quad
+\tan\alpha=\frac y x
+$$
+
+于是可以得到：
+
+$$
+\sin^2\alpha+\cos^2\alpha=1
+$$
+
+以及
+
+$$
+\tan\alpha=\frac{\sin\alpha}{\cos\alpha}
+$$
+
+第二个关系式要求 $\cos\alpha\ne0$，也就是正切有意义时才能使用。
+
+## 直观理解
+
+第一个公式本质上就是勾股定理。因为
+
+$$
+x^2+y^2=r^2
+$$
+
+两边同时除以 $r^2$ 就得到正弦平方加余弦平方等于 1。
+
+第二个公式则是把
+
+$$
+\frac y x
+$$
+
+写成
+
+$$
+\frac{y/r}{x/r}
+$$
+
+所以正切就是正弦除以余弦。
+
+## 推导或证明
+
+由
+
+$$
+x^2+y^2=r^2
+$$
+
+两边同时除以 $r^2$，得
+
+$$
+\frac{x^2}{r^2}+\frac{y^2}{r^2}=1
+$$
+
+即
+
+$$
+\cos^2\alpha+\sin^2\alpha=1
+$$
+
+又因为
+
+$$
+\frac{\sin\alpha}{\cos\alpha}=\frac{y/r}{x/r}=\frac y x
+$$
+
+所以
+
+$$
+\tan\alpha=\frac{\sin\alpha}{\cos\alpha}
+$$
+
+## 例题 1
+
+已知 $\sin\alpha=\dfrac45$，且 $\alpha$ 是第二象限角，求 $\cos\alpha$ 与 $\tan\alpha$。
+
+### 讲解
+
+由
+
+$$
+\sin^2\alpha+\cos^2\alpha=1
+$$
+
+得
+
+$$
+\cos^2\alpha=1-\left(\frac45\right)^2=\frac 9 {25}
+$$
+
+所以 $\cos\alpha=\pm\dfrac35$。
+
+又因为第二象限余弦为负，所以
+
+$$
+\cos\alpha=-\frac35
+$$
+
+再求
+
+$$
+\tan\alpha=\frac{\sin\alpha}{\cos\alpha}=\frac{4/5}{-3/5}=-\frac43
+$$
+
+## 例题 2
+
+已知 $\tan\theta=-2$，且 $\theta$ 是第四象限角，求 $\sin\theta$ 与 $\cos\theta$。
+
+### 讲解
+
+由
+
+$$
+\tan\theta=\frac{\sin\theta}{\cos\theta}=-2
+$$
+
+可设
+
+$$
+\sin\theta=-2k,\quad \cos\theta=k
+$$
+
+代入
+
+$$
+\sin^2\theta+\cos^2\theta=1
+$$
+
+得
+
+$$
+4k^2+k^2=1
+$$
+
+所以
+
+$$
+k=\frac{\sqrt5}{5}
+$$
+
+第四象限中余弦为正、正弦为负，因此
+
+$$
+\sin\theta=-\frac{2\sqrt5}{5},\quad \cos\theta=\frac{\sqrt5}{5}
+$$
+
+## 方法总结
+
+已知一个三角函数值求另外两个时，先做两件事：
+
+1. 用关系式求平方或比值；
+2. 用象限决定最终正负号。
+
+## 常见错误
+
+1. 只算出平方值，不开方；
+2. 开方后忘记用象限选符号；
+3. 在余弦为 0 时仍直接用 $\tan=\dfrac{\sin}{\cos}$ 做变形；
+4. 把 $\sin^2\alpha+\cos^2\alpha=1$ 错写成 $\sin\alpha+\cos\alpha=1$。
+
+## 练习 1
+
+已知 $\cos\alpha=\dfrac35$，且 $\alpha$ 是第一象限角，求 $\sin\alpha$ 与 $\tan\alpha$。
+
+### 答案
+
+$$
+\sin\alpha=\frac45,
+\quad
+\tan\alpha=\frac43
+$$
+
+### 讲解
+
+由
+
+$$
+\sin^2\alpha=1-\cos^2\alpha=1-\left(\frac35\right)^2=\frac{16}{25}
+$$
+
+得
+
+$$
+\sin\alpha=\frac45
+$$
+
+因为第一象限正弦为正。
+
+再求
+
+$$
+\tan\alpha=\frac{4/5}{3/5}=\frac43
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`cos_a = 3 / 5
+sin_a = (1 - cos_a ** 2) ** 0.5
+tan_a = sin_a / cos_a
+print(sin_a, tan_a)
+`}
+/>
+
+## 练习 2
+
+已知 $\sin\beta=-\dfrac12$，且 $\beta$ 是第四象限角，求 $\cos\beta$ 与 $\tan\beta$。
+
+### 答案
+
+$$
+\cos\beta=\frac{\sqrt3}{2},
+\quad
+\tan\beta=-\frac{\sqrt3}{3}
+$$
+
+### 讲解
+
+由
+
+$$
+\cos^2\beta=1-\sin^2\beta=1-\frac14=\frac34
+$$
+
+得
+
+$$
+\cos\beta=\pm\frac{\sqrt3}{2}
+$$
+
+第四象限余弦为正，所以取正号。
+
+再求
+
+$$
+\tan\beta=\frac{-1/2}{\sqrt3/2}=-\frac{\sqrt3}{3}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+sin_b = -1 / 2
+cos_b = math.sqrt(1 - sin_b \*\* 2)
+tan_b = sin_b / cos_b
+print(cos_b, tan_b)
+`}
+/>
+
+## 练习 3
+
+已知 $\tan\theta=\dfrac34$，且 $\theta$ 是第三象限角，求 $\sin\theta$ 与 $\cos\theta$。
+
+### 答案
+
+$$
+\sin\theta=-\frac35,
+\quad
+\cos\theta=-\frac45
+$$
+
+### 讲解
+
+因为
+
+$$
+\tan\theta=\frac{\sin\theta}{\cos\theta}=\frac34
+$$
+
+可按 3-4-5 直角三角形比例取值。
+
+第三象限中正弦、余弦都为负，所以
+
+$$
+\sin\theta=-\frac35,
+\quad
+\cos\theta=-\frac45
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`sin_t = -3 / 5
+cos_t = -4 / 5
+print(sin_t / cos_t)
+print(sin_t ** 2 + cos_t ** 2)
+`}
+/>
+
+## 练习 4
+
+化简 $\cos\theta\tan\theta$。
+
+### 答案
+
+$$
+\sin\theta
+$$
+
+### 讲解
+
+由
+
+$$
+\tan\theta=\frac{\sin\theta}{\cos\theta}
+$$
+
+可得
+
+$$
+\cos\theta\tan\theta=\cos\theta\cdot\frac{\sin\theta}{\cos\theta}=\sin\theta
+$$
+
+前提是正切有意义，也就是 $\cos\theta\ne0$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+theta = 0.7
+left = math.cos(theta) \* math.tan(theta)
+right = math.sin(theta)
+print(left, right)
+`}
+/>
+
+## 练习 5
+
+已知 $\sin\alpha-\cos\alpha=1$，求 $\sin\alpha\cos\alpha$。
+
+### 答案
+
+$$
+0
+$$
+
+### 讲解
+
+两边平方：
+
+$$
+(\sin\alpha-\cos\alpha)^2=1
+$$
+
+展开得
+
+$$
+\sin^2\alpha-2\sin\alpha\cos\alpha+\cos^2\alpha=1
+$$
+
+再用
+
+$$
+\sin^2\alpha+\cos^2\alpha=1
+$$
+
+代入，可得
+
+$$
+1-2\sin\alpha\cos\alpha=1
+$$
+
+所以
+
+$$
+\sin\alpha\cos\alpha=0
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import sympy as sp
+
+s, c = sp.symbols('s c', real=True)
+eq1 = sp.Eq((s - c) ** 2, 1)
+eq2 = sp.Eq(s ** 2 + c \*\* 2, 1)
+print(sp.solve((eq1, eq2), (s, c), dict=True))
+`}
+/>

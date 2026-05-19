@@ -1,0 +1,347 @@
+---
+title: "三角函数的定义"
+description: "对应教材 7.2.1，从任意角终边上的点坐标出发定义正弦、余弦、正切，并研究符号规律。"
+order: 3
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "三角函数定义"
+  - "正弦"
+  - "余弦"
+  - "正切"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 三角函数的定义
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 用坐标法定义任意角的正弦、余弦、正切；
+2. 已知终边上一点坐标求三角函数值；
+3. 理解为什么定义与点的选取无关；
+4. 判断三角函数值的符号；
+5. 把初中直角三角形定义推广到任意角。
+
+## 为什么要学这个内容
+
+初中只研究锐角三角函数，所以角不能超过 90°。但摩天轮转过 210°、时针转过 -30° 时，它们同样有“高度”“水平位置”“斜率”这些信息。
+
+因此，高中要把三角函数从“锐角工具”推广成“任意角工具”。
+
+## 预备知识
+
+你需要先会：
+
+1. 勾股定理；
+2. 平面直角坐标系中的点坐标；
+3. 绝对值与平方根；
+4. 象限判断。
+
+## 任意角三角函数的定义
+
+设角 $\alpha$ 的终边上有一点 $P(x,y)$，且 $P$ 不与原点重合。记
+
+$$
+r=\sqrt{x^2+y^2}
+$$
+
+那么定义：
+
+$$
+\sin\alpha=\frac y r
+$$
+
+$$
+\cos\alpha=\frac x r
+$$
+
+当 $x\ne0$ 时，还定义：
+
+$$
+\tan\alpha=\frac y x
+$$
+
+这里 $r$ 是点 $P$ 到原点的距离，所以一定是正数。
+
+## 直观理解
+
+如果把终边看成一条确定方向的射线，那么：
+
+1. $y$ 描述“竖直方向有多高”；
+2. $x$ 描述“水平方向走多远”；
+3. $r$ 描述“离原点有多远”。
+
+于是：
+
+1. 正弦就是“高度占整体长度的比例”；
+2. 余弦就是“水平长度占整体长度的比例”；
+3. 正切就是“竖直变化和水平变化的比”。
+
+## 为什么定义与点的选取无关
+
+如果在同一终边上取两个不同点，它们和原点组成的直角三角形是相似的。
+
+既然相似，那么对应边的比相等，所以
+
+$$
+\frac y r,\quad \frac x r,\quad \frac y x
+$$
+
+都不会因为点取远一点或近一点而改变，只由终边方向决定。
+
+这就是三角函数可以只看角、不看具体点的原因。
+
+## 符号规律
+
+因为 $r>0$，所以：
+
+1. $\sin\alpha$ 的符号和 $y$ 的符号一致；
+2. $\cos\alpha$ 的符号和 $x$ 的符号一致；
+3. $\tan\alpha$ 的符号由 $y$ 和 $x$ 同号还是异号决定。
+
+于是：
+
+1. 正弦在第一、二象限为正，在第三、四象限为负；
+2. 余弦在第一、四象限为正，在第二、三象限为负；
+3. 正切在第一、三象限为正，在第二、四象限为负。
+
+## 例题 1
+
+已知角 $\alpha$ 的终边经过点 $P(3,4)$，求 $\sin\alpha$，$\cos\alpha$，$\tan\alpha$。
+
+### 讲解
+
+先求
+
+$$
+r=\sqrt{3^2+4^2}=5
+$$
+
+所以
+
+$$
+\sin\alpha=\frac45,\quad \cos\alpha=\frac35,\quad \tan\alpha=\frac43
+$$
+
+## 例题 2
+
+已知角 $\beta$ 的终边经过点 $Q(-2,2)$，求三角函数值并判断符号是否合理。
+
+### 讲解
+
+先求
+
+$$
+r=\sqrt{(-2)^2+2^2}=2\sqrt2
+$$
+
+于是
+
+$$
+\sin\beta=\frac{2}{2\sqrt2}=\frac{\sqrt2}{2}
+$$
+
+$$
+\cos\beta=\frac{-2}{2\sqrt2}=-\frac{\sqrt2}{2}
+$$
+
+$$
+\tan\beta=\frac{2}{-2}=-1
+$$
+
+点 $Q$ 在第二象限，所以正弦应为正、余弦应为负、正切应为负，和结果一致。
+
+## 方法总结
+
+求任意角三角函数值时，固定流程是：
+
+1. 先读出 $x,y$；
+2. 再算 $r=\sqrt{x^2+y^2}$；
+3. 最后代入三个定义；
+4. 用象限再检查一遍符号。
+
+## 常见错误
+
+1. 把 $r$ 误写成 $x+y$；
+2. 余弦分子写成 $y$；
+3. 忽略正切要求 $x\ne0$；
+4. 算出数值后不检查象限符号。
+
+## 练习 1
+
+已知角 $\alpha$ 的终边经过点 $P(1,\sqrt3)$，求 $\sin\alpha$，$\cos\alpha$，$\tan\alpha$。
+
+### 答案
+
+$$
+\sin\alpha=\frac{\sqrt3}{2},\quad \cos\alpha=\frac12,\quad \tan\alpha=\sqrt3
+$$
+
+### 讲解
+
+先求
+
+$$
+r=\sqrt{1^2+(\sqrt3)^2}=2
+$$
+
+再代入定义即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+x = 1
+y = math.sqrt(3)
+r = math.sqrt(x _ x + y _ y)
+print(y / r, x / r, y / x)
+`}
+/>
+
+## 练习 2
+
+已知角 $\beta$ 的终边经过点 $Q(-3,-4)$，求 $\sin\beta$，$\cos\beta$，$\tan\beta$。
+
+### 答案
+
+$$
+\sin\beta=-\frac45,\quad \cos\beta=-\frac35,\quad \tan\beta=\frac43
+$$
+
+### 讲解
+
+先求
+
+$$
+r=\sqrt{(-3)^2+(-4)^2}=5
+$$
+
+所以
+
+$$
+\sin\beta=\frac{-4}{5},\quad \cos\beta=\frac{-3}{5},\quad \tan\beta=\frac{-4}{-3}=\frac43
+$$
+
+第三象限里正切为正，也吻合结果。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = -3
+y = -4
+r = (x * x + y * y) ** 0.5
+print(y / r, x / r, y / x)
+`}
+/>
+
+## 练习 3
+
+求 $\sin0$，$\cos0$，$\tan0$。
+
+### 答案
+
+$$
+\sin0=0,\quad \cos0=1,\quad \tan0=0
+$$
+
+### 讲解
+
+角 0 的终边在 x 轴正半轴上，可以取点 $(1,0)$。
+
+这时 $r=1$，所以
+
+$$
+\sin0=\frac01=0,\quad \cos0=\frac11=1,\quad \tan0=\frac01=0
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = 1
+y = 0
+r = 1
+print(y / r, x / r, y / x)
+`}
+/>
+
+## 练习 4
+
+若 $\sin\theta<0$ 且 $\cos\theta>0$，判断 $\theta$ 是第几象限角。
+
+### 答案
+
+第四象限角。
+
+### 讲解
+
+$\sin\theta<0$ 说明终边在 x 轴下方，即第三或第四象限。
+
+$\cos\theta>0$ 说明终边在 y 轴右侧，即第一或第四象限。
+
+两者同时满足时，只能是第四象限。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`sign_cases = {
+"第一象限": (1, 1),
+"第二象限": (1, -1),
+"第三象限": (-1, -1),
+"第四象限": (-1, 1),
+}
+
+for name, (sin_sign, cos_sign) in sign_cases.items():
+if sin_sign < 0 and cos_sign > 0:
+print(name)
+`}
+/>
+
+## 练习 5
+
+已知角 $\alpha$ 的终边在直线 $y=2x$ 上，且位于第一象限，求 $\sin\alpha$，$\cos\alpha$，$\tan\alpha$。
+
+### 答案
+
+$$
+\sin\alpha=\frac{2\sqrt5}{5},\quad \cos\alpha=\frac{\sqrt5}{5},\quad \tan\alpha=2
+$$
+
+### 讲解
+
+终边在直线 $y=2x$ 上，可取第一象限点 $(1,2)$。
+
+此时
+
+$$
+r=\sqrt{1^2+2^2}=\sqrt5
+$$
+
+所以
+
+$$
+\sin\alpha=\frac{2}{\sqrt5}=\frac{2\sqrt5}{5}
+$$
+
+$$
+\cos\alpha=\frac{1}{\sqrt5}=\frac{\sqrt5}{5}
+$$
+
+$$
+\tan\alpha=2
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+x = 1
+y = 2
+r = math.sqrt(5)
+print(y / r, x / r, y / x)
+`}
+/>

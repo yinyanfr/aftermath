@@ -11,6 +11,84 @@ interface PythonEditorProps {
   lang: string;
 }
 
+function normalizePythonSnippet(code: string) {
+  const normalizedOperators = code.replace(/ _ /g, " * ").replace(/\\\*/g, "*");
+  const lines = normalizedOperators.split("\n");
+  const fixed: string[] = [];
+  const blockIndents: number[] = [];
+  let currentIndent = 0;
+  let expectedIndentedLine = false;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    const raw = lines[i];
+    const trimmed = raw.trim();
+
+    if (trimmed.length === 0) {
+      fixed.push("");
+      continue;
+    }
+
+    if (
+      /^(elif |else:|except |finally:)/.test(trimmed) &&
+      blockIndents.length > 0
+    ) {
+      currentIndent = blockIndents[blockIndents.length - 1] ?? 0;
+    } else if (!expectedIndentedLine && blockIndents.length > 0) {
+      const lower = trimmed.toLowerCase();
+      const isNestedStatement =
+        /^(if |for |while |def |try:|with |return|print\(|import |from |[a-z_][a-z0-9_]*\s*=)/.test(
+          lower,
+        );
+      const previousTrimmed = fixed.at(-1)?.trim() ?? "";
+      const previousOpensBlock = /:\s*$/.test(previousTrimmed);
+
+      if (!previousOpensBlock && isNestedStatement) {
+        currentIndent = 0;
+        blockIndents.length = 0;
+      }
+    }
+
+    fixed.push(`${" ".repeat(currentIndent)}${trimmed}`);
+
+    const opensBlock =
+      /:\s*$/.test(trimmed) &&
+      /^(if |elif |else:|for |while |def |try:|except |finally:|with )/.test(
+        trimmed,
+      );
+
+    if (opensBlock) {
+      blockIndents.push(currentIndent);
+      currentIndent += 4;
+      expectedIndentedLine = true;
+      continue;
+    }
+
+    expectedIndentedLine = false;
+
+    const nextTrimmed = lines[i + 1]?.trim() ?? "";
+    if (
+      blockIndents.length > 0 &&
+      nextTrimmed &&
+      !/^(elif |else:|except |finally:)/.test(nextTrimmed) &&
+      /^(for |if |while |def |try:|with )/.test(trimmed)
+    ) {
+      continue;
+    }
+
+    if (
+      blockIndents.length > 0 &&
+      nextTrimmed &&
+      !/^(elif |else:|except |finally:)/.test(nextTrimmed) &&
+      !/^\s/.test(lines[i + 1] ?? "")
+    ) {
+      currentIndent = 0;
+      blockIndents.length = 0;
+    }
+  }
+
+  return fixed.join("\n");
+}
+
 interface PyodideRuntime {
   loadPackage: (packages: string[]) => Promise<unknown>;
   runPython: (code: string) => string;
@@ -64,6 +142,7 @@ export default function PythonEditor({
   const [pyodide, setPyodide] = useState<PyodideRuntime | null>(null);
   const [loadingPyodide, setLoadingPyodide] = useState(false);
   const ui = LOCALE_UI[lang] || LOCALE_UI["zh-hans"];
+  const normalizedDefaultValue = normalizePythonSnippet(defaultValue);
 
   async function ensurePyodideScript() {
     if (typeof window === "undefined") return;
@@ -100,7 +179,7 @@ export default function PythonEditor({
     if (!editorRef.current) return;
 
     const state = EditorState.create({
-      doc: defaultValue,
+      doc: normalizedDefaultValue,
       extensions: [python(), oneDark, EditorView.lineWrapping],
     });
 
@@ -112,7 +191,7 @@ export default function PythonEditor({
     return () => {
       viewRef.current?.destroy();
     };
-  }, [defaultValue]);
+  }, [normalizedDefaultValue]);
 
   async function loadPyodide() {
     if (pyodide) return pyodide;
@@ -134,7 +213,9 @@ export default function PythonEditor({
   }
 
   async function handleRun() {
-    const code = viewRef.current?.state.doc.toString() || "";
+    const code = normalizePythonSnippet(
+      viewRef.current?.state.doc.toString() || "",
+    );
     setIsRunning(true);
     setOutput("");
 
@@ -186,7 +267,7 @@ except Exception:
         changes: {
           from: 0,
           to: viewRef.current.state.doc.length,
-          insert: defaultValue,
+          insert: normalizedDefaultValue,
         },
       });
     }

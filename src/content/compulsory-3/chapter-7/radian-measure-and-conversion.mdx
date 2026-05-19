@@ -1,0 +1,333 @@
+---
+title: "弧度制及其与角度制的换算"
+description: "对应教材 7.1.2，理解 1 弧度的定义，掌握角度制与弧度制换算以及弧长公式。"
+order: 2
+textbook: "compulsory-3"
+chapter: "chapter-7"
+tags:
+  - "弧度制"
+  - "角度制"
+  - "弧长"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 弧度制及其与角度制的换算
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 说清什么是 1 弧度；
+2. 理解弧度制为什么和半径无关；
+3. 熟练进行角度与弧度换算；
+4. 会用公式 $l=r\alpha$ 计算弧长；
+5. 会把弧度制用于象限判断。
+
+## 为什么要学这个内容
+
+角度制靠“把整圆分成 360 份”来度量角，这很自然。但在公式推导、物理建模、计算机编程里，更方便的单位其实是弧度。
+
+以后你会看到，三角函数的周期、导数、振动模型几乎都默认用弧度。这一页就是把“角的单位”升级成更适合数学运算的形式。
+
+## 预备知识
+
+你需要先会：
+
+1. 圆周长公式 $C=2\pi r$；
+2. 扇形和圆心角的基本概念；
+3. 比和比例的简单运算。
+
+## 1 弧度的定义
+
+在半径为 $r$ 的圆中，如果一条弧的长度正好等于半径 $r$，那么这条弧所对的圆心角叫作 **1 弧度**，记作 1 rad。
+
+如果弧长为 $l$，半径为 $r$，所对圆心角为 $\alpha$ rad，那么
+
+$$
+\alpha=\frac l r
+$$
+
+于是可得弧长公式：
+
+$$
+l=r\alpha
+$$
+
+这里的 $\alpha$ 必须用弧度表示。
+
+## 直观理解
+
+为什么弧度制自然？
+
+因为它不是先人为规定“分成多少份”，而是直接用“弧长和半径的比”描述张开的大小。
+
+同一个角在大圆上对应的弧更长，在小圆上对应的弧更短，但“弧长除以半径”的结果相同，所以这个比值只由角本身决定。
+
+## 弧度制与角度制换算
+
+整圆一周的弧长是 $2\pi r$，所以整周所对的弧度数是
+
+$$
+\frac{2\pi r}{r}=2\pi
+$$
+
+于是：
+
+$$
+360^\circ=2\pi
+$$
+
+进一步得到：
+
+$$
+180^\circ=\pi
+$$
+
+这就是最核心的换算关系。
+
+由它可推出：
+
+1. 角度化弧度：乘 $\dfrac \pi {180}$；
+2. 弧度化角度：乘 $\dfrac {180} \pi$。
+
+## 推导或证明
+
+设一个角的角度数是 $n^\circ$，弧度数是 $\alpha$。
+
+由于 $180^\circ$ 对应 $\pi$，同一个角占平角的比例应相同，所以
+
+$$
+\frac n {180}=\frac \alpha \pi
+$$
+
+从而：
+
+$$
+\alpha=\frac{n\pi}{180}
+$$
+
+以及
+
+$$
+n=\frac{180\alpha}{\pi}
+$$
+
+## 例题 1
+
+把 $30^\circ$，$45^\circ$，$60^\circ$ 化成弧度。
+
+### 讲解
+
+直接用“角度乘 $\dfrac \pi {180}$”。
+
+$$
+30^\circ=\frac{30\pi}{180}=\frac \pi 6
+$$
+
+$$
+45^\circ=\frac{45\pi}{180}=\frac \pi 4
+$$
+
+$$
+60^\circ=\frac{60\pi}{180}=\frac \pi 3
+$$
+
+## 例题 2
+
+半径为 5 cm 的圆中，圆心角为 2 rad，求对应弧长。
+
+### 讲解
+
+弧长公式是
+
+$$
+l=r\alpha
+$$
+
+代入 $r=5$，$\alpha=2$，得
+
+$$
+l=5\times2=10\text{ cm}
+$$
+
+## 方法总结
+
+这一页最重要的只有三件事：
+
+1. $180^\circ=\pi$；
+2. 角度乘 $\dfrac \pi {180}$ 变弧度；
+3. 弧长公式 $l=r\alpha$ 里，$\alpha$ 必须用弧度。
+
+## 常见错误
+
+1. 把弧长公式中的角度直接代进去；
+2. 把 $\pi$ 写成 180 使用时忘记单位背景；
+3. 记反换算方向；
+4. 看到弧度就以为一定比角度数值大，其实不一定。
+
+## 练习 1
+
+把 $120^\circ$，$225^\circ$，$-240^\circ$ 化成弧度。
+
+### 答案
+
+$$
+120^\circ=\frac{2\pi}{3},\quad 225^\circ=\frac{5\pi}{4},\quad -240^\circ=-\frac{4\pi}{3}
+$$
+
+### 讲解
+
+分别乘 $\dfrac \pi {180}$：
+
+$$
+120^\circ=\frac{120\pi}{180}=\frac{2\pi}{3}
+$$
+
+$$
+225^\circ=\frac{225\pi}{180}=\frac{5\pi}{4}
+$$
+
+$$
+-240^\circ=\frac{-240\pi}{180}=-\frac{4\pi}{3}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+angles = [120, 225, -240]
+for a in angles:
+print(a, a \* math.pi / 180)
+`}
+/>
+
+## 练习 2
+
+把 $\dfrac{3\pi}{2}$，$\dfrac{5\pi}{6}$，$-\dfrac{7\pi}{4}$ 化成角度。
+
+### 答案
+
+$$
+\frac{3\pi}{2}=270^\circ,\quad \frac{5\pi}{6}=150^\circ,\quad -\frac{7\pi}{4}=-315^\circ
+$$
+
+### 讲解
+
+分别乘 $\dfrac {180} \pi$：
+
+$$
+\frac{3\pi}{2}\times\frac{180}{\pi}=270^\circ
+$$
+
+其余同理。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+radians = [3 * math.pi / 2, 5 * math.pi / 6, -7 * math.pi / 4]
+for x in radians:
+print(x, x \* 180 / math.pi)
+`}
+/>
+
+## 练习 3
+
+半径为 3 m 的圆中，圆心角为 $\dfrac{4\pi}{3}$，求弧长。
+
+### 答案
+
+$$
+4\pi\text{ m}
+$$
+
+### 讲解
+
+由弧长公式
+
+$$
+l=r\alpha
+$$
+
+可得
+
+$$
+l=3\times\frac{4\pi}{3}=4\pi
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+r = 3
+alpha = 4 _ math.pi / 3
+print(r _ alpha)
+`}
+/>
+
+## 练习 4
+
+判断下列角所在象限：1 rad，3 rad，6 rad。
+
+### 答案
+
+1 rad 在第一象限，3 rad 在第二象限，6 rad 在第四象限。
+
+### 讲解
+
+用近似值比较：
+
+1. $\dfrac \pi 2\approx1.57$，所以 1 rad 在第一象限；
+2. $\dfrac \pi 2<3<\pi$，所以 3 rad 在第二象限；
+3. $\dfrac{3\pi}{2}\approx4.71$，$2\pi\approx6.28$，所以 6 rad 在第四象限。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+values = [1, 3, 6]
+for x in values:
+print(x, x \* 180 / math.pi)
+`}
+/>
+
+## 练习 5
+
+一只时钟经过 4 小时后，时针转过多少度？等于多少弧度？
+
+### 答案
+
+时针转过 $120^\circ$，也就是 $\dfrac{2\pi}{3}$。
+
+### 讲解
+
+时针 12 小时转一周，即 360°。
+
+4 小时占 12 小时的三分之一，所以转过
+
+$$
+360^\circ\times\frac 4 {12}=120^\circ
+$$
+
+再化成弧度：
+
+$$
+120^\circ=\frac{2\pi}{3}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+degree = 360 _ 4 / 12
+radian = degree _ math.pi / 180
+print(degree)
+print(radian)
+`}
+/>
