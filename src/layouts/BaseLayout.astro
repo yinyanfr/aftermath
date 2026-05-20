@@ -409,6 +409,35 @@ const { title = siteTitle, description = siteDescription } = Astro.props;
     color: var(--brand-strong);
   }
 
+  a.knowledge-link {
+    color: var(--brand-strong);
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.14em;
+    text-decoration-color: color-mix(
+      in srgb,
+      var(--brand-strong) 55%,
+      transparent
+    );
+    transition:
+      color 0.18s ease,
+      text-decoration-color 0.18s ease,
+      background-color 0.18s ease;
+    border-radius: 0.25em;
+    padding: 0 0.08em;
+    margin: 0 -0.08em;
+  }
+
+  a.knowledge-link:hover {
+    color: var(--brand);
+    text-decoration-color: var(--brand);
+    background: color-mix(in srgb, var(--brand-soft) 55%, transparent);
+  }
+
+  a.knowledge-link:visited {
+    color: color-mix(in srgb, var(--brand-strong) 78%, var(--text) 22%);
+  }
+
   p {
     margin: 0;
     color: var(--text-subtle);

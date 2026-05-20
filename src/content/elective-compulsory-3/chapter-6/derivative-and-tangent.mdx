@@ -1,0 +1,216 @@
+---
+title: "导数及其几何意义"
+description: "对应教材 6.1.2，理解导数的定义、瞬时变化率和切线斜率。"
+order: 2
+textbook: "elective-compulsory-3"
+chapter: "chapter-6"
+tags:
+  - "导数"
+  - "切线"
+  - "瞬时变化率"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 导数及其几何意义
+
+## 学习目标
+
+1. 理解导数是瞬时变化率；
+2. 掌握导数定义式；
+3. 理解导数的几何意义是切线斜率；
+4. 会用定义求简单函数在一点处的导数；
+5. 会写曲线在某点处的切线方程。
+
+## 为什么要学这个内容
+
+平均变化率告诉我们一段区间内平均变得多快，导数则进一步回答“在某一时刻、某一点，到底变得多快”。
+
+## 预备知识
+
+1. 平均变化率；
+2. 极限的直观理解；
+3. 直线方程。
+
+## 导数的定义
+
+若函数 $f(x)$ 在 $x_0$ 附近有定义，当 $\Delta x\to 0$ 时，
+
+$$
+\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}
+$$
+
+趋于一个确定常数，就称这个常数为 $f(x)$ 在 $x_0$ 处的导数，记作
+
+$$
+f'(x_0)=\lim_{\Delta x\to 0}\frac{f(x_0+\Delta x)-f(x_0)}{\Delta x}
+$$
+
+## 导数的几何意义
+
+导数 $f'(x_0)$ 就是曲线 $y=f(x)$ 在点 $(x_0,f(x_0))$ 处的切线斜率。
+
+因此切线方程可写成
+
+$$
+y-f(x_0)=f'(x_0)(x-x_0)
+$$
+
+## 例题 1
+
+求函数 $f(x)=x^2$ 在 $x=1$ 处的导数。
+
+### 讲解
+
+$$
+f'(1)=\lim_{\Delta x\to 0}\frac{(1+\Delta x)^2-1}{\Delta x}
+=\lim_{\Delta x\to 0}(2+\Delta x)=2
+$$
+
+## 例题 2
+
+求曲线 $y=x^2$ 在点 $(1,1)$ 处的切线方程。
+
+### 讲解
+
+由上题知切线斜率为 2，所以
+
+$$
+y-1=2(x-1)
+$$
+
+即
+
+$$
+y=2x-1
+$$
+
+## 方法总结
+
+1. 先写导数定义式；
+2. 化简后再令 $\Delta x\to 0$；
+3. 求切线先求导数，再套点斜式；
+4. 导数既有代数意义，也有几何意义。
+
+## 常见错误
+
+1. 忘记分母是 $\Delta x$；
+2. 化简时约分出错；
+3. 把切线斜率和割线斜率混淆；
+4. 写切线方程时点坐标代错。
+
+## 练习 1
+
+求函数 $f(x)=x^2$ 在 $x=3$ 处的导数。
+
+### 答案
+
+$$
+6
+$$
+
+### 讲解
+
+因为 $f(x)=x^2$ 在 $x_0$ 处导数可由定义算得为 $2x_0$，所以 $f'(3)=6$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f = x ** 2
+print(sp.diff(f, x).subs(x, 3))`}
+/>
+
+## 练习 2
+
+求曲线 $y=x^2$ 在点 $(2,4)$ 处的切线方程。
+
+### 答案
+
+$$
+y=4x-4
+$$
+
+### 讲解
+
+切线斜率为 $f'(2)=4$，所以
+
+$$
+y-4=4(x-2)
+$$
+
+化简得 $y=4x-4$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+tangent = sp.expand(4 * (x - 2) + 4)
+print(tangent)`}
+/>
+
+## 练习 3
+
+说明“瞬时变化率”和“切线斜率”为什么可以是同一个数。
+
+### 答案
+
+因为它们都来自同一个极限：割线斜率在两点无限靠近时的极限。
+
+### 讲解
+
+平均变化率是割线斜率，导数是当第二个点向第一个点逼近时割线斜率的极限，因此这个极限同时表达了瞬时变化和切线方向。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x0 = 1
+for h in [1, 0.5, 0.1, 0.01]:
+    secant_slope = ((x0 + h) ** 2 - x0 ** 2) / h
+    print(f"h={h}: 割线斜率={secant_slope}")`}
+/>
+
+## 练习 4
+
+函数在一点处有导数，说明曲线在该点一定有什么？
+
+### 答案
+
+一定有切线，且切线斜率等于该点导数。
+
+### 讲解
+
+这正是导数的几何意义。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f = x ** 2
+x0 = 1
+slope = sp.diff(f, x).subs(x, x0)
+tangent = sp.expand(slope * (x - x0) + f.subs(x, x0))
+print({"导数": slope, "切线": tangent})`}
+/>
+
+## 练习 5
+
+若 $f'(2)=-\frac14$，且点 $(2,\frac12)$ 在曲线上，写出切线方程。
+
+### 答案
+
+$$
+y-\frac12=-\frac14(x-2)
+$$
+
+### 讲解
+
+直接使用点斜式即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+tangent = sp.expand(-sp.Rational(1, 4) * (x - 2) + sp.Rational(1, 2))
+print(tangent)`}
+/>

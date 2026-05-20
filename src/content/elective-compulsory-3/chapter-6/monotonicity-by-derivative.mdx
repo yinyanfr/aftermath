@@ -1,0 +1,220 @@
+---
+title: "导数与函数的单调性"
+description: "对应教材 6.2.1，利用导数符号判断函数的单调区间。"
+order: 5
+textbook: "elective-compulsory-3"
+chapter: "chapter-6"
+tags:
+  - "单调性"
+  - "导数符号"
+  - "增函数"
+aliases:
+  - "导数与单调性"
+  - "导数判单调性"
+  - "导数符号"
+  - "单调区间"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 导数与函数的单调性
+
+## 学习目标
+
+1. 理解导数正负与增减的关系；
+2. 会求函数的单调区间；
+3. 会用求导和解不等式研究单调性；
+4. 理解导数为 0 时可能发生什么；
+5. 会处理含参数的简单单调性讨论。
+
+## 为什么要学这个内容
+
+函数是上升还是下降，直接看图有时不准确。导数把“上升/下降”变成了一个可计算的符号问题。
+
+## 预备知识
+
+1. 导数；
+2. 不等式；
+3. 函数图像的基本认识。
+
+## 基本结论
+
+1. 若在区间内恒有 $f'(x)>0$，则 $f(x)$ 在该区间内单调递增；
+2. 若在区间内恒有 $f'(x)<0$，则 $f(x)$ 在该区间内单调递减。
+
+## 一般步骤
+
+1. 先求导函数；
+2. 解不等式 $f'(x)>0$ 和 $f'(x)<0$；
+3. 根据解集写单调区间。
+
+## 例题 1
+
+求函数 $y=x^2-2x+4$ 的单调区间。
+
+### 讲解
+
+$$
+y'=2x-2
+$$
+
+当 $x>1$ 时，$y'>0$，函数递增；当 $x<1$ 时，$y'<0$，函数递减。
+
+所以：
+
+1. 在 $(-\infty,1]$ 上单调递减；
+2. 在 $[1,+\infty)$ 上单调递增。
+
+## 例题 2
+
+求函数 $f(x)=xe^x$ 的单调区间。
+
+### 讲解
+
+$$
+f'(x)=e^x+xe^x=(x+1)e^x
+$$
+
+因为 $e^x>0$ 恒成立，所以导数符号由 $x+1$ 决定。
+
+因此：
+
+1. $x>-1$ 时递增；
+2. $x<-1$ 时递减。
+
+## 方法总结
+
+1. 单调性问题先求导；
+2. 导数乘积型里，要先看哪一部分恒正；
+3. 写单调区间时，先找临界点；
+4. 导数等于 0 的点往往是分区点，但不一定是极值点。
+
+## 常见错误
+
+1. 解完导数不等式后不会写区间；
+2. 忽略定义域；
+3. 看到导数为 0 就直接说极值；
+4. 区间端点写法不统一。
+
+## 练习 1
+
+求函数 $f(x)=2x-1$ 的单调区间。
+
+### 答案
+
+在 $\mathbb{R}$ 上单调递增。
+
+### 讲解
+
+因为
+
+$$
+f'(x)=2>0
+$$
+
+恒成立。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f = 2 * x + 1
+print({"导函数": sp.diff(f, x), "样本值": [f.subs(x, n) for n in [-1, 0, 1]]})`}
+/>
+
+## 练习 2
+
+求函数 $y=x^3-3x$ 的单调区间。
+
+### 答案
+
+在 $(-\infty,-1]$ 和 $[1,+\infty)$ 上递增，在 $[-1,1]$ 上递减。
+
+### 讲解
+
+$$
+y'=3x^2-3=3(x-1)(x+1)
+$$
+
+据此判断导数符号即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f_prime = sp.diff(x ** 3 - 3 * x, x)
+critical_points = sp.solve(sp.Eq(f_prime, 0), x)
+sign_samples = {sample: sp.sign(f_prime.subs(x, sample)) for sample in [-2, 0, 2]}
+print({"临界点": critical_points, "导数符号": sign_samples})`}
+/>
+
+## 练习 3
+
+判断 $f(x)=\ln x$ 的单调性。
+
+### 答案
+
+在 $(0,+\infty)$ 上单调递增。
+
+### 讲解
+
+$$
+f'(x)=\frac1x>0\quad (x>0)
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x", positive=True)
+f_prime = sp.diff(sp.log(x), x)
+values = {sample: f_prime.subs(x, sample) for sample in [sp.Rational(1, 2), 1, 2]}
+print(values)`}
+/>
+
+## 练习 4
+
+求函数 $f(x)=\frac1{x+1}$ 的单调区间。
+
+### 答案
+
+在 $(-\infty,-1)$ 和 $(-1,+\infty)$ 上都单调递减。
+
+### 讲解
+
+$$
+f'(x)=-\frac1{(x+1)^2}<0
+$$
+
+但要注意 $x=-1$ 不在定义域内，因此要分成两段讨论。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f_prime = sp.diff(1 / (x + 1), x)
+values = {sample: sp.simplify(f_prime.subs(x, sample)) for sample in [-2, 0, 1]}
+print({"导函数": sp.simplify(f_prime), "样本值": values})`}
+/>
+
+## 练习 5
+
+已知 $f'(x)>0$ 在区间 $(-1,2)$ 上恒成立，比较 $f(0)$ 与 $f(1)$。
+
+### 答案
+
+$$
+f(0)<f(1)
+$$
+
+### 讲解
+
+因为导数恒正，所以函数在该区间内单调递增，而 $0<1$，故 $f(0)<f(1)$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`def increasing_example(x):
+    return 3 * x - 1
+
+print({"f(0)": increasing_example(0), "f(1)": increasing_example(1), "f(0) < f(1)": increasing_example(0) < increasing_example(1)})`}
+/>

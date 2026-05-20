@@ -1,0 +1,236 @@
+---
+title: "共面定理、空间向量基本定理与坐标"
+description: "对应教材 1.1.2 与 1.1.3，学习共面向量判定、空间向量基本定理以及空间向量坐标。"
+order: 2
+textbook: "elective-compulsory-1"
+chapter: "chapter-1"
+tags:
+  - "共面向量"
+  - "空间向量基本定理"
+  - "空间直角坐标系"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 共面定理、空间向量基本定理与坐标
+
+## 学习目标
+
+1. 会用线性组合判断向量共面；
+2. 理解空间向量基本定理；
+3. 会在单位正交基底下写向量坐标；
+4. 会做坐标加减和数量积；
+5. 会利用坐标判断平行、垂直。
+
+## 为什么要学这个内容
+
+空间向量最强大的地方，不只是能算，而是能把复杂空间关系压缩成坐标和代数式。这个转换的核心就是“基底”和“坐标”。
+
+## 预备知识
+
+1. 平面向量基本定理；
+2. 空间向量的线性运算；
+3. 数量积公式。
+
+## 共面向量定理
+
+若 $\vec a,\vec b$ 不共线，则 $\vec a,\vec b,\vec c$ 共面的充要条件是：存在唯一实数对 $(x,y)$，使
+
+$$
+\vec c=x\vec a+y\vec b
+$$
+
+## 空间向量基本定理
+
+若空间中的三个向量 $\vec a,\vec b,\vec c$ 不共面，那么任意空间向量 $\vec p$ 都能唯一表示成
+
+$$
+\vec p=x\vec a+y\vec b+z\vec c
+$$
+
+这说明，不共面的三个向量可以生成整个空间。
+
+## 单位正交基底与坐标
+
+若 $\{\vec e_1,\vec e_2,\vec e_3\}$ 中三个向量：
+
+1. 长度都为 1；
+2. 两两垂直；
+3. 不共面；
+
+则它们构成单位正交基底。
+
+若
+
+$$
+\vec p=x\vec e_1+y\vec e_2+z\vec e_3
+$$
+
+则称 $\vec p$ 的坐标为 $(x,y,z)$。
+
+## 坐标运算
+
+若
+
+$$
+\vec a=(x_1,y_1,z_1),\quad \vec b=(x_2,y_2,z_2)
+$$
+
+则
+
+$$
+\vec a+\vec b=(x_1+x_2,y_1+y_2,z_1+z_2)
+$$
+
+$$
+\vec a\cdot\vec b=x_1x_2+y_1y_2+z_1z_2
+$$
+
+$$
+|\vec a|=\sqrt{x_1^2+y_1^2+z_1^2}
+$$
+
+## 例题 1
+
+已知 $\vec a=(2,-2,1)$，$\vec b=(3,-3,2)$，求 $\vec a-\vec b$。
+
+### 讲解
+
+$$
+\vec a-\vec b=(2-3,-2-(-3),1-2)=(-1,1,-1)
+$$
+
+## 例题 2
+
+已知 $\vec a=(1,0,1)$，$\vec b=(2,-2,0)$，求 $\cos\langle\vec a,\vec b\rangle$。
+
+### 讲解
+
+$$
+\vec a\cdot\vec b=2
+$$
+
+$$
+|\vec a|=\sqrt2,\quad |\vec b|=2\sqrt2
+$$
+
+所以
+
+$$
+\cos\langle\vec a,\vec b\rangle=\frac{2}{\sqrt2\cdot2\sqrt2}=\frac12
+$$
+
+## 方法总结
+
+1. 共面先写线性组合；
+2. 坐标题先套公式；
+3. 平行看比例，垂直看数量积为 0。
+
+## 常见错误
+
+1. 误把三个向量的线性组合当作不唯一；
+2. 坐标减法符号出错；
+3. 求夹角时忘记除以模的乘积。
+
+## 练习 1
+
+已知 $\vec p=2\vec e_1+3\vec e_2+\vec e_3$，写出 $\vec p$ 的坐标。
+
+### 答案
+
+$(2,3,1)$。
+
+### 讲解
+
+坐标就是分解式中对应基向量前面的系数。
+
+### Python 实现
+
+<InlinePythonPlayground code={`print((2, 3, 1))`} />
+
+## 练习 2
+
+已知 $\vec a=(3,2,-1)$，$\vec b=(5,-3,2)$，求 $2\vec a+\vec b$。
+
+### 答案
+
+$(11,1,0)$。
+
+### 讲解
+
+$$
+2\vec a+\vec b=(6,4,-2)+(5,-3,2)=(11,1,0)
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 2, -1)
+b = (5, -3, 2)
+print((2 * a[0] + b[0], 2 * a[1] + b[1], 2 * a[2] + b[2]))`}
+/>
+
+## 练习 3
+
+已知 $\vec a=(1,2,0)$，$\vec b=(2,4,0)$，判断是否平行。
+
+### 答案
+
+平行。
+
+### 讲解
+
+$\vec b=2\vec a$，所以二者平行。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (1, 2, 0)
+b = tuple(2 * x for x in a)
+ratios = [b_i / a_i for a_i, b_i in zip(a, b) if a_i != 0]
+print({"a": a, "b": b, "倍率": ratios, "是否平行": len(set(ratios)) == 1})`}
+/>
+
+## 练习 4
+
+已知 $\vec a=(3,4,0)$，$\vec b=(0,0,5)$，判断是否垂直。
+
+### 答案
+
+垂直。
+
+### 讲解
+
+$$
+\vec a\cdot\vec b=3\times0+4\times0+0\times5=0
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`a = (3, 4, 0)
+b = (0, 0, 5)
+print(a[0] * b[0] + a[1] * b[1] + a[2] * b[2])`}
+/>
+
+## 练习 5
+
+若 $\vec a,\vec b,\vec c$ 不共面，方程 $x\vec a+y\vec b+z\vec c=\vec 0$ 有什么结论？
+
+### 答案
+
+$$
+x=y=z=0
+$$
+
+### 讲解
+
+这正是空间向量基本定理的唯一性部分。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`A = sp.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+b = sp.Matrix([0, 0, 0])
+print(A.gauss_jordan_solve(b)[0])`}
+/>

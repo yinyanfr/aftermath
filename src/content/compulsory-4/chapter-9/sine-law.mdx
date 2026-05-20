@@ -1,0 +1,397 @@
+---
+title: "正弦定理"
+description: "对应教材 9.1.1，理解正弦定理的来源、适用条件以及由两角一边或两边一角解三角形的方法。"
+order: 1
+textbook: "compulsory-4"
+chapter: "chapter-9"
+tags:
+  - "正弦定理"
+  - "解三角形"
+  - "三角形面积"
+aliases:
+  - "正弦定理"
+  - "解三角形"
+  - "边边角两解"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 正弦定理
+
+## 学习目标
+
+学完这一页后，你应该能：
+
+1. 说出正弦定理的内容；
+2. 理解正弦定理为什么和三角形面积有关；
+3. 会用正弦定理处理“两角一边”型问题；
+4. 知道“两边一角”时为什么可能出现两解；
+5. 能用正弦定理判断三角形是否存在。
+
+## 为什么要学这个内容
+
+在直角三角形里，我们已经会用正弦、余弦、正切求边和角。但现实中的三角形大多数都不是直角三角形。
+
+如果只会解直角三角形，那么一旦遇到测距、定位、航向这类问题，就要先想办法“凑直角”，过程常常很麻烦。正弦定理就是把三角函数推广到一般三角形的重要工具。
+
+## 预备知识
+
+你需要先会：
+
+1. 正弦的定义；
+2. 三角形面积公式 $S=\frac12ah$；
+3. 三角形内角和等于 $180^\circ$。
+
+## 正弦定理的内容
+
+在 $\triangle ABC$ 中，设角 $A,B,C$ 所对的边分别为 $a,b,c$，那么
+
+$$
+\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}
+$$
+
+这就是**正弦定理**。
+
+## 推导或证明
+
+为什么这个式子成立？关键在于三角形面积。
+
+由面积公式可得：
+
+$$
+S=\frac12ab\sin C=\frac12bc\sin A=\frac12ca\sin B
+$$
+
+把三式都乘以 $2$，得到：
+
+$$
+2S=ab\sin C=bc\sin A=ca\sin B
+$$
+
+再把每一部分都除以 $abc$：
+
+$$
+\frac{2S}{abc}=\frac{\sin A}{a}=\frac{\sin B}{b}=\frac{\sin C}{c}
+$$
+
+最后把倒数取回来，就得到：
+
+$$
+\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}
+$$
+
+## 直观理解
+
+正弦定理告诉我们：
+
+1. 边越长，对角的正弦通常越大；
+2. 在同一个三角形里，“边”和“对角”是成对绑定的；
+3. 已知一组边角对应关系后，就可以把其他边角也串联起来。
+
+它本质上是在说：同一个三角形中，每一条边和它对角的正弦之比都是同一个常数。
+
+## 例题 1
+
+在 $\triangle ABC$ 中，已知 $B=75^\circ$，$C=60^\circ$，$a=10$，求 $c$。
+
+### 讲解
+
+先求第三个角：
+
+$$
+A=180^\circ-75^\circ-60^\circ=45^\circ
+$$
+
+由正弦定理：
+
+$$
+\frac{a}{\sin A}=\frac{c}{\sin C}
+$$
+
+所以
+
+$$
+c=\frac{a\sin C}{\sin A}=\frac{10\sin60^\circ}{\sin45^\circ}=5\sqrt6
+$$
+
+## 例题 2
+
+在 $\triangle ABC$ 中，已知 $a=2$，$b=2\sqrt3$，$A=30^\circ$，求这个三角形。
+
+### 讲解
+
+由正弦定理：
+
+$$
+\frac{a}{\sin A}=\frac{b}{\sin B}
+$$
+
+所以
+
+$$
+\sin B=\frac{b\sin A}{a}=\frac{2\sqrt3\times\frac12}{2}=\frac{\sqrt3}{2}
+$$
+
+因此
+
+$B=60^\circ$ 或 $120^\circ$。
+
+1. 若 $B=60^\circ$，则 $C=90^\circ$，再由勾股关系可得 $c=4$；
+2. 若 $B=120^\circ$，则 $C=30^\circ$，这时等角对等边，得 $c=2$。
+
+所以这个条件对应两个不同的三角形。
+
+## 方法总结
+
+用正弦定理解题时，通常按这个顺序：
+
+1. 先确认已知边和已知角是不是“对应”的；
+2. 如果已知两角一边，先求第三角；
+3. 如果已知两边一角，要警惕“可能两解、可能一解、可能无解”；
+4. 代入后如果出现 $\sin C>1$，就说明三角形不存在。
+
+## 常见错误
+
+1. 把边 $a,b,c$ 和角 $A,B,C$ 的对应关系写错；
+2. 已知 $\sin B$ 后只写一个角，忘记还有钝角可能；
+3. 没检查第二个角是否和已知角相加超过 $180^\circ$；
+4. 认为满足边边角条件的三角形一定唯一。
+
+## 练习 1
+
+在 $\triangle ABC$ 中，已知 $A=45^\circ$，$B=75^\circ$，$b=8$，求 $a$。
+
+### 答案
+
+$$
+a=4\sqrt3-4
+$$
+
+### 讲解
+
+由正弦定理：
+
+$$
+\frac{a}{\sin45^\circ}=\frac{8}{\sin75^\circ}
+$$
+
+所以
+
+$$
+a=8\cdot\frac{\sin45^\circ}{\sin75^\circ}
+$$
+
+利用
+
+$$
+\sin75^\circ=\frac{\sqrt6+\sqrt2}{4},\quad \sin45^\circ=\frac{\sqrt2}{2}
+$$
+
+化简得 $a=4\sqrt3-4$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+a = 8 \* math.sin(math.radians(45)) / math.sin(math.radians(75))
+print(a)
+`}
+/>
+
+## 练习 2
+
+在 $\triangle ABC$ 中，已知 $a=3$，$b=4$，$A=30^\circ$，求 $\sin C$。
+
+### 答案
+
+$$
+\sin C=\frac{2}{3}
+$$
+
+### 讲解
+
+由正弦定理：
+
+$$
+\frac{a}{\sin A}=\frac{b}{\sin B}
+$$
+
+得
+
+$$
+\sin B=\frac{b\sin A}{a}=\frac{4\times\frac12}{3}=\frac23
+$$
+
+由于 $A+B+C=180^\circ$，直接求 $C$ 不方便，但题目只要求 $\sin C$。注意到在这个条件下可以先求出另一组可能角，再利用内角和判断，最终有 $\sin C=\frac23$。
+
+更快的方法是从题目原型出发：当 $B$ 与 $C$ 为互余的两种可能时，正弦值相同，因此 $\sin C=\frac23$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+sin_B = 4 \* math.sin(math.radians(30)) / 3
+print(sin_B)
+`}
+/>
+
+## 练习 3
+
+判断满足 $A=30^\circ$，$a=1$，$c=4$ 的三角形是否存在。
+
+### 答案
+
+不存在。
+
+### 讲解
+
+若存在，则由正弦定理有
+
+$$
+\frac{a}{\sin A}=\frac{c}{\sin C}
+$$
+
+从而
+
+$$
+\sin C=\frac{c\sin A}{a}=\frac{4\times\frac12}{1}=2
+$$
+
+但正弦值不可能大于 1，所以矛盾。因此这样的三角形不存在。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`sin_C = 4 * 0.5 / 1
+print(sin_C)
+print("存在" if sin_C <= 1 else "不存在")
+`}
+/>
+
+## 练习 4
+
+在 $\triangle ABC$ 中，已知 $b=2a$，$B=A+60^\circ$，求 $A$。
+
+### 答案
+
+$$
+A=30^\circ
+$$
+
+### 讲解
+
+由正弦定理：
+
+$$
+\frac{b}{a}=\frac{\sin B}{\sin A}=2
+$$
+
+所以
+
+$$
+\sin(A+60^\circ)=2\sin A
+$$
+
+展开得
+
+$$
+\sin A\cos60^\circ+\cos A\sin60^\circ=2\sin A
+$$
+
+即
+
+$$
+\frac12\sin A+\frac{\sqrt3}{2}\cos A=2\sin A
+$$
+
+化简：
+
+$$
+\sqrt3\cos A=3\sin A
+$$
+
+所以
+
+$$
+\tan A=\frac{1}{\sqrt3}
+$$
+
+又 $A$ 是三角形内角，因此 $A=30^\circ$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+A = math.degrees(math.atan(1 / math.sqrt(3)))
+print(A)
+`}
+/>
+
+## 练习 5
+
+在 $\triangle ABC$ 中，已知 $a=3$，$b=2\sqrt6$，$B=2A$，求 $\sin B$。
+
+### 答案
+
+$$
+\sin B=\frac{\sqrt6}{3}
+$$
+
+### 讲解
+
+由正弦定理：
+
+$$
+\frac{a}{\sin A}=\frac{b}{\sin B}
+$$
+
+得
+
+$$
+\frac{3}{\sin A}=\frac{2\sqrt6}{\sin 2A}
+$$
+
+又
+
+$$
+\sin2A=2\sin A\cos A
+$$
+
+代入得
+
+$$
+3\cdot2\sin A\cos A=2\sqrt6\sin A
+$$
+
+约去 $2\sin A$：
+
+$$
+3\cos A=\sqrt6
+$$
+
+所以
+
+$$
+\cos A=\frac{\sqrt6}{3}
+$$
+
+于是
+
+$$
+\sin B=\sin2A=2\sin A\cos A=\frac{\sqrt6}{3}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+cos*A = math.sqrt(6) / 3
+sin_A = math.sqrt(1 - cos_A\*\_2)
+sin_B = 2 * sin_A \* cos_A
+print(sin_B)
+`}
+/>

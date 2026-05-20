@@ -1,0 +1,240 @@
+---
+title: "求导法则与复合函数求导"
+description: "对应教材 6.1.4，掌握和差、乘积、商与复合函数的求导法则。"
+order: 4
+textbook: "elective-compulsory-3"
+chapter: "chapter-6"
+tags:
+  - "求导法则"
+  - "乘法法则"
+  - "复合函数"
+aliases:
+  - "求导法则"
+  - "乘积法则"
+  - "商法则"
+  - "链式法则"
+  - "复合函数求导"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 求导法则与复合函数求导
+
+## 学习目标
+
+1. 掌握和差的求导法则；
+2. 掌握乘法与商的求导法则；
+3. 掌握复合函数求导法则；
+4. 会求常见组合函数的导数；
+5. 知道什么时候要把一部分当成整体。
+
+## 为什么要学这个内容
+
+实际函数很少是单独一个 $x^2$ 或 $\sin x$。求导法则让我们能把复杂函数拆开来算。
+
+## 预备知识
+
+1. 基本初等函数的导数；
+2. 代数运算；
+3. 复合函数的直观理解。
+
+## 和差法则
+
+$$
+[f(x)\pm g(x)]'=f'(x)\pm g'(x)
+$$
+
+## 乘法法则
+
+$$
+[f(x)g(x)]'=f'(x)g(x)+f(x)g'(x)
+$$
+
+## 商法则
+
+当 $g(x)\ne 0$ 时，
+
+$$
+\left[\frac{f(x)}{g(x)}\right]'=\frac{f'(x)g(x)-f(x)g'(x)}{[g(x)]^2}
+$$
+
+## 复合函数求导法则
+
+若 $y=f(u),u=g(x)$，则
+
+$$
+\frac{dy}{dx}=\frac{dy}{du}\cdot\frac{du}{dx}
+$$
+
+也常写成
+
+$$
+[f(g(x))]'=f'(g(x))g'(x)
+$$
+
+## 例题 1
+
+求 $y=x\sin x$ 的导数。
+
+### 讲解
+
+用乘法法则：
+
+$$
+y'=x'\sin x+x(\sin x)'=\sin x+x\cos x
+$$
+
+## 例题 2
+
+求 $y=\ln(2x+1)$ 的导数。
+
+### 讲解
+
+把 $2x+1$ 看成整体，设 $u=2x+1$，则
+
+$$
+y'=(\ln u)'\cdot u'=\frac1u\cdot 2=\frac{2}{2x+1}
+$$
+
+## 方法总结
+
+1. 先判断是和、乘、商还是复合；
+2. 复合函数往往要把某一部分先看成整体；
+3. 求导后可以再适当化简；
+4. 商法则最容易符号错，要特别慢一点写。
+
+## 常见错误
+
+1. 把乘积求导错写成导数相乘；
+2. 商法则分子前后顺序写反；
+3. 复合函数只对外层求导，忘了乘以内层导数；
+4. 整体代换之后没有再换回原变量。
+
+## 练习 1
+
+求 $y=x^2+3x-1$ 的导数。
+
+### 答案
+
+$$
+y'=2x+3
+$$
+
+### 讲解
+
+直接用和差法则即可。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+print(sp.diff(x ** 2 + 3 * x - 1, x))`}
+/>
+
+## 练习 2
+
+求 $y=\frac{\sin x}{x}$ 的导数。
+
+### 答案
+
+$$
+y'=\frac{x\cos x-\sin x}{x^2}
+$$
+
+### 讲解
+
+使用商法则：
+
+$$
+y'=\frac{(\sin x)'\cdot x-\sin x\cdot x'}{x^2}
+=\frac{x\cos x-\sin x}{x^2}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+print(sp.simplify(sp.diff(sp.sin(x) / x, x)))`}
+/>
+
+## 练习 3
+
+求 $y=e^{5x-1}$ 的导数。
+
+### 答案
+
+$$
+y'=5e^{5x-1}
+$$
+
+### 讲解
+
+设 $u=5x-1$，则
+
+$$
+y'=(e^u)'u'=e^u\cdot 5=5e^{5x-1}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+print(sp.diff(sp.exp(5 * x - 1), x))`}
+/>
+
+## 练习 4
+
+求 $y=(3x-5)^4$ 的导数。
+
+### 答案
+
+$$
+y'=12(3x-5)^3
+$$
+
+### 讲解
+
+把 $3x-5$ 看成整体：
+
+$$
+y'=4(3x-5)^3\cdot 3=12(3x-5)^3
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+print(sp.diff((3 * x - 5) ** 4, x))`}
+/>
+
+## 练习 5
+
+求 $y=(1+\cos x)\sin x$ 的导数。
+
+### 答案
+
+$$
+y'=-\sin^2x+(1+\cos x)\cos x
+$$
+
+### 讲解
+
+使用乘法法则：
+
+$$
+y'=(1+\cos x)'\sin x+(1+\cos x)(\sin x)'
+$$
+
+即
+
+$$
+y'=-\sin x\sin x+(1+\cos x)\cos x
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`x = sp.symbols("x")
+f = (1 + sp.cos(x)) * sp.sin(x)
+print(sp.expand_trig(sp.diff(f, x)))`}
+/>

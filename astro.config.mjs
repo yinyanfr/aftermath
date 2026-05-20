@@ -3,11 +3,21 @@ import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { buildKnowledgeLinkData } from "./src/plugins/knowledge-link-index.mjs";
+import { remarkKnowledgeLinks } from "./src/plugins/remark-knowledge-links.mjs";
+
+const knowledgeLinkData = buildKnowledgeLinkData();
 
 export default defineConfig({
   site: process.env.SITE_URL,
   base: process.env.BASE_PATH || "/",
-  integrations: [react(), mdx()],
+  integrations: [
+    react(),
+    mdx({
+      remarkPlugins: [remarkMath, [remarkKnowledgeLinks, knowledgeLinkData]],
+      rehypePlugins: [rehypeKatex],
+    }),
+  ],
   vite: {
     resolve: {
       alias: {
@@ -28,7 +38,7 @@ export default defineConfig({
     },
   },
   markdown: {
-    remarkPlugins: [remarkMath],
+    remarkPlugins: [remarkMath, [remarkKnowledgeLinks, knowledgeLinkData]],
     rehypePlugins: [rehypeKatex],
   },
 });

@@ -364,15 +364,11 @@ $$
 
 所以在这个范围内
 
-$$
-2x=60^\circ \quad \text{或} \quad 2x=120^\circ
-$$
+可得 $2x=60^\circ$ 或 $2x=120^\circ$。
 
 于是
 
-$$
-x=30^\circ \quad \text{或} \quad x=60^\circ
-$$
+于是 $x=30^\circ$ 或 $x=60^\circ$。
 
 ### Python 实现
 
@@ -383,6 +379,7 @@ solutions = []
 for x in range(0, 180):
 if abs(math.sin(math.radians(2 \* x)) - math.sqrt(3) / 2) < 1e-9:
 solutions.append(x)
+
 print(solutions)
 `}
 />

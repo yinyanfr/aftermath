@@ -1,0 +1,270 @@
+---
+title: "复数的三角形式及其运算"
+description: "对应教材 10.3，理解复数的三角形式、辐角，并利用三角形式进行乘除运算。"
+order: 6
+textbook: "compulsory-4"
+chapter: "chapter-10"
+tags:
+  - "三角形式"
+  - "辐角"
+  - "复数乘除"
+---
+
+import InlinePythonPlayground from "../../../components/InlinePythonPlayground.astro";
+
+# 复数的三角形式及其运算
+
+## 学习目标
+
+1. 会把非零复数写成三角形式；
+2. 理解模和辐角的作用；
+3. 会用三角形式做乘法和除法；
+4. 知道共轭在三角形式下怎样表示；
+5. 能理解乘以 $i$ 对应平面旋转。
+
+## 为什么要学这个内容
+
+代数形式 $a+bi$ 适合加减，但在乘除和幂运算里，三角形式经常更简洁。它把“长度”和“方向”分开了。
+
+## 预备知识
+
+1. 复数的模；
+2. 平面角的三角函数；
+3. 复平面。
+
+## 三角形式
+
+若非零复数 $z=a+bi$ 的模为 $r$，辐角为 $\theta$，则
+
+$$
+z=r(\cos\theta+i\sin\theta)
+$$
+
+其中
+
+$$
+r=|z|=\sqrt{a^2+b^2}
+$$
+
+而
+
+$$
+\cos\theta=\frac{a}{r},\quad \sin\theta=\frac{b}{r}
+$$
+
+## 乘法与除法公式
+
+若
+
+$$
+z_1=r_1(\cos\theta_1+i\sin\theta_1),\quad z_2=r_2(\cos\theta_2+i\sin\theta_2)
+$$
+
+则
+
+$$
+z_1z_2=r_1r_2[\cos(\theta_1+\theta_2)+i\sin(\theta_1+\theta_2)]
+$$
+
+若 $z_2\ne0$，则
+
+$$
+\frac{z_1}{z_2}=\frac{r_1}{r_2}[\cos(\theta_1-\theta_2)+i\sin(\theta_1-\theta_2)]
+$$
+
+## 几何意义
+
+1. 乘法时，模相乘、辐角相加；
+2. 除法时，模相除、辐角相减；
+3. 特别地，乘以 $i$ 相当于逆时针旋转 $90^\circ$。
+
+## 例题 1
+
+把 $1- i$ 写成三角形式。
+
+### 讲解
+
+模为
+
+$$
+|z|=\sqrt{1^2+(-1)^2}=\sqrt2
+$$
+
+辐角可取 $\theta=\frac{7\pi}{4}$。
+
+所以
+
+$$
+1-i=\sqrt2\left(\cos\frac{7\pi}{4}+i\sin\frac{7\pi}{4}\right)
+$$
+
+## 例题 2
+
+计算
+
+$$
+2\left(\cos\frac\pi6+i\sin\frac\pi6\right)\left(\cos\frac\pi2+i\sin\frac\pi2\right)
+$$
+
+### 讲解
+
+直接用乘法公式：
+
+$$
+2\left[\cos\left(\frac\pi6+\frac\pi2\right)+i\sin\left(\frac\pi6+\frac\pi2\right)\right]
+=2\left(\cos\frac{2\pi}{3}+i\sin\frac{2\pi}{3}\right)
+$$
+
+## 方法总结
+
+三角形式最适合：
+
+1. 连续乘法；
+2. 连续除法；
+3. 幂和旋转问题。
+
+## 常见错误
+
+1. 模算对了但辐角取错象限；
+2. 加法问题硬套三角形式；
+3. 把辐角相加减写反。
+
+## 练习 1
+
+把 $2i$ 写成三角形式。
+
+### 答案
+
+$$
+2\left(\cos\frac\pi2+i\sin\frac\pi2\right)
+$$
+
+### 讲解
+
+模为 2，点在虚轴正半轴上，因此辐角主值是 $\frac\pi2$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import cmath
+
+z = 2j
+print(abs(z))
+print(cmath.phase(z))
+`}
+/>
+
+## 练习 2
+
+把 $-1$ 写成三角形式。
+
+### 答案
+
+$$
+\cos\pi+i\sin\pi
+$$
+
+### 讲解
+
+模为 1，点在实轴负半轴上，辐角主值为 $\pi$。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import cmath
+
+z = -1
+print(abs(z))
+print(cmath.phase(z))
+`}
+/>
+
+## 练习 3
+
+计算三角形式
+
+$$
+8\left(\cos\frac\pi6+i\sin\frac\pi6\right)\cdot2\left(\cos\frac\pi4+i\sin\frac\pi4\right)
+$$
+
+### 答案
+
+$$
+16\left(\cos\frac{5\pi}{12}+i\sin\frac{5\pi}{12}\right)
+$$
+
+### 讲解
+
+模相乘得到 $16$，辐角相加得到
+
+$$
+\frac\pi6+\frac\pi4=\frac{5\pi}{12}
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import math
+
+r = 8 \* 2
+theta = math.pi / 6 + math.pi / 4
+print(r, theta)
+`}
+/>
+
+## 练习 4
+
+说明为什么乘以 $i$ 相当于逆时针旋转 $90^\circ$。
+
+### 答案
+
+因为 $i=\cos\frac\pi2+i\sin\frac\pi2$，乘法时模不变、辐角增加 $\frac\pi2$。
+
+### 讲解
+
+设
+
+$$
+z=r(\cos\theta+i\sin\theta)
+$$
+
+则
+
+$$
+zi=r\left[\cos\left(\theta+\frac\pi2\right)+i\sin\left(\theta+\frac\pi2\right)\right]
+$$
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import cmath
+
+z = 1 + 1j
+print(z \* 1j)
+`}
+/>
+
+## 练习 5
+
+若 $z=r(\cos\theta+i\sin\theta)$，写出 $\overline z$ 的三角形式。
+
+### 答案
+
+$$
+\overline z=r(\cos(-\theta)+i\sin(-\theta))
+$$
+
+### 讲解
+
+共轭对应关于实轴对称，模不变，辐角变成相反数。
+
+### Python 实现
+
+<InlinePythonPlayground
+  code={`import cmath
+import math
+
+z = 2 _ (math.cos(math.pi / 3) + 1j _ math.sin(math.pi / 3))
+print(z.conjugate())
+`}
+/>
